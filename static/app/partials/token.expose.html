@@ -1,0 +1,28 @@
+    <md-content layout-padding="" class="layout-padding _md">
+			<div layout="row" layout-wrap ng-show="userAccount">
+				<md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch ng-if="!loginClicked">
+					<md-card-title>
+						<md-card-title-text>
+							<span class="md-headline">{{ userAccount.title }}</span>
+								<span class="md-subhead">{{ message }}</span>
+						</md-card-title-text>
+						<md-card-title-media>
+							<div class="md-media-sm card-media"></div>
+						</md-card-title-media>
+					</md-card-title>
+				</md-card>
+			</div>
+			<div layout="row" layout-wrap ng-show="!userAccount">
+				<md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch ng-if="!loginClicked">
+					<md-card-title>
+						<md-card-title-text>
+							<span class="md-headline">Please Login first!</span>
+
+						</md-card-title-text>
+						<md-card-title-media>
+							<div class="md-media-sm card-media"></div>
+						</md-card-title-media>
+					</md-card-title>
+				</md-card>
+			</div>
+		</md-content>

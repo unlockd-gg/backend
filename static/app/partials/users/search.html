@@ -1,0 +1,30 @@
+<md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">Search for a friend</h3>
+      </div>
+    </md-toolbar>
+      <md-content layout-padding="" class="layout-padding _md">
+
+<form class="form-horizontal" name="addContact">
+<fieldset>
+        <md-input-container class="md-block md-input-has-value">
+          <label for="input_email">Email</label>
+          <input ng-model="thisusersearch.email" class="ng-pristine ng-untouched ng-valid md-input ng-valid-email" id="input_email" aria-invalid="false"><div class="md-errors-spacer"></div>
+        </md-input-container>
+
+<md-button type="submit" ng-click="submitAdd()">Submit</md-button>
+
+</fieldset>
+</form>
+
+<div ng-show="showInvite">
+  <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+        <div class="md-toolbar-tools">
+          <h3 class="ng-binding">Invite a user</h3>
+        </div>
+      </md-toolbar>
+        <md-content layout-padding="" class="layout-padding _md">
+          <h3>Sorry, that user wasn't found.  </h3>
+          <p>Earn some free CRED by inviting them.  Just send them your referral link:</p>
+          <p>http://ue4topia.appspot.com/#/user/{{ userAccount.key }}/referral</p>
+</div>

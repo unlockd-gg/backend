@@ -1,0 +1,101 @@
+<!doctype html>
+<html ng-app="uetopiaFrontEnd">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title data-ng-bind="title">UEtopia</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/app/css/style_login.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.3.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.3.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.3.0/firebase-database.js"></script>
+<script type="text/javascript">
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBpcqjAqVz6Odk7O8cSku0DbQeIVhYlNLw",
+    authDomain: "ue4topia.firebaseapp.com",
+    databaseURL: "https://ue4topia.firebaseio.com",
+    storageBucket: "ue4topia.appspot.com",
+    messagingSenderId: "104772747241"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script src="https://cdn.firebase.com/libs/firebaseui/2.3.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.3.0/firebaseui.css" />
+
+<!-- Angular Material style sheet -->
+ <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+  </head>
+  <body ng-cloak layout="column" >
+
+
+
+        <div id="logged-out" class="center" ng-show="!user">
+
+
+        <div id="firebaseui-auth-container"></div>
+
+
+
+        </div>
+
+        <div class="center-content" ng-show="user">
+          <div ui-view></div>
+        </div>
+
+
+
+
+
+
+
+
+
+    <!-- Angular Material requires Angular.js Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+<!-- Angular Material Library -->
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+<!-- AngularFire -->
+<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-resource.js"></script>
+
+
+
+
+
+    <script src="/app/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+
+    <script src="/app/js/416_tokenapp.js"></script>
+    <script src="/app/js/416_tokenapp.controller.js"></script>
+    <script src="/app/js/416_tokenapp.router.js"></script>
+    <script src="/app/js/controller.416.token.expose.js"></script>
+    <script src="/app/js/controller.416.agreement.js"></script>
+
+
+
+    <script src="/app/js/service.endpoints.js"></script>
+
+    <script type="text/javascript" src="/_ah/channel/jsapi"></script>
+
+  </body>
+</html>

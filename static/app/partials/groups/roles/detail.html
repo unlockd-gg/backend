@@ -1,0 +1,237 @@
+<div ng-show="!loaded" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+<div ng-show="loaded">
+  <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">Create a new role / Update a role</h3>
+      </div>
+    </md-toolbar>
+      <md-content layout-padding="" class="layout-padding _md">
+
+<form class="form-horizontal" name="addGroup">
+<fieldset>
+        <md-input-container class="md-block md-input-has-value">
+          <label for="input_title">Title</label>
+          <input ng-model="role.title" class="ng-pristine ng-untouched ng-valid md-input" id="input_title" required aria-invalid="false"><div class="md-errors-spacer"></div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Description</label>
+          <textarea ng-model="role.description" md-maxlength="1550" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.update_group_settings" aria-label="recruiting">
+            User can update this group's settings.
+          </md-checkbox>
+          <div class="hint">Normally, only the owner has this permission.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.update_group_roles" aria-label="recruiting">
+            User can update this group's roles.
+          </md-checkbox>
+          <div class="hint">Normally, only the owner has this permission.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.update_player_roles" aria-label="recruiting">
+            User can update individual member roles.
+          </md-checkbox>
+          <div class="hint">Normally, admins and above have this permission.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.update_games" aria-label="recruiting">
+            User can update games within the group.
+          </md-checkbox>
+          <div class="hint">Normally, admins and above have this permission.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.create_events" aria-label="recruiting">
+            User can create events within the group.
+          </md-checkbox>
+          <div class="hint">Normally, event planners have this permission.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.update_events" aria-label="recruiting">
+            User can update events within the group.
+          </md-checkbox>
+          <div class="hint">Normally, event planners have this permission.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.create_matches" aria-label="recruiting">
+            User can create matches within the group.
+          </md-checkbox>
+          <div class="hint">Normally, all members have this permission.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.create_tournaments" aria-label="create-tournaments">
+            User can create tournaments within the group.
+          </md-checkbox>
+          <div class="hint">Normally, event coordinators and admins have this role.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.sponsor_tournaments" aria-label="sponsor">
+            User can sponsor tournaments within the group.
+          </md-checkbox>
+          <div class="hint">This is a specialty permission.  Give this to Event planners in other groups that will be creating tournaments for your group to sponsor.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.create_ads" aria-label="create-ads">
+            User can create advertisements using the group's CRED.
+          </md-checkbox>
+          <div class="hint">Normally only top level admins have this permission.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.edit_ads" aria-label="edit-ads">
+            User can edit advertisements.
+          </md-checkbox>
+          <div class="hint">Normally only top level admins have this permission.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.donate_to_members" aria-label="donate_to_members">
+            User can donate from the group to a group member
+          </md-checkbox>
+          <div class="hint">Normally only top level admins have this permission.</div>
+        </md-input-container>
+
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.view_transactions" aria-label="view-transactions">
+            User can view the group's transactions
+          </md-checkbox>
+          <div class="hint">Normally only top level admins have this permission.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.chat_membership" aria-label="recruiting">
+            User can participate in the group's chat channel
+          </md-checkbox>
+          <div class="hint">Normally, all members have this permission.</div>
+        </md-input-container>
+
+
+
+
+
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.join_group_servers" aria-label="recruiting">
+            User can join group servers
+          </md-checkbox>
+          <div class="hint">Normally, all members have this role.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.join_group_server_instances" aria-label="recruiting">
+            User can join group parallel/instanced servers
+          </md-checkbox>
+          <div class="hint">Normally, all members have this role.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.drop_items_in_group_servers" aria-label="recruiting">
+            User can drop items inside group servers
+          </md-checkbox>
+          <div class="hint">Normally, all members have this role.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.pickup_items_in_group_servers" aria-label="recruiting">
+            User can pick up items inside group servers
+          </md-checkbox>
+          <div class="hint">Normally, only admins have this role.</div>
+        </md-input-container>
+
+
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.join_group_tournaments" aria-label="recruiting">
+            User can join group tournaments
+          </md-checkbox>
+          <div class="hint">Normally, all members have this role.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.join_group_tournaments" aria-label="recruiting">
+            User can join group tournaments
+          </md-checkbox>
+          <div class="hint">Normally, all members have this role.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.metagame_faction_lead" aria-label="metagame faction leader">
+            User can lead the group's metagame activities
+          </md-checkbox>
+          <div class="hint">Normally, Only guild leaders and high level officers have this role.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.metagame_team_lead" aria-label="metagame team leader">
+            User can lead metagame teams
+          </md-checkbox>
+          <div class="hint">Normally, Trusted members, and officers have this role.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.raid_lead" aria-label="raid leader">
+            User can lead raids
+          </md-checkbox>
+          <div class="hint">Normally, only officers and raid leaders have this role.</div>
+        </md-input-container>
+
+
+
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.applicant_role" aria-label="recruiting">
+            Applicant Role.
+          </md-checkbox>
+          <div class="hint">This role is assigned to applicants by default.  There can only be one.  </div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+        <md-checkbox ng-model="role.leader_role" aria-label="recruiting">
+            Leader Role.
+          </md-checkbox>
+          <div class="hint">The role that is assinged to the group leader.  There can only be one. </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+        <label>Order</label>
+        <input required type="number" step="any" name="order" ng-model="role.order" min="0"
+               max="1000" />
+
+        <div ng-messages="projectForm.rate.$error" multiple md-auto-hide="false">
+          <div ng-message="required">
+            Order is required
+          </div>
+
+          <div ng-message="min">
+            Minimum is 0
+          </div>
+
+
+          <div ng-message="max">
+            Maximum is 1000
+          </div>
+        </div>
+      </md-input-container>
+
+
+
+
+<md-button type="submit" ng-click="submitAdd()">Submit</md-button>
+
+</fieldset>
+</form>
+</div>

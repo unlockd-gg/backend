@@ -1,0 +1,17 @@
+
+        <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+              <div class="md-toolbar-tools">
+                <h3 class="ng-binding">My Badges</h3>
+              </div>
+            </md-toolbar>
+              <md-content layout-padding="" class="layout-padding _md">
+
+                <div ng-show="!badges.length">No badges to show.</div>
+                <md-list>
+
+                 <md-list-item ng-repeat="badge in badges" class="noright">
+                   <md-icon class="material-icons {{ badge.icon_url }}">{{ badge.icon_url }}</md-icon>
+                   <p><b><span am-time-ago="badge.created | amUtc "></span></b> {{ badge.gameTitle }} : {{ badge.description }}</p>
+                   <md-button class="md-primary" ui-sref="userbadgedetail({key_id: badge.key_id})">EDIT</md-button>
+                 </md-list-item>
+                </md-list>

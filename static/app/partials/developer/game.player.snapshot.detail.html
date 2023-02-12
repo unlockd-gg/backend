@@ -1,0 +1,135 @@
+<div ng-show="!loaded_game_player_snapshot" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+<div ng-show="loaded_game_player_snapshot">
+
+  <md-toolbar class="demo-toolbar md-primary md-hue-3 _md _md-toolbar-transitions" >
+    <div class="md-toolbar-tools">
+      <h3 class="ng-binding">Game Player Snapshot: {{ game_player_snapshot.userTitle }} : {{ game_player_snapshot.title }} : {{ game_player_snapshot.created }}</h3>
+    </div>
+  </md-toolbar>
+
+      <md-content layout-padding="" class="layout-padding _md">
+
+                <form name="form" novalidate>
+
+                  <div layout="row">
+                    <div flex>
+                      <md-input-container class="md-block">
+                        <label>Rank</label>
+                        <input type="number" step="any" name="rank" ng-model="game_player_snapshot.rank"  />
+                      </md-input-container>
+                    </div>
+                    <div flex>
+                      <md-input-container class="md-block">
+                        <label>Level</label>
+                        <input type="number" step="any" name="level" ng-model="game_player_snapshot.level"  />
+                      </md-input-container>
+                    </div>
+                    <div flex>
+                      <md-input-container class="md-block">
+                        <label>Score</label>
+                        <input type="number" step="any" name="score" ng-model="game_player_snapshot.score"  />
+                      </md-input-container>
+                    </div>
+                  </div>
+
+                  <div layout="row">
+                    <div flex>
+                      <md-input-container class="md-block">
+                        <label>Experience</label>
+                        <input type="number" step="any" name="experience" ng-model="game_player_snapshot.experience"  />
+                      </md-input-container>
+                    </div>
+                    <div flex>
+                      <md-input-container class="md-block">
+                        <label>Experience This Level</label>
+                        <input type="number" step="any" name="experienceThisLevel" ng-model="game_player_snapshot.experienceThisLevel"  />
+                      </md-input-container>
+                    </div>
+                  </div>
+
+                  <div layout="row">
+                    <div flex>
+                      <md-input-container class="md-block">
+                        <label>coordLocationX</label>
+                        <input type="number" step="any" name="coordLocationX" ng-model="game_player_snapshot.coordLocationX"  />
+                      </md-input-container>
+                    </div>
+                    <div flex>
+                      <md-input-container class="md-block">
+                        <label>coordLocationY</label>
+                        <input type="number" step="any" name="coordLocationY" ng-model="game_player_snapshot.coordLocationY"  />
+                      </md-input-container>
+                    </div>
+                    <div flex>
+                      <md-input-container class="md-block">
+                        <label>coordLocationZ</label>
+                        <input type="number" step="any" name="coordLocationZ" ng-model="game_player_snapshot.coordLocationZ"  />
+                      </md-input-container>
+                    </div>
+                  </div>
+
+                  <md-input-container class="md-block md-input-has-value">
+                    <label for="input_lastServerKeyId">lastServerKeyId</label>
+                    <input ng-model="game_player_snapshot.lastServerKeyId" class="ng-pristine ng-untouched ng-valid md-input" id="input_lastServerKeyId" aria-invalid="false"><div class="md-errors-spacer"></div>
+                  </md-input-container>
+
+
+                  <md-input-container class="md-block md-input-has-value">
+                    <label for="input_zoneName">zoneName</label>
+                    <input ng-model="game_player_snapshot.zoneName" class="ng-pristine ng-untouched ng-valid md-input" id="input_zoneName" aria-invalid="false"><div class="md-errors-spacer"></div>
+                  </md-input-container>
+                  <md-input-container class="md-block md-input-has-value">
+                    <label for="input_zoneKey">zoneKey</label>
+                    <input ng-model="game_player_snapshot.zoneKey" class="ng-pristine ng-untouched ng-valid md-input" id="input_zoneKey" aria-invalid="false"><div class="md-errors-spacer"></div>
+                  </md-input-container>
+
+
+
+                            <div layout="row">
+                              <md-button class="md-raised" ng-click="toggleViewAbilities()">Abilities</md-button>
+                              <md-button class="md-raised" ng-click="toggleViewEquipment()">Equipment</md-button>
+                              <md-button class="md-raised" ng-click="toggleViewInterface()">Interface</md-button>
+                              <md-button class="md-raised" ng-click="toggleViewInventory()">Inventory</md-button>
+                              <md-button class="md-raised" ng-click="toggleViewCrafting()">Crafting</md-button>
+                              <md-button class="md-raised" ng-click="toggleViewRecipes()">Recipes</md-button>
+                              <md-button class="md-raised" ng-click="toggleViewCharacter()">Character</md-button>
+                            </div>
+
+
+                          <md-input-container ng-if="viewAbilities" class="md-block">
+                            <label>Abilities</label>
+                            <textarea ng-model="game_player_snapshot.abilities" rows="5" md-select-on-focus></textarea>
+                          </md-input-container>
+                          <md-input-container ng-if="viewEquipment" class="md-block">
+                            <label>Equipment</label>
+                            <textarea ng-model="game_player_snapshot.equipment"  rows="5" md-select-on-focus></textarea>
+                          </md-input-container>
+                          <md-input-container ng-if="viewInterface" class="md-block">
+                            <label>Interface</label>
+                            <textarea ng-model="game_player_snapshot.interface" rows="5" md-select-on-focus></textarea>
+                          </md-input-container>
+                          <md-input-container ng-if="viewInventory" class="md-block">
+                            <label>Inventory</label>
+                            <textarea ng-model="game_player_snapshot.inventory"  rows="5" md-select-on-focus></textarea>
+                          </md-input-container>
+                          <md-input-container ng-if="viewCrafting" class="md-block">
+                            <label>Crafting</label>
+                            <textarea ng-model="game_player_snapshot.crafting"  rows="5" md-select-on-focus></textarea>
+                          </md-input-container>
+                          <md-input-container ng-if="viewRecipes" class="md-block">
+                            <label>Recipes</label>
+                            <textarea ng-model="game_player_snapshot.recipes"  rows="5" md-select-on-focus></textarea>
+                          </md-input-container>
+                          <md-input-container ng-if="viewCharacter" class="md-block">
+                            <label>Character</label>
+                            <textarea ng-model="game_player_snapshot.character"  rows="5" md-select-on-focus></textarea>
+                          </md-input-container>
+
+
+              </form>
+
+
+      </md-content>
+
+</div>

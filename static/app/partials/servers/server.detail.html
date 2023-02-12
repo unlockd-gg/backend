@@ -1,0 +1,116 @@
+<md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">{{ server.title }}</h3>
+        <span flex></span>
+        <md-button  ng-if="user.admin"  class="md-icon-button" ui-sref="adminserverdetail({gameKeyId:gameKeyId, key_id: server.key_id})">
+          <i class="material-icons">mode_edit</i>
+        </md-button>
+
+      </div>
+    </md-toolbar>
+
+
+          <md-content layout-padding="" class="layout-padding _md">
+            <div layout="row" flex>
+              <div flex="44" >
+                <img src="{{ server.bannerServingUrl }}" ng-show="server.bannerServingUrl" alt="banner" style="width: 100%" ng-cloak>
+                <img src="/img/groups/default_blue.png" ng-show="!server.bannerServingUrl" alt="banner" style="width: 100%" ng-cloak>
+                <p ng-cloak>{{ server.description }}</p>
+              </div>
+
+              <div class="layout-padding" flex="31">
+
+                <div ng-show="my_server_player.$value !== null">
+
+                <p>My Rank on this server: {{ my_server_player.ladderRank }}</p>
+
+                <div ng-show="play_status_changing">
+                  <p>Play Status changing</p>
+                </div>
+
+
+              </div>
+
+                <div ng-hide="my_server_player.$value !== null">
+                  <div ng-show="play_status_changing">
+                    <p>Play Status changing</p>
+                  </div>
+                  <div ng-show="!play_status_changing">
+                    <md-button ng-click="showPlayStart()">Set me up!</md-button>
+                  </div>
+                </div>
+
+
+
+              </div>
+              <div class="layout-padding" flex="25" >
+                <p>Server Wallet: {{ server.serverCurrency }}</p>
+                <p>Admission fee: {{ server.admissionFee }}</p>
+                <p ng-if="!server.serverCurrency"> Server low on CRED</p>
+
+                <md-button class="md-secondary" ng-click="showDonateDialog($event)"  >
+                  Donate
+                </md-button>
+
+                <p ng-repeat="mode in modes">
+                  <b>{{ mode.onlineSubsystemReference }}</b> :
+                  <span class="gameModeWin">{{ mode.winRewardPerPlayer }}</span>
+                  <span class="gameModeAdmission">{{ mode.admissionFeePerPlayer }}</span>
+                </p>
+
+
+              </div>
+            </div>
+
+          </md-content>
+
+
+    <md-content  >
+
+      <div layout="column" layout-gt-sm="row" >
+        <div flex="50">
+          <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions" ng-cloak>
+                <div class="md-toolbar-tools">
+                  <h3 class="ng-binding">Recent Players</h3>
+                </div>
+              </md-toolbar>
+
+            <md-list class="md-dense" flex>
+              <md-list-item class="md-3-line" ng-repeat="server_player in server_players | orderBy: '-rank'" ui-sref="userprofile({key_id:server_player.userKeyId})" >
+                <img ng-show="!server_player.picture" ng-src="/img/user_photo_placeholder.jpg" class="md-avatar" alt="{{server_player.userTitle}}" />
+                <img ng-show="server_player.picture" ng-src="{{server_player.picture}}" class="md-avatar" alt="{{server_player.userTitle}}" />
+                <div class="md-list-item-text" layout="column">
+                  <h3>{{ server_player.userTitle }}</h3>
+                  <h4>Rank: {{ server_player.ladderRank }}</h4>
+                  <p>Score: {{ server_player.score }}</p>
+                </div>
+              </md-list-item>
+
+            </md-list>
+
+        </div>
+
+        <div flex="50" ng-show="server.sharded_server_template">
+          <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions" ng-cloak>
+                <div class="md-toolbar-tools">
+                  <h3 class="ng-binding">Shards</h3>
+                </div>
+              </md-toolbar>
+
+            <md-list class="md-dense" >
+              <md-list-item class="md-2-line" ng-repeat="shard in shards">
+                
+                <div class="md-list-item-text" layout="column">
+                  <h3>{{ shard.title }}</h3>
+                  <span flex></span>
+                  <span class="server-active-player-count">{{ server.active_player_count }}</span>
+                </div>
+              </md-list-item>
+
+            </md-list>
+
+        </div>
+      </div>
+
+
+      </md-content>

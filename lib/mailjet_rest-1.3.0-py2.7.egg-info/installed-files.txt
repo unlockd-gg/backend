@@ -1,0 +1,11 @@
+../mailjet_rest/_version.py
+../mailjet_rest/client.py
+../mailjet_rest/__init__.py
+../mailjet_rest/_version.pyc
+../mailjet_rest/client.pyc
+../mailjet_rest/__init__.pyc
+PKG-INFO
+SOURCES.txt
+requires.txt
+top_level.txt
+dependency_links.txt

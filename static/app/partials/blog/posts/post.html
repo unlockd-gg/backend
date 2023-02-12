@@ -1,0 +1,79 @@
+<div ng-show="!loaded_post" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+<div ng-show="loaded_post">
+
+  <md-content layout-padding="" class="layout-padding _md">
+
+    <div layout layout-gt-sm="row" layout-sm="column">
+      <div flex="66">
+
+    <h1>{{ post.title }}</h1>
+    <p class="blogPostAuthor">
+      <i class="material-icons md-light md-12" style="vertical-align: middle;">person</i>
+      <a ui-sref="userprofile({key_id:post.author_userKeyId})">{{ post.author_name }}</a>
+      <i class="material-icons md-light md-12" style="vertical-align: middle;">access_time</i>
+      {{ post.created }}
+    </p>
+
+    <img src="{{ post.banner_url }}" alt="banner" style="width: 100%;">
+
+    <div ng-bind-html="postBody"></div>
+
+    <div layout layout-row  layout-align="start center">
+      <div> <img src="{{post.author_picture}}" alt="author picture"></div>
+      <div class="blogPostAuthorFooter">
+        <a ui-sref="userprofile({key_id:post.author_userKeyId})">{{ post.author_name }}</a>
+          <p>{{ post.author_bio }}</p>
+
+          <div>
+            <i class="material-icons md-12" style="vertical-align: middle;">share</i>
+
+            <a class="md-primary" href="http://www.facebook.com/sharer.php?u=https://uetopia.com/#/blog/{{ post.slugify_url }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;" >
+              facebook
+            </a>
+
+            <a class="md-primary" href="https://twitter.com/share?url=https://uetopia.com/#/blog/{{ post.slugify_url }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600');return false;" >
+              twitter
+            </a>
+
+            <a href="https://plus.google.com/share?url=https://uetopia.com/#/blog/{{ post.slugify_url }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"  >
+              google+
+            </a>
+          </div>
+      </div>
+    </div>
+
+
+
+    </div>
+    <div flex="33" class="blogPostRecents">
+
+      <h3>Recent Posts</h3>
+      <md-divider></md-divider>
+
+      <div class="blogPostRecents" flex-gt-sm="64" layout layout-row ng-repeat="post in posts" ui-sref="blogpost({slugify_url:post.slugify_url})">
+        <div class="blogPostImageContainerRecent" >
+          <img src="{{ post.banner_url }}" style="object-fit: cover; height: 100%;">
+        </div>
+        <div flex layout="row" layout-align="start end" class="blogPostTextContainerRecent">
+          <div layout="column">
+            <h3 class="blogPost">{{ post.title }}</h3>
+            <p class="blogPostAuthor">
+              <i class="material-icons md-light md-12" style="vertical-align: middle;">person</i>
+              <a ui-sref="userprofile({key_id:post.author_userKeyId})">{{ post.author_name }}</a>
+              <i class="material-icons md-light md-12" style="vertical-align: middle;">access_time</i>
+              {{ post.created }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+    </md-content>
+
+
+
+</div>

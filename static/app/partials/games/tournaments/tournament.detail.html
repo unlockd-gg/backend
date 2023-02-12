@@ -1,0 +1,119 @@
+<md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">{{ tournament.title }}</h3>
+        <span flex></span>
+        <md-button  ng-if="user.admin"  class="md-icon-button" ui-sref="admingamedetail({ key_id: game.key_id})">
+          <i class="material-icons">mode_edit</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+
+    <md-toolbar class="demo-toolbar md-primary md-hue-3 _md _md-toolbar-transitions" ng-show="userIsOwner">
+          <div class="md-toolbar-tools">
+            <h3 class="ng-binding">{{ tournament.title }} : sponsors</h3>
+            <span flex></span>
+              <md-button class="md-icon-button" ng-click="toggleViewEditForm()">
+                <i class="material-icons">edit</i>
+              </md-button>
+          </div>
+        </md-toolbar>
+
+          <md-content layout-padding="" class="layout-padding _md" ng-if="viewEditForm">
+            <form name="form" novalidate>
+              <md-input-container class="md-block md-input-has-value">
+                <label for="input_title">Add a sponsor by Tag</label>
+                <input ng-model="inputSponsor.groupTag" class="ng-pristine ng-untouched ng-valid md-input" id="input_sponsor_tag" required minlength="2" maxlength="10" aria-invalid="false">
+                <div class="md-errors-spacer"></div>
+                <div ng-messages="addGroup.tag.$error" multiple md-auto-hide="false">
+                <div ng-message="min">
+                  Minimum tag size is 2 characters
+                </div>
+                <div ng-message="max">
+                  Maximum tag size is 10 characters
+                </div>
+              </div>
+              </md-input-container>
+
+              <md-input-container class="md-block md-input-has-value">
+                <label for="input_title">Title</label>
+                <input ng-model="inputSponsor.title" class="ng-pristine ng-untouched ng-valid md-input" id="input_title" aria-invalid="false"><div class="md-errors-spacer"></div>
+              </md-input-container>
+              <md-input-container class="md-block">
+                <label>Description</label>
+                <textarea ng-model="inputSponsor.description" md-maxlength="550" rows="5" md-select-on-focus></textarea>
+              </md-input-container>
+
+              <div>
+                <md-button type="submit" ng-click="submit(form, inputSponsor)" >Add this Sponsor</md-button>
+              </div>
+
+          </form>
+
+      </md-content>
+
+
+
+
+
+
+
+
+
+    <md-content layout-padding="" class="layout-padding _md">
+      <div layout="row">
+        <div flex>
+          <h1>{{ tournament.title }}</h1>
+          <span ng-repeat="sponsor in sponsors">
+             <img src="{{ sponsor.groupIconUrl }}" alt="{{ sponsor.title }}" width="100px;">
+          </span>
+          <p ng-show="tournament.signupsStarted && !tournament.signupsFinished">Signups Open</p>
+          <p ng-show="tournament.playStarted && !tournament.playFinished">In Progress</p>
+          <p ng-show="tournament.completed">Complete</p>
+        </div>
+        <div class="tournamentHeader" flex>
+          <ul>
+            <li>{{ tournament.gameTitle }}</li>
+            <li>{{ tournament.region }}</li>
+            <li>{{ tournament.gameModeTitle }}</li>
+            <li>COST TO ENTER: {{ tournament.playerBuyIn }}</li>
+            <li>BONUS PRIZE: {{ tournament.additionalPrizeFromHost }}</li>
+
+            <li>{{ tournament.prizeDistributionType }}</li>
+
+        </div>
+      </div>
+
+      <h2 ng-show="tournament.completed">{{ tournament.resultDisplayText }}</h2>
+
+      <h2>Teams</h2>
+
+    <div>
+      <span class="tournament-team" ng-repeat="team in teams">
+        {{team.title}}
+      </span>
+    </div>
+
+
+      <h2>Brackets</h2>
+
+      <div layout="row">
+        <div ng-repeat="tier in tiers" class="tournament-tier">
+          <div class="tournament-round-text">Round {{ tier.tier }}</div>
+          <div layout="column" class="tournament-match-list">
+            <div ng-repeat="match in tier.matches" class="tournament-match">
+
+              <div class="tournament-match-team tournament-match-winner" ng-show="match.TournamentTeam1Winner">{{ match.tournamentTeamTitle1 }}</div>
+              <div class="tournament-match-team tournament-match-loser" ng-show="match.TournamentTeam1Loser">{{ match.tournamentTeamTitle1 }}</div>
+              <div class="tournament-match-team tournament-match-team" ng-show="!match.TournamentTeam1Winner && !match.TournamentTeam1Loser">{{ match.tournamentTeamTitle1 }}</div>
+
+              <div class="tournament-match-team tournament-match-winner" ng-show="match.TournamentTeam2Winner">{{ match.tournamentTeamTitle2 }}</div>
+              <div class="tournament-match-team tournament-match-loser" ng-show="match.TournamentTeam2Loser">{{ match.tournamentTeamTitle2 }}</div>
+              <div class="tournament-match-team tournament-match-team" ng-show="!match.TournamentTeam2Winner && !match.TournamentTeam2Loser">{{ match.tournamentTeamTitle2 }}</div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </md-content>

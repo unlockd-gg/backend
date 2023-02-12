@@ -1,0 +1,135 @@
+<md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">Create a new game mode</h3>
+      </div>
+    </md-toolbar>
+      <md-content layout-padding="" class="layout-padding _md">
+
+<form class="form-horizontal" name="addGameMode">
+<fieldset>
+        <md-input-container class="md-block md-input-has-value">
+          <label for="input_title">onlineSubsystemReference</label>
+          <input ng-model="gamemode.onlineSubsystemReference" class="ng-pristine ng-untouched ng-valid md-input ng-valid-email" id="input_title" aria-invalid="false"><div class="md-errors-spacer"></div>
+        </md-input-container>
+
+          <md-input-container class="md-block">
+            <label>Matchmaker Type</label>
+            <md-select ng-model="gamemode.matchmakerAlgorithm" placeholder="Matchmaker Type" class="md-no-underline">
+              <md-option value="regionalRank">Regional Rank</md-option>
+              <md-option value="regionalExperience">Regional Experience</md-option>
+              <md-option value="regionalScore">Regional Score</md-option>
+              <md-option value="globalRank">Global Rank</md-option>
+              <md-option value="globalExperience">Global Experience</md-option>
+              <md-option value="globalScore">Global Score</md-option>
+              <md-option value="metaGame">External Meta Game</md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+            <label>Matchmaker maximum disparity</label>
+            <input required type="number" step="any" name="max_count" min="50"
+                 max="1000000" ng-model="gamemode.matchmakerDisparityMax"  />
+
+            <div ng-messages="projectForm.matchmakerDisparityMax.$error" multiple md-auto-hide="true">
+              <div ng-message="required">
+                A number is required here.
+              </div>
+              <div ng-message="min">
+                Minimum 50
+              </div>
+              <div ng-message="max">
+                Maximum 100000
+              </div>
+            </div>
+          </md-input-container>
+
+
+        <md-input-container class="md-block">
+          <label>How many players per team?</label>
+          <input required type="number" step="any" name="max_count" min="0"
+               max="100" ng-model="gamemode.playersPerTeam"  />
+
+          <div ng-messages="projectForm.playersPerTeam.$error" multiple md-auto-hide="true">
+            <div ng-message="required">
+              A number is required here.
+            </div>
+            <div ng-message="min">
+              Minimum 0
+            </div>
+            <div ng-message="max">
+              Maximum 100
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>How many teams?</label>
+          <input required type="number" step="any" name="max_count" min="0"
+               max="10" ng-model="gamemode.teams"  />
+
+          <div ng-messages="projectForm.teams.$error" multiple md-auto-hide="true">
+            <div ng-message="required">
+              A number is required here.
+            </div>
+            <div ng-message="min">
+              Minimum 0
+            </div>
+            <div ng-message="max">
+              Maximum 10
+            </div>
+          </div>
+        </md-input-container>
+
+
+        <md-input-container class="md-block">
+          <label>admissionFeePerPlayer</label>
+          <input required type="number" step="any" name="max_count" min="0"
+               max="10000000" ng-model="gamemode.admissionFeePerPlayer"  />
+
+          <div ng-messages="projectForm.admissionFeePerPlayer.$error" multiple md-auto-hide="true">
+            <div ng-message="required">
+              A number is required here.
+            </div>
+            <div ng-message="min">
+              Minimum 0
+            </div>
+            <div ng-message="max">
+              Maximum 10000000
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>winRewardPerPlayer</label>
+          <input required type="number" step="any" name="max_count" min="0"
+               max="2000000" ng-model="gamemode.winRewardPerPlayer"  />
+
+          <div ng-messages="projectForm.winRewardPerPlayer.$error" multiple md-auto-hide="true">
+            <div ng-message="required">
+              A number is required here.
+            </div>
+            <div ng-message="min">
+              Minimum 0
+            </div>
+            <div ng-message="max">
+              Maximum 2000000
+            </div>
+          </div>
+        </md-input-container>
+
+
+        <h3 class="md-title">Optional - Tags required to play this game mode</h3>
+          <md-chips name="tags" ng-model="gamemodetags" readonly="false" md-removable="true">
+          </md-chips>
+          <div class="md-chips-messages"
+               ng-show="addGameMode.tags.$dirty || addOffer.$submitted"
+               ng-messages="addGameMode.tags.$error">
+          </div>
+          <div class="hint">Press Enter to create a tag.</div>
+
+<br><br>
+
+<md-button type="submit" ng-click="submitAdd()">Submit</md-button>
+
+</fieldset>
+</form>

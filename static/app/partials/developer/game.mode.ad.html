@@ -1,0 +1,44 @@
+<div ng-show="!loaded_game_mode_ad" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+<div ng-show="loaded_game_mode_ad">
+
+  <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">Approve / Reject a game mode ad</h3>
+      </div>
+    </md-toolbar>
+      <md-content layout-padding="" class="layout-padding _md">
+
+        <img src="{{ ad.icon_url }}" alt="LOGO" width="64px">
+
+        <p>{{ ad.title }}</p>
+        <p>{{ ad.description }}</p>
+
+        <p>{{ ad.textures }}</p>
+        <p>Bid: {{ ad.bid_per_impression }}</p>
+        <p>Quantity: {{ ad.number_of_impressions }}</p>
+
+
+
+<form class="form-horizontal" name="form">
+  <fieldset>
+
+    <div>
+      <md-button type="submit" ng-click="approve(form)" >Approve</md-button>
+    </div>
+    <div ng-hide="viewRejectForm">
+      <md-button type="submit" ng-click="toggleViewRejectForm(form)" >Show Rejection Form</md-button>
+    </div>
+
+      <md-input-container class="md-block md-input-has-value" ng-show="viewRejectForm">
+        <label for="input_rejection_message">Include a message back to the group indicating why this ad was rejected.</label>
+        <input ng-model="rejection_message" class="ng-pristine ng-untouched ng-valid md-input" id="input_rejection_message" aria-invalid="false"><div class="md-errors-spacer"></div>
+      </md-input-container>
+
+    <div ng-show="viewRejectForm">
+      <md-button type="submit" ng-click="reject(form)" >Reject</md-button>
+    </div>
+  </fieldset>
+</form>
+
+</div>

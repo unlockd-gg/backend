@@ -1,0 +1,21 @@
+
+        <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+              <div class="md-toolbar-tools">
+                <h3 class="ng-binding">Current Balance:  {{ userAccount.currencyBalance | number}}</h3>
+              </div>
+            </md-toolbar>
+              <md-content layout-padding="" class="layout-padding _md">
+
+                <md-button class="md-raised md-primary"  style="margin-bottom: 20px;" type="submit" ui-sref="usercredbuy">Get more CRED</md-button>
+
+
+                <div ng-show="!transactions.length">No transactions to show.</div>
+                <md-list>
+
+                 <md-list-item ng-repeat="transaction in transactions" class="noright">
+                   <md-icon class="material-icons {{ transaction.materialDisplayClass }}">{{ transaction.materialIcon }}</md-icon>
+                   <p><b><span am-time-ago="transaction.created | amUtc "></span></b> : {{ transaction.description }}</p>
+                   <md-button class="md-secondary" ng-click="doSecondaryAction($event)">{{ transaction.amountInt | number }}</md-button>
+                   <md-button class="md-primary" ng-click="doSecondaryAction($event)">{{ transaction.newBalanceInt | number }}</md-button>
+                 </md-list-item>
+                </md-list>

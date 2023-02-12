@@ -1,0 +1,827 @@
+<div ng-show="!loaded_game" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+<div ng-show="loaded_game">
+  <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+        <div class="md-toolbar-tools">
+          <h3 class="ng-binding">{{ game.title }}</h3>
+          <span flex></span>
+            <md-button class="md-icon-button" ng-click="toggleViewCredentials()">
+              <i class="material-icons">vpn_key</i>
+            </md-button>
+
+            <md-button class="md-icon-button" ng-click="toggleViewTransactions()">
+              <i class="material-icons">receipt</i>
+            </md-button>
+
+            <md-button class="md-icon-button" ng-click="toggleViewEditForm()">
+              <i class="material-icons">edit</i>
+            </md-button>
+
+            <md-button class="md-icon-button" ng-click="toggleViewData()">
+              <i class="material-icons">sd_storage</i>
+            </md-button>
+
+            <md-button class="md-icon-button" ng-click="toggleViewVendorTypes()" ng-show="game.server_instance_continuous">
+              <i class="material-icons">shopping_cart</i>
+            </md-button>
+
+            <md-button class="md-icon-button" ui-sref="developergameplayers({gameKeyId: game.key_id})">
+              <i class="material-icons">people</i>
+            </md-button>
+
+            <md-button class="md-icon-button" ui-sref="developergameoffers({gameKeyId: game.key_id})">
+              <i class="material-icons">card_membership</i>
+            </md-button>
+
+            <md-button class="md-icon-button" ui-sref="developergameconsignments({gameKeyId: game.key_id})">
+              <i class="material-icons">shopping_basket</i>
+            </md-button>
+
+            <md-button class="md-icon-button" ui-sref="developergamepatch({gameKeyId: game.key_id})">
+              <i class="material-icons">update</i>
+            </md-button>
+
+
+
+
+
+
+
+        </div>
+      </md-toolbar>
+
+      <md-toolbar class="demo-toolbar md-primary md-hue-3 _md _md-toolbar-transitions" ng-show="viewCredentials">
+            <div class="md-toolbar-tools">
+              <h3 class="ng-binding">{{ game.title }} : credentials</h3>
+              <span flex></span>
+
+            </div>
+          </md-toolbar>
+        <md-content layout-padding="" class="layout-padding _md" ng-show="viewCredentials">
+
+
+            <div>GAME API Key: {{ game.apiKey }}</div>
+            <div>GAME API Secret: {{ game.apiSecret }}</div>
+
+          </md-content>
+
+          <md-toolbar class="demo-toolbar md-primary md-hue-3 _md _md-toolbar-transitions"  ng-if="viewTransactions">
+                <div class="md-toolbar-tools">
+                  <h3 class="ng-binding">{{ game.title }} : transactions</h3>
+                  <span flex></span>
+
+                </div>
+              </md-toolbar>
+                <md-content layout-padding="" class="layout-padding _md" ng-if="viewTransactions">
+
+                  <div ng-show="!transactions.length">
+                    <div ng-show="game.server_instance_continuous">
+                      No transactions to show.  Check individual server transactions.
+                    </div>
+                    <div ng-show="!game.server_instance_continuous">
+                      No transactions to show.
+                    </div>
+                  </div>
+
+                  <md-list>
+                   <md-list-item ng-repeat="transaction in transactions" class="noright">
+                     <md-icon class="material-icons {{ transaction.materialDisplayClass }}">{{ transaction.materialIcon }}</md-icon>
+                     <p><b><span am-time-ago="transaction.created | amUtc "></span></b> : {{ transaction.description }}</p>
+                     <md-button class="md-secondary" ng-click="doSecondaryAction($event)">{{ transaction.amountInt | number }}</md-button>
+                     <md-button class="md-primary" ng-click="doSecondaryAction($event)">{{ transaction.newBalanceInt | number }}</md-button>
+                   </md-list-item>
+                  </md-list>
+
+                </md-content>
+
+          <md-toolbar class="demo-toolbar md-primary md-hue-3 _md _md-toolbar-transitions" ng-if="viewEditForm">
+                <div class="md-toolbar-tools">
+                  <h3 class="ng-binding">{{ game.title }} : details</h3>
+                  <span flex></span>
+                </div>
+              </md-toolbar>
+                <md-content layout-padding="" class="layout-padding _md" ng-if="viewEditForm">
+                  <form name="form" novalidate>
+                  <md-input-container class="md-block md-input-has-value">
+                    <label for="input_title">Title</label>
+                    <input ng-model="game.title" class="ng-pristine ng-untouched ng-valid md-input ng-valid-email" id="input_title" aria-invalid="false"><div class="md-errors-spacer"></div>
+                  </md-input-container>
+                  <md-input-container class="md-block">
+                    <label>Description</label>
+                    <textarea ng-model="game.description" md-maxlength="550" rows="5" md-select-on-focus></textarea>
+                  </md-input-container>
+                  <md-input-container class="md-block">
+                    <label>How to play</label>
+                    <textarea ng-model="game.instructions" md-maxlength="550" rows="5" md-select-on-focus></textarea>
+                  </md-input-container>
+
+                  <md-select ng-model="game.genre" placeholder="Genre" class="md-no-underline">
+                    <md-option value="Action">Action</md-option>
+                    <md-option value="Action-Adventure">Action-Adventure</md-option>
+                    <md-option value="Adventure">Adventure</md-option>
+                    <md-option value="Role-Playing">Role-Playing</md-option>
+                    <md-option value="Simulation">Simulation</md-option>
+                    <md-option value="Strategy">Strategy</md-option>
+                    <md-option value="Sports">Sports</md-option>
+                    <md-option value="Adult">Adult</md-option>
+                  </md-select>
+
+                  <md-input-container class="md-block md-input-has-value">
+                    <label for="website_url">Website URL</label>
+                    <input ng-model="game.website_url" class="ng-pristine ng-untouched ng-valid md-input" id="website_url" aria-invalid="false"><div class="md-errors-spacer"></div>
+                  </md-input-container>
+
+                  <md-input-container class="md-block md-input-has-value">
+                    <label for="input_download_url">Download URL</label>
+                    <input ng-model="game.download_url" class="ng-pristine ng-untouched ng-valid md-input" id="input_download_url" aria-invalid="false"><div class="md-errors-spacer"></div>
+                  </md-input-container>
+
+                  <md-input-container class="md-block md-input-has-value">
+                    <label for="input_icon_url">Icon URL</label>
+                    <input ng-model="game.icon_url" class="ng-pristine ng-untouched ng-valid md-input" id="input_icon_url" aria-invalid="false"><div class="md-errors-spacer"></div>
+                  </md-input-container>
+
+                  <md-input-container class="md-block md-input-has-value">
+                    <label for="input_banner_url">Banner URL</label>
+                    <input ng-model="game.banner_url" class="ng-pristine ng-untouched ng-valid md-input" id="input_banner_url" aria-invalid="false"><div class="md-errors-spacer"></div>
+                  </md-input-container>
+
+                  <md-input-container class="md-block md-input-has-value">
+                    <label for="input_banner_url">CSS URL</label>
+                    <input ng-model="game.css_url" class="ng-pristine ng-untouched ng-valid md-input" id="input_css_url" aria-invalid="false"><div class="md-errors-spacer"></div>
+                  </md-input-container>
+
+                  <md-input-container class="md-block md-input-has-value">
+                    <label for="input_group_custom_texture_instructions_link">Link to instructions and examples for setting up custom in-game group textures.</label>
+                    <input ng-model="game.group_custom_texture_instructions_link" class="ng-pristine ng-untouched ng-valid md-input" id="input_group_custom_texture_instructions_link" aria-invalid="false"><div class="md-errors-spacer"></div>
+                  </md-input-container>
+
+                  <md-input-container class="md-block md-input-has-value">
+                    <label for="input_group_custom_texture_default">Default texture to use if the group has not configured a custom texture</label>
+                    <input ng-model="game.group_custom_texture_default" class="ng-pristine ng-untouched ng-valid md-input" id="input_group_custom_texture_default" aria-invalid="false"><div class="md-errors-spacer"></div>
+                  </md-input-container>
+
+                  <md-input-container class="md-block">
+                    <label>partySizeMaximum</label>
+                    <input required type="number" step="any" name="max_count" min="0"
+                         max="50" ng-model="game.partySizeMaximum"  />
+
+                    <div ng-messages="projectForm.partySizeMaximum.$error" multiple md-auto-hide="true">
+                      <div ng-message="required">
+                        A number is required here.
+                      </div>
+                      <div ng-message="min">
+                        Minimum 0
+                      </div>
+                      <div ng-message="max">
+                        Maximum 50
+                      </div>
+                    </div>
+                  </md-input-container>
+
+                  <md-input-container class="md-block md-input-has-value">
+                    <label for="input_characters_enabled">Multiple characters are permitted</label>
+                    <md-checkbox ng-model="game.characters_enabled" aria-label="characters_enabled">
+                      </md-checkbox>
+                  </md-input-container>
+
+                  <md-input-container class="md-block">
+                    <label>How many character slots do new players start with?</label>
+                    <input required type="number" step="any" name="character_slots_new_user_default" min="1"
+                         max="10" ng-model="game.character_slots_new_user_default"  />
+
+                    <div ng-messages="projectForm.character_slots_new_user_default.$error" md-auto-hide="true">
+                      <div ng-message="required">
+                        A number is required here.
+                      </div>
+                      <div ng-message="min">
+                        Minimum 0
+                      </div>
+                      <div ng-message="max">
+                        Maximum 10
+                      </div>
+                    </div>
+                  </md-input-container>
+
+
+                  <md-checkbox ng-model="game.usersCanCreateServers" aria-label="usersCanCreateServers">
+                      Users can create servers
+                    </md-checkbox>
+
+                    <md-checkbox ng-model="game.groupsCanCreateServers" aria-label="groupsCanCreateServers">
+                        Groups can create servers
+                      </md-checkbox>
+
+                      <md-input-container class="md-block md-input-has-value">
+                      <md-checkbox ng-model="game.patcher_enabled" aria-label="patcher_enabled">
+                          Enable patcher
+                        </md-checkbox
+                          </md-input-container>
+
+                      <md-input-container class="md-block">
+                        <label>Patcher Manifest XML</label>
+                        <textarea ng-model="game.patcher_details_xml" md-maxlength="55000" rows="5" md-select-on-focus></textarea>
+                      </md-input-container>
+
+
+                      <md-input-container class="md-block md-input-has-value">
+                        <label for="invisible_developer_setting">Invisible</label>
+                        <md-checkbox ng-model="game.invisible_developer_setting" aria-label="invisible_developer_setting">
+
+                          </md-checkbox>
+                      </md-input-container>
+
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="slack_webhook">Slack Webhook</label>
+                                <input ng-model="game.slack_webhook" class="ng-pristine ng-untouched ng-valid md-input" id="slack_webhook" aria-invalid="false"><div class="md-errors-spacer"></div>
+                              </md-input-container>
+
+                              <md-checkbox ng-model="game.slack_subscribe_vm_activity" aria-label="slack_subscribe_vm_activity">
+                                  VM Activity
+                              </md-checkbox>
+                              <md-checkbox ng-model="game.slack_subscribe_errors" aria-label="slack_subscribe_errors">
+                                  Errors
+                              </md-checkbox>
+                              <md-checkbox ng-model="game.slack_subscribe_transactions" aria-label="slack_subscribe_transactions">
+                                  Transactions
+                              </md-checkbox>
+                              <md-checkbox ng-model="game.slack_subscribe_config_changes" aria-label="slack_subscribe_config_changes">
+                                  Config Changes
+                              </md-checkbox>
+                              <md-checkbox ng-model="game.slack_subscribe_new_players" aria-label="slack_subscribe_new_players">
+                                  New Players
+                              </md-checkbox>
+                              <md-checkbox ng-model="game.slack_subscribe_new_tournaments" aria-label="slack_subscribe_new_tournaments">
+                                  New Tournaments
+                              </md-checkbox>
+                              <md-checkbox ng-model="game.slack_subscribe_tournament_rounds" aria-label="slack_subscribe_tournament_rounds">
+                                  Tournament Rounds
+                              </md-checkbox>
+
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="discord_webhook">Discord Webhook (general)</label>
+                                <input ng-model="game.discord_webhook" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook" aria-invalid="false"><div class="md-errors-spacer"></div>
+                              </md-input-container>
+
+
+                              <md-checkbox ng-model="game.discord_subscribe_match_win" aria-label="discord_subscribe_match_win">
+                                  Match Winners
+                              </md-checkbox>
+                              <md-checkbox ng-model="game.discord_subscribe_new_tournaments" aria-label="discord_subscribe_new_tournaments">
+                                  New Tournaments
+                              </md-checkbox>
+                              <md-checkbox ng-model="game.discord_subscribe_tournament_rounds" aria-label="discord_subscribe_tournament_rounds">
+                                  Tournament Rounds
+                              </md-checkbox>
+
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="discord_webhook_admin">Discord Webhook (admin)</label>
+                                <input ng-model="game.discord_webhook_admin" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_admin" aria-invalid="false"><div class="md-errors-spacer"></div>
+                              </md-input-container>
+
+                              <md-checkbox ng-model="game.discord_subscribe_vm_activity" aria-label="discord_subscribe_vm_activity">
+                                  VM Activity
+                              </md-checkbox>
+                              <md-checkbox ng-model="game.discord_subscribe_errors" aria-label="discord_subscribe_errors">
+                                  Errors
+                              </md-checkbox>
+                              <md-checkbox ng-model="game.discord_subscribe_transactions" aria-label="discord_subscribe_transactions">
+                                  Transactions
+                              </md-checkbox>
+                              <md-checkbox ng-model="game.discord_subscribe_config_changes" aria-label="discord_subscribe_config_changes">
+                                  Config Changes
+                              </md-checkbox>
+                              <md-checkbox ng-model="game.discord_subscribe_new_players" aria-label="discord_subscribe_new_players">
+                                  New Players
+                              </md-checkbox>
+
+
+                      <md-input-container class="md-block md-input-has-value">
+                        <label for="input_banner_url">Use the matchmaker API</label>
+                        <md-checkbox ng-model="game.server_instace_match_deploy" aria-label="server_instace_match_deploy">
+
+                          </md-checkbox>
+                      </md-input-container>
+
+                      <div ng-show="game.server_instace_match_deploy">
+                        <md-toolbar class="demo-toolbar md-primary md-hue-2 _md _md-toolbar-transitions">
+                              <div class="md-toolbar-tools">
+                                <h3 class="ng-binding">{{ game.title }} : matchmaker :
+                                  <span ng-show="game.match_deploy_vm_local_testing"> TEST MODE </span>
+                                  <span ng-show="!game.match_deploy_vm_local_testing"> LIVE MODE </span>
+                                </h3>
+                              </div>
+                            </md-toolbar>
+
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="input_banner_url">Enable Testing Mode</label>
+                              <md-checkbox ng-model="game.match_deploy_vm_local_testing" aria-label="match_deploy_vm_local_testing">
+                                <div class="hint">Force all matches to use your localhost IP/key/secret.</div>
+
+                                </md-checkbox>
+                            </md-input-container>
+
+                            <div ng-show="game.match_deploy_vm_local_testing">
+
+
+
+
+
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="match_deploy_vm_local_testing_connection_string">local connection string</label>
+                                <input ng-model="game.match_deploy_vm_local_testing_connection_string" class="ng-pristine ng-untouched ng-valid md-input" id="match_deploy_vm_local_testing_connection_string" aria-invalid="false"><div class="md-errors-spacer"></div>
+                                <div class="hint">192.168.0.225:7777</div>
+                              </md-input-container>
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="match_deploy_vm_local_APIKey">API KEY</label>
+                                <input ng-model="game.match_deploy_vm_local_APIKey" class="ng-pristine ng-untouched ng-valid md-input" id="match_deploy_vm_local_APIKey" aria-invalid="false"><div class="md-errors-spacer"></div>
+                                <div class="hint">THIS MUST BE UNIQUE - use a long random string</div>
+                              </md-input-container>
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="match_deploy_vm_local_APISecret">API Secret</label>
+                                <input ng-model="game.match_deploy_vm_local_APISecret" class="ng-pristine ng-untouched ng-valid md-input" id="match_deploy_vm_local_APISecret" aria-invalid="false"><div class="md-errors-spacer"></div>
+                                <div class="hint">THIS MUST BE UNIQUE - use a long random string</div>
+                              </md-input-container>
+
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="tournaments_allowed">Allow Tournaments</label>
+                                <md-checkbox ng-model="game.tournaments_allowed" aria-label="tournaments_allowed">
+
+                                  </md-checkbox>
+                              </md-input-container>
+
+
+
+
+
+                              <div>While in testing mode, it is sometimes helpful to delete matches, when players are stuck, or a match did not complete successfully.
+                                <p>You should never do this in live mode.</p>
+                                <p><md-button type="submit" ng-click="showClearMatchDialog()" >Clear all matches</md-button></p>
+
+                              </div>
+
+                            </div>
+
+                            <div ng-show="!game.match_deploy_vm_local_testing">
+
+                              <h4> Matchmaker : live mode </h4>
+
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="input_banner_url">Automatically deploy VM instances for matches</label>
+                                <md-checkbox ng-model="game.match_deploy_vm" aria-label="match_deploy_vm">
+
+                                  </md-checkbox>
+                              </md-input-container>
+
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="match_timeout_max_minutes">Match Timeout minutes</label>
+                                <input ng-model="game.match_timeout_max_minutes" class="ng-pristine ng-untouched ng-valid md-input" id="match_timeout_max_minutes" aria-invalid="false"><div class="md-errors-spacer"></div>
+                                <div class="hint">The longest duration to allow for any match.  Unplayed matches will be cancelled after this duration.</div>
+                              </md-input-container>
+
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="match_deploy_vm_project">Project.  Use ue4topia to use ours.</label>
+                                <input ng-model="game.match_deploy_vm_project" class="ng-pristine ng-untouched ng-valid md-input" id="match_deploy_vm_project" aria-invalid="false"><div class="md-errors-spacer"></div>
+                              </md-input-container>
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="match_deploy_vm_bucket">Bucket.  Use ue4topia.appspot.com to use ours.</label>
+                                <input ng-model="game.match_deploy_vm_bucket" class="ng-pristine ng-untouched ng-valid md-input" id="match_deploy_vm_bucket" aria-invalid="false"><div class="md-errors-spacer"></div>
+                              </md-input-container>
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="match_deploy_vm_source_disk_image">Disk Image</label>
+                                <input ng-model="game.match_deploy_vm_source_disk_image" class="ng-pristine ng-untouched ng-valid md-input" id="match_deploy_vm_source_disk_image" aria-invalid="false"><div class="md-errors-spacer"></div>
+                              </md-input-container>
+
+                              <md-input-container class="md-block">
+                                <label for="match_deploy_vm_machine_type">Machine Type</label>
+                                <md-select ng-model="game.match_deploy_vm_machine_type" placeholder="Machine Type" class="md-no-underline">
+                                  <md-optgroup label="Shared">
+                                    <md-option value="f1-micro">micro (1 shared vCPU) 0.6 GB Memory</md-option>
+                          				  <md-option value="g1-small">small (1 shared vCPU) 1.7 GB Memory</md-option>
+                                  </md-optgroup>
+                                  <md-optgroup label="Standard">
+                            				<md-option value="n1-standard-1">1 vCPU 3.75 GB Memory</md-option>
+                                    <md-option value="n1-standard-2">2 vCPU 7.5 GB Memory</md-option>
+                                    <md-option value="n1-standard-4">4 vCPU 15 GB Memory</md-option>
+                                    <md-option value="n1-standard-8">8 vCPU 30 GB Memory</md-option>
+                                    <md-option value="n1-standard-32">32 vCPU 120 GB Memory</md-option>
+                                    <md-option value="n1-standard-64">64 vCPU 240 GB Memory</md-option>
+                                  </md-optgroup>
+                                </md-select>
+                              </md-input-container>
+
+
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="match_deploy_vm_startup_script_location">Startup Script Location</label>
+                                <input ng-model="game.match_deploy_vm_startup_script_location" class="ng-pristine ng-untouched ng-valid md-input" id="match_deploy_vm_startup_script_location" aria-invalid="false"><div class="md-errors-spacer"></div>
+                              </md-input-container>
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="match_deploy_vm_shutdown_script_location">Shutdown Script Location</label>
+                                <input ng-model="game.match_deploy_vm_shutdown_script_location" class="ng-pristine ng-untouched ng-valid md-input" id="match_deploy_vm_shutdown_script_location" aria-invalid="false"><div class="md-errors-spacer"></div>
+                              </md-input-container>
+
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="tournaments_allowed">Allow Tournaments</label>
+                                <md-checkbox ng-model="game.tournaments_allowed" aria-label="tournaments_allowed">
+
+                                  </md-checkbox>
+                              </md-input-container>
+
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="match_allow_metagame">Allow MetaGame</label>
+                                <md-checkbox ng-model="game.match_allow_metagame" aria-label="match_allow_metagame">
+
+                                  </md-checkbox>
+                              </md-input-container>
+
+                              <md-input-container class="md-block md-input-has-value">
+                                <label for="match_metagame_api_url">MetaGame API URL Base</label>
+                                <input ng-model="game.match_metagame_api_url" class="ng-pristine ng-untouched ng-valid md-input" id="match_metagame_api_url" aria-invalid="false"><div class="md-errors-spacer"></div>
+                              </md-input-container>
+
+                            </div>
+
+                            <h4> Matchmaker : webhooks </h4>
+
+                            <md-checkbox ng-model="game.discord_subscribe_matchmaker_task_status" aria-label="discord_subscribe_matchmaker_task_status">
+                                Subscribe to matchmaker task status
+                            </md-checkbox>
+
+                            <md-checkbox ng-model="game.discord_subscribe_server_manager_status" aria-label="discord_subscribe_server_manager_status">
+                                Subscribe to regional server manager updates
+                            </md-checkbox>
+
+
+
+
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_na_northeast1">Discord Webhook : na_northeast1 (Montreal)</label>
+                              <input ng-model="game.discord_webhook_na_northeast1" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_na_northeast1" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_us_central1">Discord Webhook : us_central1 (Iowa)</label>
+                              <input ng-model="game.discord_webhook_us_central1" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_us_central1" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_us_west1">Discord Webhook : us_west1 (Oregon)</label>
+                              <input ng-model="game.discord_webhook_us_west1" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_us_west1" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_us_west2">Discord Webhook : us_west2 (Los Angeles)</label>
+                              <input ng-model="game.discord_webhook_us_west2" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_us_west2" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_us_west3">Discord Webhook : us_west3 (Salt Lake City)</label>
+                              <input ng-model="game.discord_webhook_us_west3" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_us_west3" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_us_west4">Discord Webhook : us_west4 (Las Vegas)</label>
+                              <input ng-model="game.discord_webhook_us_west4" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_us_west4" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+
+
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_us_east4">Discord Webhook : us_east4 (Virginia)</label>
+                              <input ng-model="game.discord_webhook_us_east4" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_us_east4" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_us_east1">Discord Webhook : us_east1 (South Carolina)</label>
+                              <input ng-model="game.discord_webhook_us_east1" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_us_east1" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_southamerica_east1">Discord Webhook : southamerica_east1 (S&atilde;o Paulo)</label>
+                              <input ng-model="game.discord_webhook_southamerica_east1" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_southamerica_east1" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_europe_north1">Discord Webhook : europe_north1 (Finland)</label>
+                              <input ng-model="game.discord_webhook_europe_north1" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_europe_north1" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_europe_west1">Discord Webhook : europe_west1 (Belgium)</label>
+                              <input ng-model="game.discord_webhook_europe_west1" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_europe_west1" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_europe_west2">Discord Webhook : europe_west2 (London)</label>
+                              <input ng-model="game.discord_webhook_europe_west2" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_europe_west2" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_europe_west3">Discord Webhook : europe_west3 (Frankfurt)</label>
+                              <input ng-model="game.discord_webhook_europe_west3" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_europe_west3" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_europe_west4">Discord Webhook : europe_west4 (Netherlands)</label>
+                              <input ng-model="game.discord_webhook_europe_west4" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_europe_west4" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_europe_west6">Discord Webhook : europe_west6 (Zurich)</label>
+                              <input ng-model="game.discord_webhook_europe_west6" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_europe_west6" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+
+
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_asia_south1">Discord Webhook : asia_south1 (Mumbai)</label>
+                              <input ng-model="game.discord_webhook_asia_south1" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_asia_south1" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_asia_southeast1">Discord Webhook : asia_southeast1 (Singapore)</label>
+                              <input ng-model="game.discord_webhook_asia_southeast1" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_asia_southeast1" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_asia_east1">Discord Webhook : asia_east1 (Taiwan)</label>
+                              <input ng-model="game.discord_webhook_asia_east1" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_asia_east1" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_asia_east2">Discord Webhook : asia_east2 (Hong Kong)</label>
+                              <input ng-model="game.discord_webhook_asia_east2" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_asia_east2" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_asia_northeast1">Discord Webhook : asia_northeast1 (Tokyo)</label>
+                              <input ng-model="game.discord_webhook_asia_northeast1" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_asia_northeast1" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_asia_northeast2">Discord Webhook : asia_northeast2 (Osaka)</label>
+                              <input ng-model="game.discord_webhook_asia_northeast2" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_asia_northeast2" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_asia_northeast3">Discord Webhook : asia_northeast3 (Seoul)</label>
+                              <input ng-model="game.discord_webhook_asia_northeast3" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_asia_northeast3" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+
+                            <md-input-container class="md-block md-input-has-value">
+                              <label for="discord_webhook_australia_southeast1">Discord Webhook : australia_southeast1 (Sydney)</label>
+                              <input ng-model="game.discord_webhook_australia_southeast1" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook_australia_southeast1" aria-invalid="false"><div class="md-errors-spacer"></div>
+                            </md-input-container>
+
+                    </div> <!-- end game.server_instace_match_deploy -->
+
+<md-divider></md-divider>
+
+                      <md-input-container class="md-block md-input-has-value">
+                        <label for="input_banner_url">Use the continuous server API</label>
+                        <md-checkbox ng-model="game.server_instance_continuous" aria-label="server_instance_continuous">
+
+                          </md-checkbox>
+                      </md-input-container>
+
+
+
+                      <md-input-container class="md-block md-input-has-value" ng-show="game.server_instance_continuous">
+                        <label for="input_enforce_locks">Enforce Game Player Locks</label>
+                        <md-checkbox ng-model="game.enforce_locks" aria-label="enforce_locks">
+                          </md-checkbox>
+                      </md-input-container>
+
+
+
+
+                      <div>
+                        <md-button type="submit" ng-click="submit(form, game)" >Save</md-button>
+                      </div>
+                      <div>
+                        <md-button type="submit" ng-click="remove(game)" >Delete</md-button>
+                      </div>
+                    </form>
+
+                </md-content>
+
+
+                <md-toolbar class="demo-toolbar md-primary md-hue-3 _md _md-toolbar-transitions" ng-show="viewData">
+                      <div class="md-toolbar-tools">
+                        <h3 class="ng-binding">{{ game.title }} : game data</h3>
+                        <span flex></span>
+
+                      </div>
+                    </md-toolbar>
+
+
+                  <md-content layout-padding="" class="layout-padding _md" ng-show="viewData">
+
+                    <div>Game Data is one way to store game information.  It is accessible to servers at runtime.</div>
+
+                    <div ng-show="!loaded_game_data" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+                    <div ng-show="loaded_game_data">
+
+                      <div ng-show="!game_data.length">Nothing to show.</div>
+
+
+                      <md-button style="margin-bottom: 20px;" type="submit" ui-sref="developergamedatacreate({gameKeyId:game.key_id})">Add a data record</md-button>
+
+                        <div layout="row" layout-wrap>
+                        <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch ng-repeat="gamedata in game_data">
+                          <md-card-title>
+                            <md-card-title-text>
+                              <span class="md-headline">{{gamedata.customKey}}</span>
+                            </md-card-title-text>
+                            <md-card-title-media>
+                              <div class="md-media-sm card-media"></div>
+                            </md-card-title-media>
+                          </md-card-title>
+                          <md-card-actions layout="row" layout-align="end center">
+                            <md-button ui-sref="developergamedatadetail({gameKeyId:game.key_id, key_id:gamedata.key_id})">Edit</md-button>
+
+                          </md-card-actions>
+                        </md-card>
+                        </div>
+
+                    </div>
+
+
+                    </md-content>
+
+
+
+                    <md-toolbar class="demo-toolbar md-primary md-hue-3 _md _md-toolbar-transitions" ng-show="viewVendorTypes">
+                      <div class="md-toolbar-tools">
+                        <h3 class="ng-binding">Vendor Types</h3>
+                      </div>
+                    </md-toolbar>
+                      <md-content layout-padding="" class="layout-padding _md" ng-show="viewVendorTypes">
+
+
+
+                        <div ng-show="!loaded_game_vendor_types" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+                        <div ng-show="loaded_game_vendor_types">
+
+                          <div>Vendor Types define the available vendors, which are used to facilitate player to player trade.</div>
+
+                          <div ng-show="!vendor_types.length">Nothing to show.</div>
+
+                          <md-button style="margin-bottom: 20px;" type="submit" ui-sref="developervendortypecreate({gameKeyId:game.key_id})">Add a new vendor type</md-button>
+
+                            <div layout="row" layout-wrap>
+                            <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch ng-repeat="vendor_type in vendor_types">
+                              <md-card-title>
+                                <md-card-title-text>
+                                  <span class="md-headline">{{vendor_type.title}}</span>
+                                  <span class="md-subhead">{{vendor_type.description}}</span>
+                                </md-card-title-text>
+                                <md-card-title-media>
+                                  <div class="md-media-sm card-media"></div>
+                                </md-card-title-media>
+                              </md-card-title>
+                              <md-card-actions layout="row" layout-align="end center">
+                                <md-button ui-sref="developervendortypedetail({gameKeyId: game.key_id, key_id:vendor_type.key_id})">Edit</md-button>
+
+                              </md-card-actions>
+                            </md-card>
+                            </div>
+
+                        </div>
+
+
+                        </md-content>
+
+
+
+                <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions" ng-show="game.server_instance_continuous">
+                  <div class="md-toolbar-tools">
+                    <h3 class="ng-binding">Server Clusters</h3>
+                  </div>
+                </md-toolbar>
+                  <md-content layout-padding="" class="layout-padding _md" ng-show="game.server_instance_continuous" >
+
+
+
+                    <div ng-show="!loaded_game_server_clusters" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+                    <div ng-show="loaded_game_server_clusters">
+
+                      <div>Clusters allow for related servers to talk to each other and interact with each other.  You need at least one cluser, to put servers in</div>
+
+                      <div ng-show="!serverclusters.length">Nothing to show.</div>
+
+                      <md-button style="margin-bottom: 20px;" type="submit" ui-sref="developerserverclustercreate({gameKeyId:game.key_id})">Add a new server cluster</md-button>
+
+                        <div layout="row" layout-wrap>
+                        <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch ng-repeat="servercluster in serverclusters">
+                          <md-card-title>
+                            <md-card-title-text>
+                              <span class="md-headline">{{servercluster.title}}</span>
+                              <span class="md-subhead">{{servercluster.description}}</span>
+                            </md-card-title-text>
+                            <md-card-title-media>
+                              <div class="md-media-sm card-media"></div>
+                            </md-card-title-media>
+                          </md-card-title>
+                          <md-card-actions layout="row" layout-align="end center">
+                            <md-button ui-sref="developerserverclusterdetail({gameKeyId:game.key_id, key_id:servercluster.key_id})">Edit</md-button>
+
+                          </md-card-actions>
+                        </md-card>
+                        </div>
+
+                    </div>
+
+
+                    </md-content>
+
+
+
+                    <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions" ng-show="game.server_instance_continuous">
+                      <div class="md-toolbar-tools">
+                        <h3 class="ng-binding">Game Levels</h3>
+                      </div>
+                    </md-toolbar>
+                      <md-content layout-padding="" class="layout-padding _md" ng-show="game.server_instance_continuous">
+
+
+
+                        <div ng-show="!loaded_game_levels" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+                        <div ng-show="loaded_game_levels">
+
+                          <div>Game Levels are used in continuous server deployment.  These reference the actual 'levels' in your game.  We don't need to know about welcome levels, or lobby levels, but we do need to know
+                          about all gameplay levels that need to be set on server creation.</div>
+
+                          <div ng-show="!game_levels.length">Nothing to show.</div>
+
+                          <md-button style="margin-bottom: 20px;" type="submit" ui-sref="developergamelevelcreate({gameKeyId:game.key_id})">Add a new level</md-button>
+
+                            <div layout="row" layout-wrap>
+                            <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch ng-repeat="gamelevel in game_levels">
+                              <md-card-title>
+                                <md-card-title-text>
+                                  <span class="md-headline">{{gamelevel.title}}</span>
+                                  <span class="md-subhead">{{gamelevel.selectionProbability}} probability</span>
+                                </md-card-title-text>
+                                <md-card-title-media>
+                                  <div class="md-media-sm card-media"></div>
+                                </md-card-title-media>
+                              </md-card-title>
+                              <md-card-actions layout="row" layout-align="end center">
+                                <md-button ui-sref="developergameleveldetail({gameKeyId:game.key_id, key_id:gamelevel.key_id})">Edit</md-button>
+
+                              </md-card-actions>
+                            </md-card>
+                            </div>
+
+                        </div>
+
+
+                        </md-content>
+
+
+
+
+
+
+
+
+                    <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions" ng-show="game.server_instace_match_deploy">
+                      <div class="md-toolbar-tools">
+                        <h3 class="ng-binding">Game Modes</h3>
+                      </div>
+                    </md-toolbar>
+                      <md-content layout-padding="" class="layout-padding _md" ng-show="game.server_instace_match_deploy">
+
+                        <div>Game Modes assist in matchmaker functionality.  These are referenced by players to indicate what gameMode they want to play.</div>
+
+                        <div ng-show="!loaded_game_modes" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+                        <div ng-show="loaded_game_modes">
+
+                          <div ng-show="!game_modes.length">Nothing to show.</div>
+
+                          <md-button style="margin-bottom: 20px;" type="submit" ui-sref="developergamemodecreate({gameKeyId:game.key_id})">Add a new game mode</md-button>
+
+                            <div layout="row" layout-wrap>
+                            <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch ng-repeat="gamemode in game_modes">
+                              <md-card-title>
+                                <md-card-title-text>
+                                  <span class="md-headline">{{gamemode.onlineSubsystemReference}}</span>
+                                  <span class="md-subhead">{{gamemode.teams}} teams, {{gamemode.playersPerTeam}} players per team</span>
+                                </md-card-title-text>
+                                <md-card-title-media>
+                                  <div class="md-media-sm card-media"></div>
+                                </md-card-title-media>
+                              </md-card-title>
+                              <md-card-actions layout="row" layout-align="end center">
+                                <md-button ui-sref="developergamemodedetail({gameKeyId:game.key_id, key_id:gamemode.key_id})">Edit</md-button>
+
+                              </md-card-actions>
+                            </md-card>
+                            </div>
+
+                        </div>
+
+
+                        </md-content>
+
+
+
+
+
+
+
+
+
+
+
+</div>

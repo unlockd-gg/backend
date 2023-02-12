@@ -1,0 +1,29 @@
+<md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">Add/Update a group game</h3>
+      </div>
+    </md-toolbar>
+      <md-content layout-padding="" class="layout-padding _md">
+        <p>The connection between the game and group also allows for a specified discord webhook to accept the configurable feeds.
+<form class="form-horizontal" name="updateUser">
+<fieldset>
+
+  <md-input-container class="md-block" flex-gt-sm>
+           <label>Game</label>
+           <md-select ng-model="groupGame.gameKeyId">
+             <md-option ng-repeat="game in allGames" value="{{game.key_id}}">
+               {{game.title}}
+             </md-option>
+           </md-select>
+         </md-input-container>
+
+  <md-input-container class="md-block" flex-gt-sm>
+         <md-checkbox ng-model="groupGame.show_game_on_group_page" aria-label="show_game_on_group_page">
+             Show this game on the group page.
+         </md-checkbox>
+        </md-input-container>
+
+  <md-button type="submit" ng-click="submitAdd()">Submit</md-button>
+
+          </fieldset>
+          </form>

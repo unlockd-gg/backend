@@ -1,0 +1,169 @@
+.navbar-static-top {
+  margin-bottom: 19px;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+  font-family: "Roboto", "Helvetica Neue", sans-serif ;
+  background-color: #000;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+  background-color: #000;
+  margin: auto;
+  text-align: center;
+  color: #555;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.center-content {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    height: 75%;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+
+.chat {
+	height: 100%;
+}
+
+.chatContent {
+    height: 200px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: white;
+	font-family: 'Cutive Mono' ;
+}
+md-grid-list {
+  margin: 8px;
+}
+.green {
+  background: #b9f6ca; }
+.yellow {
+  background: #ffff8d; }
+.blue {
+  background: #84ffff; }
+.darkBlue {
+  background: #80d8ff; }
+.deepBlue {
+  background: #448aff; }
+.purple {
+  background: #b388ff; }
+.lightPurple {
+  background: #8c9eff; }
+.red {
+  background: #ff8a80; }
+.pink {
+  background: #ff80ab; }
+.gray {
+  background: #f5f5f5;
+}
+
+md-grid-tile {
+  -webkit-transition: all 500ms ease-out 100ms;
+    -moz-transition: all 500ms ease-out 100ms;
+    -o-transition: all 500ms ease-out 100ms;
+    transition: all 500ms ease-out 100ms;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+
+.tournamentHeader {
+  text-align: right;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tournament-team {
+  margin: 15px;
+}
+
+.tournament-round-text {
+  padding: 10px;
+}
+
+.tournament-tier {
+  margin: 15px;
+  background-color: #CCC;
+  max-width: 200px;
+  min-width:180px;
+}
+
+.tournament-match-list {
+  margin: 5px 0px 0px 0px;
+}
+
+.tournament-match {
+  padding: 5px;
+  background-color: #DDD;
+  margin: 0px 0px 5px 0px;
+}
+.tournament-match-team {
+  padding: 5px;
+}
+.tournament-match-winner {
+  background-color: #EEE;
+  font-weight: bold;
+}
+
+.tournament-match-loser{
+  background-color: #CCC;
+}
+
+.agreement-container {
+  text-align:left;
+  overflow-y: scroll;
+  height: 600px;
+  width: 800px;
+}
+
+.save-button-container {
+  padding-top: 100px;
+}

@@ -1,0 +1,26 @@
+<div ng-show="!loaded_game_voucher" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+<div ng-show="loaded_game_voucher">
+
+  <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">View a game voucher record</h3>
+      </div>
+    </md-toolbar>
+      <md-content layout-padding="" class="layout-padding _md">
+
+<form class="form-horizontal" name="form">
+<fieldset>
+
+          <h3>{{ gamevoucher.apiKey }}</h3>
+          <br><br>
+          <p><b>Title</b> {{ gamevoucher.title }}</p>
+          <p>{{ gamevoucher.description }}</p>
+
+          <p ng-show="gamevoucher.singleUse">Single Use</p>
+
+          <p>{{ gamevoucher.starts }}</p>
+          <p>{{ gamevoucher.ends }}</p>
+
+</fieldset>
+</form>

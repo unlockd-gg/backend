@@ -1,0 +1,61 @@
+<md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">Update a member</h3>
+      </div>
+    </md-toolbar>
+      <md-content layout-padding="" class="layout-padding _md">
+
+<form class="form-horizontal" name="updateUser">
+<fieldset>
+        <md-input-container class="md-block md-input-has-value">
+          <label for="input_title">Title</label>
+          <input ng-model="groupUser.userTitle" class="ng-pristine ng-untouched ng-valid md-input" id="input_title" required aria-invalid="false"><div class="md-errors-spacer"></div>
+        </md-input-container>
+
+
+<div style="padding:20px; border:1px; border-style: solid; margin-bottom: 20px;">
+  {{ groupUser.application_message }}
+</div>
+
+        <md-input-container class="md-block">
+        <label>Order</label>
+        <input required type="number" step="any" name="order" ng-model="groupUser.order" min="0"
+               max="1000" />
+
+        <div ng-messages="updateUser.order.$error" multiple md-auto-hide="false">
+          <div ng-message="required">
+            Order is required
+          </div>
+
+          <div ng-message="min">
+            Minimum is 0
+          </div>
+
+
+          <div ng-message="max">
+            Maximum is 1000
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block" flex-gt-sm>
+            <label>Role</label>
+            <md-select ng-model="groupUser.roleKeyId">
+              <md-option ng-repeat="role in groupRoles" value="{{role.key_id}}">
+                {{role.title}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+
+
+          <md-button type="submit" ng-click="submitAdd()">Save Changes</md-button>
+
+            <md-button type="submit" ng-click="submitRemove()">Delete this user from the group</md-button>
+
+            <md-button class="md-secondary" ng-click="showTipDialog($event)"  >
+              Donate group funds to this user
+            </md-button>
+
+          </fieldset>
+          </form>

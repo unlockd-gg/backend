@@ -1,0 +1,133 @@
+
+        <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+              <div class="md-toolbar-tools">
+                <h3 class="ng-binding">Get More CRED</h3>
+              </div>
+            </md-toolbar>
+              <md-content layout-padding class="layout-padding _md">
+
+                <h1>Top up your wallet, and keep going! </h1>
+                <h4>There are several ways to get more CRED</h4>
+
+
+                <md-nav-bar
+                  md-no-ink-bar="disableInkBar"
+                  md-selected-nav-item="currentNavItem"
+                  nav-bar-aria-label="navigation links">
+                  <md-nav-item md-nav-click="goto('page1')" name="page1">
+                    Invite friends
+                  </md-nav-item>
+                  <md-nav-item md-nav-click="goto('page2')" name="page2" ng-disabled="secondTabDisabled">
+                    Earn CRED
+                  </md-nav-item>
+                  <md-nav-item md-nav-click="goto('page3')" name="page3">
+                    Buy CRED
+                  </md-nav-item>
+
+                  <!-- these require actual routing with ui-router or ng-route, so they
+                  won't work in the demo
+                  <md-nav-item md-nav-href="#page4" name="page5">Page Four</md-nav-item>
+                  <md-nav-item md-nav-sref="app.page5" name="page4">Page Five</md-nav-item>
+                  You can also add options for the <code>ui-sref-opts</code> attribute.
+                  <md-nav-item md-nav-sref="page6" sref-opts="{reload:true, notify:true}">
+                    Page Six
+                  </md-nav-item>
+                  -->
+                </md-nav-bar>
+
+                <div class="buycred-text-parent" ng-show="currentNavItem=='home'">
+
+                  <h3>Use your social skills, your game skills, or your wallet skills</h3>
+                </div>
+
+
+                <div class="buycred-text-parent"  ng-show="currentNavItem=='page1'">
+                  <h3>Refer friends</h3>
+                  <p>You get free CRED when you refer players to UETOPIA.  Just give them your referral code.</p>
+                  <p>https://uetopia.com/#/user/{{ userAccount.key }}/referral</p>
+                </div>
+
+                <div class="buycred-text-parent"  ng-show="currentNavItem=='page2'">
+                  <h3>Earn CRED by winning</h3>
+
+                  <p>Win matches and earn your CRED.  Stop dying!</p>
+
+                  <h3>Create your own UE4 game</h3>
+                  <p>Use your creativity to make your own game.  You earn CRED from admission fees, matches, tournaments, purchases, and server travels.
+                </div>
+
+                <div class="buycred-text-parent" ng-show="currentNavItem=='page3'">
+
+                  <div class="buyCredOptions" layout="row" ng-show="ShowPurchaseOptions">
+
+                    <div class="buycred1" ng-click="SelectBuyCred1()">
+                      <div class="center">
+                        <span class="credamount">{{ CredAmountToBuy1| number: 0 }}</span> CRED
+                      </div>
+                    </div>
+
+                    <div class="buycred2" ng-click="SelectBuyCred2()">
+                      <div class="center">
+                        <span class="credamount">{{ CredAmountToBuy2 | number: 0 }}</span> CRED
+                      </div>
+                    </div>
+
+                    <div class="buycred3" ng-click="SelectBuyCred3()">
+                      <div class="center">
+                        <span class="credamount">{{ CredAmountToBuy3 | number: 0 }}</span> CRED
+                      </div>
+                    </div>
+
+                    <div class="buycred4" ng-click="SelectBuyCred4()">
+                      <div class="center">
+                        <span class="credamount">{{ CredAmountToBuy4 | number: 0 }}</span> CRED
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                    <div class="choose-a-way-to-pay-container" ng-show="showChooseAWayToPayButton">
+                      <md-button class="md-raised md-primary" type="submit" ng-click="CreateBraintreeToken()">Choose a way to pay</md-button>
+                    </div>
+
+
+                    <!--
+                    <div ng-show="showTransactionSummary">
+                      <p ng-show="showLoadingPaymentUINotification"> Setting up the secure payment interface, one moment.  </p>
+                    </div>
+                  -->
+
+
+
+                  <div class="transaction-summary" ng-show="showTransactionSummary" layout="row">
+                    <div class="transaction-summary-buying" flex> Buying {{ CredAmountToBuy | number: 0 }} CRED</div>
+                    <div flex></div>
+                    <div class="transaction-summary-paying" flex> Paying ${{ USDAmountToBuy | number: 2 }} USD </div>
+                  </div>
+
+
+
+                  <div ng-show="AmountSelectedBitpay">
+
+                    Opening a New tab to bitpay.  When you are done, you can return here.
+
+                  </div>
+
+                  <div class="braintree-dropin-container-parent" ng-show="showBraintreeDropIn">
+                    <form id="checkout">
+                    <div id="dropin-container"></div>
+                    <input type="hidden" id="nonce" name="payment_method_nonce" />
+                    <input type="hidden" name="amount" value="{{ USDAmountToBuy }}" />
+
+                      <md-button class="md-raised md-primary" type="submit" ng-show="showConfirmButton" id="submit-button">Purchase</md-button>
+                    </form>
+                  </div>
+                </div>
+
+                <div class="buycred-text-parent" ng-show="showTransactionComplete">
+                  <h1>You're all set!</h1>
+                  <h3>Get back in there!</h3>
+                </div>
+
+              </md-content>

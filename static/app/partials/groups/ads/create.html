@@ -1,0 +1,115 @@
+<md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">Create a new ad</h3>
+      </div>
+    </md-toolbar>
+      <md-content layout-padding="" class="layout-padding _md">
+
+<form class="form-horizontal" name="updateUser">
+<fieldset>
+
+<p><b>Ad-block plugins will prevent this form submission from working. </b> Please disable ad-block first.</p>
+<p>&nbsp;</p>
+
+   <md-input-container class="md-block" flex-gt-sm>
+            <label>Game Mode</label>
+            <md-select ng-model="selectedIndex" ng-change="selectGameMode()">
+              <md-option ng-repeat="game_mode in game_modes" value="{{$index}}">
+                {{game_mode.onlineSubsystemReference}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+<p>&nbsp;</p>
+<div ng-show="selectedGameMode.ads_allowed">
+
+          <p> Placing an ad on {{ game.title }} {{ selectedGameMode.onlineSubsystemReference }} for {{ ad.bid_per_impression }} CRED.  </p>
+            <p ng-show="ad.bid_per_impression">Requesting {{ ad.number_of_impressions }} impressions.</p>
+            <p ng-show="ad.number_of_impressions">Withdrawing {{ ad.number_of_impressions * 2 * ad.bid_per_impression }} to cover possible overage.</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+
+            <p ng-show="selectedGameMode.ads_require_approval">Ads require the approval of the game developer before they are shown</p>
+            <p>Ads will be shown:  {{ selectedGameMode.ads_description }}</p>
+            <p>Ad setup docs:  {{ game.group_custom_texture_instructions_link }}</p>
+          <p ng-show="highBid"> Current high bid:  {{ highBid }}</p>
+
+          <p>You can bid any amount higher than {{ selectedGameMode.ads_minimum_bid_per_impression }} CRED.  Highest bids will be shown first.</p>
+
+<p>&nbsp;</p>
+
+          <md-input-container class="md-block">
+          <label>Bid Per Impression</label>
+          <input required type="number" step="any" name="order" ng-model="ad.bid_per_impression" min="0"
+                 max="1000000" />
+
+          <div ng-messages="projectForm.rate.$error" multiple md-auto-hide="false">
+            <div ng-message="required">
+              Order is required
+            </div>
+
+            <div ng-message="min">
+              Minimum is 0
+            </div>
+
+            <div ng-message="max">
+              Maximum is 1000000
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+        <label>Desired number of impressions</label>
+        <input required type="number" step="any" name="order" ng-model="ad.number_of_impressions" min="1"
+               max="1000" />
+
+        <div ng-messages="projectForm.number_of_impressions.$error" multiple md-auto-hide="false">
+          <div ng-message="required">
+            Number of impressions is required
+          </div>
+
+          <div ng-message="min">
+            Minimum is 1 (for now)
+          </div>
+
+          <div ng-message="max">
+            Maximum is 1000 (for now)
+          </div>
+        </div>
+        <div class="hint">Number of impressions is not exact.  For popular games, your actual impressions may be more than this amount.</div>
+      </md-input-container>
+
+
+
+
+
+
+        <md-input-container class="md-block md-input-has-value">
+          <label for="input_title">Title</label>
+          <input ng-model="ad.title" class="ng-pristine ng-untouched ng-valid md-input" id="input_title" required aria-invalid="false"><div class="md-errors-spacer"></div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Description</label>
+          <textarea ng-model="ad.description" md-maxlength="1550" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+          <label for="input_icon_url">Icon Url</label>
+          <input ng-model="ad.icon_url" class="ng-pristine ng-untouched ng-valid md-input" id="input_icon_url" required aria-invalid="false"><div class="md-errors-spacer"></div>
+          <div class="hint">Icon is displayed in various places on the website, and optionally in-game lobby.</div>
+        </md-input-container>
+
+        <md-input-container class="md-block md-input-has-value">
+          <label for="input_textures">Textures Url</label>
+          <input ng-model="ad.textures" class="ng-pristine ng-untouched ng-valid md-input" id="input_textures" required aria-invalid="false"><div class="md-errors-spacer"></div>
+          <div class="hint">Textures are displayed in-game. Follow the game's specific instructions on how to set this up so it displays correctly.</div>
+        </md-input-container>
+
+
+
+  <md-button type="submit" ng-click="submitAdd()">Submit</md-button>
+
+</div>
+<div ng-show="!selectedGameMode.ads_allowed">Ads are not allowed on this game mode</div>
+
+          </fieldset>
+          </form>

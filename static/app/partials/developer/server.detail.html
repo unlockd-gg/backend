@@ -1,0 +1,641 @@
+<div ng-show="!loaded_game_server" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+<div ng-show="loaded_game_server">
+  <md-toolbar class="demo-toolbar md-primary md-hue-3 _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">{{ server.title }} : credentials</h3>
+        <span flex></span>
+          <md-button class="md-icon-button" ng-click="toggleViewCredentials()">
+            <i class="material-icons">vpn_key</i>
+          </md-button>
+      </div>
+    </md-toolbar>
+      <md-content layout-padding="" class="layout-padding _md" ng-show="viewCredentials">
+
+
+          <div>SERVER KEY ID: {{ server.key_id }}</div>
+          <div>SERVER API Key: {{ server.apiKey }}</div>
+          <div>SERVER API Secret: {{ server.apiSecret }}</div>
+
+        </md-content>
+        <md-toolbar class="demo-toolbar md-primary md-hue-3 _md _md-toolbar-transitions">
+              <div class="md-toolbar-tools">
+                <h3 class="ng-binding">{{ server.title }} : details</h3>
+                <span flex></span>
+                  <md-button class="md-icon-button" ng-click="toggleViewEditForm()">
+                    <i class="material-icons">edit</i>
+                  </md-button>
+              </div>
+            </md-toolbar>
+            <!-- Instanced warning header -->
+            <md-toolbar class="demo-toolbar md-warn md-hue-3 _md _md-toolbar-transitions" ng-show="server.instanced_from_template">
+
+                  <div class="md-toolbar-tools" ng-show="server.instanced_for_userKeyId" >
+                    <h3 class="ng-binding" >This is a private user instance!</h3>
+                    <span flex></span>
+                      <md-button ui-sref="userprofile({key_id:server.instanced_for_userKeyId})"  >
+                        {{ server.instanced_for_userTitle }}
+                      </md-button>
+                  </div>
+
+                  <div class="md-toolbar-tools" ng-show="server.instanced_for_userKeyId" >
+                    <h3 class="ng-binding" >This is a party instance!</h3>
+                    <span flex></span>
+
+                        {{ server.instanced_for_partyTitle }}
+
+                  </div>
+
+                  <div class="md-toolbar-tools" ng-show="server.instanced_for_groupKeyId" >
+                    <h3 class="ng-binding" >This is a group instance!</h3>
+                    <span flex></span>
+                      <md-button ui-sref="groupdetail({key_id:server.instanced_for_groupKeyId})" >
+                        {{ server.instanced_for_groupTitle }}
+                      </md-button>
+                  </div>
+
+            </md-toolbar>
+
+              <md-content layout-padding="" class="layout-padding _md" ng-if="viewEditForm">
+                <form name="form" novalidate>
+
+                  <div layout="row">
+                    <div flex>
+
+                      <md-input-container class="md-block" flex-gt-sm>
+                        <label>Level to load on launch.  </label>
+                        <md-select ng-model="targetgamelevel">
+                          <md-option ng-repeat="game_level in game_levels" value="{{game_level.key_id}}">
+                            {{game_level.title}}
+                          </md-option>
+                        </md-select>
+                      </md-input-container>
+
+                    </div>
+                    <div flex>
+
+                      <md-input-container class="md-block md-input-has-value">
+                        <label for="input_title">Title</label>
+                        <input ng-model="server.title" class="ng-pristine ng-untouched ng-valid md-input ng-valid-email" id="input_title" aria-invalid="false"><div class="md-errors-spacer"></div>
+                      </md-input-container>
+
+                    </div>
+                    <div flex>
+
+                      <md-input-container class="md-block">
+                        <label>Random Reference.  (see faq)</label>
+                        <input required type="number" step="any" name="randomRef" min="0"
+                             max="1" ng-model="server.randomRef"  />
+
+                        <div ng-messages="form.randomRef.$error" multiple md-auto-hide="true">
+                          <div ng-message="required">
+                            A number is required here.
+                          </div>
+                          <div ng-message="min">
+                            Minimum 0.0
+                          </div>
+                          <div ng-message="max">
+                            Maximum 1.0
+                          </div>
+                        </div>
+                      </md-input-container>
+
+                    </div>
+                  </div>
+
+                <md-input-container class="md-block">
+                  <label>Description</label>
+                  <textarea ng-model="server.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                  <label>Configuration</label>
+                  <textarea ng-model="server.configuration" md-maxlength="1500" rows="5" md-select-on-focus></textarea>
+                  <div class="hint">JSON formatted data that can be read and written by the server.  Be sure to use properly formatted JSON so the server can read it.</div>
+                </md-input-container>
+
+                <md-input-container class="md-block md-input-has-value">
+                  <label for="input_title">Banner Url</label>
+                  <input ng-model="server.bannerServingUrl" class="ng-pristine ng-untouched ng-valid md-input" id="input_bannerServingUrl" aria-invalid="false"><div class="md-errors-spacer"></div>
+                </md-input-container>
+
+                <div layout="row">
+                  <div flex>
+
+                    <md-input-container class="md-block">
+                      <label>The minimum amount to play </label>
+                      <input required type="number" step="any" name="max_count" min="0"
+                           max="1000000" ng-model="server.minimumCurrencyHold"  />
+
+                      <div ng-messages="form.minimumCurrencyHold.$error" multiple md-auto-hide="true">
+                        <div ng-message="required">
+                          A number is required here.
+                        </div>
+                        <div ng-message="min">
+                          Minimum 0
+                        </div>
+                        <div ng-message="max">
+                          Maximum 1000000
+                        </div>
+                      </div>
+                    </md-input-container>
+
+                  </div>
+                  <div flex>
+
+                    <md-input-container class="md-block">
+                      <label>The admission fee </label>
+                      <input required type="number" step="any" name="min_online" min="0"
+                           max="100000" ng-model="server.admissionFee"  />
+
+                      <div ng-messages="form.admissionFee.$error" multiple md-auto-hide="true">
+                        <div ng-message="required">
+                          A number is required here.
+                        </div>
+                        <div ng-message="min">
+                          Minimum 0
+                        </div>
+                        <div ng-message="max">
+                          Maximum 100,000
+                        </div>
+                      </div>
+                    </md-input-container>
+
+                  </div>
+                  <div flex>
+
+                    <md-input-container class="md-block">
+                      <label>Transfer to game threshold</label>
+                      <input required type="number" step="any" name="min_online" min="100000"
+                           max="10000000" ng-model="server.server_to_game_transfer_threshold"  />
+                           <div class="hint">Amounts higher than this, are transferred off the server to the game on a daily basis.</div>
+
+                      <div ng-messages="form.server_to_game_transfer_threshold.$error" multiple md-auto-hide="true">
+                        <div ng-message="required">
+                          A number is required here.
+                        </div>
+                        <div ng-message="min">
+                          Minimum 100,000
+                        </div>
+                        <div ng-message="max">
+                          Maximum 10,000,000
+                        </div>
+                      </div>
+                    </md-input-container>
+
+                  </div>
+                </div>
+
+                <h3 class="md-title">Optional - Tags required to play on this server</h3>
+                  <md-chips name="tags" ng-model="servertags" readonly="false" md-removable="true">
+                  </md-chips>
+                  <div class="md-chips-messages"
+                       ng-show="form.tags.$dirty || form.$submitted"
+                       ng-messages="form.tags.$error">
+                  </div>
+                  <div class="hint">Press Enter to create a tag.</div>
+
+        <br><br>
+
+
+
+                <div layout="row">
+                  <div flex>
+
+                      <md-input-container class="md-block md-input-has-value">
+                        <label for="input_hostConnectionLink">hostConnectionLink.  Your ip/port if local</label>
+                        <input ng-model="server.hostConnectionLink" class="ng-pristine ng-untouched ng-valid md-input" id="input_hostConnectionLink" aria-invalid="false"><div class="md-errors-spacer"></div>
+                      </md-input-container>
+
+                    </div>
+                    <div flex>
+
+                      <md-input-container class="md-block md-input-has-value">
+                        <label for="input_session_host_address">session_host_address.  Enter junk if blank</label>
+                        <input ng-model="server.session_host_address" class="ng-pristine ng-untouched ng-valid md-input" id="input_session_host_address" aria-invalid="false"><div class="md-errors-spacer"></div>
+                      </md-input-container>
+
+                    </div>
+                    <div flex>
+
+                      <md-input-container class="md-block md-input-has-value">
+                        <label for="input_session_id">session_id.  Enter junk if blank</label>
+                        <input ng-model="server.session_id" class="ng-pristine ng-untouched ng-valid md-input" id="input_session_id" aria-invalid="false"><div class="md-errors-spacer"></div>
+                      </md-input-container>
+
+                    </div>
+                  </div>
+
+                  <md-input-container class="md-block md-input-has-value">
+                  <md-checkbox ng-model="server.vendors_allowed" aria-label="vendors_allowed">
+                      Vendors are permitted
+                    </md-checkbox>
+
+                    <md-checkbox ng-model="server.player_created_vendors_allowed" aria-label="vendors_allowed" ng-show="server.vendors_allowed">
+                        Player created vendors are permitted
+                      </md-checkbox>
+                      </md-input-container>
+
+                  <md-checkbox ng-model="server.invisible_developer_setting" aria-label="invisible_developer_setting">
+                      Keep this server invisible to other users.
+                    </md-checkbox>
+
+                    <md-input-container class="md-block md-input-has-value">
+                    <md-checkbox ng-model="server.continuous_server_provisioned" aria-label="continuous_server_provisioned">
+                        This server is currently provisioned.
+                      </md-checkbox>
+                      <div class="hint" >Manually enabling this can prevent dynamic servers from being created, which is useful for testing on your local network.</div>
+                      <div class="hint" >Sometimes, a server can get stuck in the provisioned state after a crash or similar.  If the server is dead, turn this off, and it can be brought up again.</div>
+                      </md-input-container>
+
+
+                      <md-checkbox ng-model="server.drop_items_permitted" aria-label="drop_items_permitted">
+                          Players can drop items here
+                        </md-checkbox>
+                        </md-input-container>
+                        <md-checkbox ng-model="server.pickup_items_permitted" aria-label="pickup_items_permitted" >
+                            Players can pick up items here
+                          </md-checkbox>
+                          </md-input-container>
+
+
+                  <md-input-container class="md-block md-input-has-value" ng-show="show_links">
+                  <md-checkbox ng-model="server.continuous_server_entry" aria-label="continuous_server_entry">
+                      This server is an entry point.
+                    </md-checkbox>
+                  </md-input-container>
+
+
+                  <md-input-container   class="md-block md-input-has-value" ng-show="show_links">
+                  <md-checkbox ng-model="server.infinite_server_unused" aria-label="infinite_server_unused" id="input_infinite_server_unused">
+                    Infinite mode template.  All outgoing server links and all connected servers will be created when a user transfers here.
+                    </md-checkbox>
+                    <div class="hint">Be careful!  <br>
+                      Don't create server links for placeholder servers.<br>
+                    Don't turn this on after it has been turned off, or you will lose all of the existing server links, and servers may be unreachable.</div>
+                    <div class="hint" >Not useable with Instanced Templates.</div>
+                  </md-input-container>
+
+                  <md-input-container class="md-block md-input-has-value" ng-show="show_links">
+                  <md-checkbox ng-model="server.instance_server_template" aria-label="continuous_server_entry">
+                      This server is an instance template.
+                    </md-checkbox>
+                    <div class="hint" >Other servers are created based on this server's configuration</div>
+                    <div class="hint" >Not useable with Infinite Template.</div>
+                    </md-input-container>
+
+                    <div ng-show="server.instance_server_template">
+
+                    <md-toolbar class="md-theme-light">
+                        <h2 class="md-toolbar-tools">
+                          <span>Instanced template configuration</span>
+                        </h2>
+                      </md-toolbar>
+
+                      <md-input-container class="md-block md-input-has-value">
+                      <md-checkbox ng-model="server.instance_server_purge_after_use" aria-label="instance_server_purge_after_use">
+                          Purge the server after use.
+                        </md-checkbox>
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                          <label>Purge delay seconds</label>
+                          <input  type="number" step="any" name="instance_server_purge_delay_seconds" min="10"
+                               max="604800" ng-model="server.instance_server_purge_delay_seconds"  />
+                               <div class="hint">How many seconds to wait before purging the used server.</div>
+
+                          <div ng-messages="form.instance_server_purge_delay_seconds.$error" multiple md-auto-hide="true">
+                            <div ng-message="required">
+                              A number is required here.
+                            </div>
+                            <div ng-message="min">
+                              Minimum 10
+                            </div>
+                            <div ng-message="max">
+                              Maximum 604800 (one week)
+                            </div>
+                          </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" flex-gt-sm>
+                          <label>Instance type</label>
+                          <md-select ng-model="server.instance_server_configuration">
+                            <md-option value="user">
+                              Private
+                            </md-option>
+                            <md-option value="party">
+                              Party
+                            </md-option>
+                            <md-option value="group">
+                              Group
+                            </md-option>
+                          </md-select>
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                          <label>Maximum party size</label>
+                          <input  type="number" step="any" name="instance_party_size_maximum" min="1"
+                               max="40" ng-model="server.instance_party_size_maximum"  />
+
+                          <div ng-messages="form.server_to_game_transfer_threshold.$error" multiple md-auto-hide="true">
+                            <div ng-message="required">
+                              A number is required here.
+                            </div>
+                            <div ng-message="min">
+                              Minimum 1
+                            </div>
+                            <div ng-message="max">
+                              Maximum 40
+                            </div>
+                          </div>
+                        </md-input-container>
+
+                    </div>
+
+
+
+
+<md-divider></md-divider>
+
+                      <md-input-container class="md-block md-input-has-value">
+                      <md-checkbox ng-model="server.continuous_server" aria-label="invisible_developer_setting">
+                          Create and destroy this server on demand
+                        </md-checkbox>
+                        </md-input-container>
+
+
+
+                      <div ng-show="server.continuous_server">
+
+                        <md-input-container class="md-block" ng-show="show_links">
+                            <md-checkbox ng-model="server.sharded_server_template" aria-label="sharded_server_template">
+                                Shard this server to multiple sub-servers as load demands.
+                            </md-checkbox>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" ng-show="server.sharded_server_template">
+                          <label>How many shards are permitted?</label>
+                          <input type="number" step="any" name="max_count" min="1"
+                               max="1000" ng-model="server.shard_count_maximum"  />
+
+
+
+                          <div ng-messages="form.shard_count_maximum.$error" multiple md-auto-hide="true">
+                            <div ng-message="required">
+                              A number is required here.
+                            </div>
+                            <div ng-message="min">
+                              Minimum 1
+                            </div>
+                            <div ng-message="max">
+                              Maximum 1000
+                            </div>
+                          </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" ng-show="server.sharded_server_template">
+                          <label>Per-shard player capacity maximum</label>
+                          <input type="number" step="any" name="max_count" min="1"
+                               max="80" ng-model="server.sharded_player_capacity_maximum"  />
+
+                               <div class="hint">The maximum number of players that this server can support.
+                                 Once the server exceeds this population, no new players will be directed here, and requests to transfer directly will be declined
+                               </div>
+
+                          <div ng-messages="form.sharded_player_capacity_maximum.$error" multiple md-auto-hide="true">
+                            <div ng-message="required">
+                              A number is required here.
+                            </div>
+                            <div ng-message="min">
+                              Minimum 1
+                            </div>
+                            <div ng-message="max">
+                              Maximum 100
+                            </div>
+                          </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block" ng-show="server.sharded_server_template">
+                          <label>Per-shard player capacity threshold</label>
+                          <input type="number" step="any" name="max_count" min="1"
+                               max="80" ng-model="server.sharded_player_capacity_threshold"  />
+
+                               <div class="hint">This number should be about half of the maximum capacity.  Once the server exceeds this population, players will begin to be redirected to other shards instead.</div>
+
+                          <div ng-messages="form.sharded_player_capacity_threshold.$error" multiple md-auto-hide="true">
+                            <div ng-message="required">
+                              A number is required here.
+                            </div>
+                            <div ng-message="min">
+                              Minimum 1
+                            </div>
+                            <div ng-message="max">
+                              Maximum 80
+                            </div>
+                          </div>
+                        </md-input-container>
+
+                      </div>
+
+                      <md-divider></md-divider>
+
+                <div>
+                  <md-button type="submit" ng-click="submit(form, server)" >Save</md-button>
+                </div>
+                <div>
+                  <md-button type="submit" ng-click="remove(server)" >Delete</md-button>
+                </div>
+              </form>
+        </md-content>
+
+        <md-toolbar class="demo-toolbar md-primary md-hue-3 _md _md-toolbar-transitions">
+              <div class="md-toolbar-tools">
+                <h3 class="ng-binding">{{ server.title }} : transactions</h3>
+                <span flex></span>
+                  <md-button class="md-icon-button" ng-click="toggleViewTransactions()">
+                    <i class="material-icons">receipt</i>
+                  </md-button>
+              </div>
+            </md-toolbar>
+              <md-content layout-padding="" class="layout-padding _md" ng-if="viewTransactions">
+
+                <div ng-show="!loaded_game_server_transactions" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+                <div ng-show="loaded_game_server_transactions">
+
+
+                <div ng-show="!transactions.length">No transactions to show.</div>
+                <md-list>
+
+                 <md-list-item ng-repeat="transaction in transactions" class="noright">
+                   <md-icon class="material-icons {{ transaction.materialDisplayClass }}">{{ transaction.materialIcon }}</md-icon>
+                   <p><b><span am-time-ago="transaction.created | amUtc "></span></b> : {{ transaction.description }}</p>
+                   <md-button class="md-secondary" ng-click="doSecondaryAction($event)">{{ transaction.amountInt | number }}</md-button>
+                   <md-button class="md-primary" ng-click="doSecondaryAction($event)">{{ transaction.newBalanceInt | number }}</md-button>
+                 </md-list-item>
+                </md-list>
+
+              </div>
+
+              </md-content>
+
+          <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions" ng-show="show_links">
+            <div class="md-toolbar-tools">
+              <h3 class="ng-binding">Server Links</h3>
+            </div>
+          </md-toolbar>
+            <md-content layout-padding="" class="layout-padding _md" ng-show="show_links">
+
+              <div ng-show="!loaded_game_server_links" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+              <div ng-show="loaded_game_server_links">
+
+
+
+              <div>Links allow servers to communicate with and control each other</div>
+
+              <div ng-show="!serverlinks.length">Nothing to show.</div>
+
+              <md-button style="margin-bottom: 20px;" type="submit" ui-sref="developerserverlinkcreate({gameKeyId:server.gameKeyId, serverClusterKeyId:server.serverClusterKeyId, serverKeyId:server.key_id})">Add a new server link</md-button>
+
+                <div layout="row" layout-wrap>
+                <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch ng-repeat="serverlink in serverlinks">
+                  <md-card-title>
+                    <md-card-title-text>
+                      <span class="md-headline">{{serverlink.targetServerTitle}}</span>
+
+                    </md-card-title-text>
+                    <md-card-title-media>
+                      <div class="md-media-sm card-media"></div>
+                    </md-card-title-media>
+                  </md-card-title>
+                  <md-card-actions layout="row" layout-align="end center">
+                    <md-button ui-sref="developerserverlinkdetail({gameKeyId: serverlink.gameKeyId, serverClusterKeyId: serverlink.serverClusterKeyId, serverKeyId: serverlink.originServerKeyId, key_id: serverlink.key_id})">Edit</md-button>
+
+                  </md-card-actions>
+                </md-card>
+                </div>
+
+              </div>
+
+
+              </md-content>
+
+
+
+
+
+
+              <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions" ng-show="server.sharded_server_template">
+                <div class="md-toolbar-tools">
+                  <h3 class="ng-binding">Server Shards</h3>
+                </div>
+              </md-toolbar>
+                <md-content layout-padding="" class="layout-padding _md" ng-show="server.sharded_server_template">
+
+
+                  <div>Shards are created on-the fly to accomodate player load</div>
+
+                  <div ng-show="!serverlinks.length">Nothing to show.</div>
+
+                    <div layout="row" layout-wrap>
+                    <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch ng-repeat="shard in shards">
+                      <md-card-title>
+                        <md-card-title-text>
+                          <span class="md-headline">{{shard.title}}</span>
+
+                        </md-card-title-text>
+                        <md-card-title-media>
+                          <div class="md-media-sm card-media"></div>
+                        </md-card-title-media>
+                      </md-card-title>
+                      <md-card-actions layout="row" layout-align="end center">
+                        <md-button ui-sref="developerserverdetail({gameKeyId: server.gameKeyId, serverClusterKeyId: server.serverClusterKeyId, key_id: shard.key_id})">Edit</md-button>
+
+
+                      </md-card-actions>
+                    </md-card>
+                    </div>
+
+
+                  </md-content>
+
+
+
+                  <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions" ng-show="server.instance_server_template">
+                    <div class="md-toolbar-tools">
+                      <h3 class="ng-binding">Server Instances</h3>
+                    </div>
+                  </md-toolbar>
+                    <md-content layout-padding="" class="layout-padding _md" ng-show="server.instance_server_template">
+
+
+                      <div>Instances are created on demand.</div>
+
+                      <div ng-show="!server_instances.length">Nothing to show.</div>
+
+                        <div layout="row" layout-wrap>
+                        <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch ng-repeat="instance in server_instances">
+                          <md-card-title>
+                            <md-card-title-text>
+                              <span class="md-headline">{{instance.title}}</span>
+
+                            </md-card-title-text>
+                            <md-card-title-media>
+                              <div class="md-media-sm card-media"></div>
+                            </md-card-title-media>
+                          </md-card-title>
+                          <md-card-actions layout="row" layout-align="end center">
+                            <md-button ui-sref="developerserverdetail({gameKeyId: server.gameKeyId, serverClusterKeyId: server.serverClusterKeyId, key_id: instance.key_id})">Edit</md-button>
+
+
+                          </md-card-actions>
+                        </md-card>
+                        </div>
+
+
+                      </md-content>
+
+
+
+
+              <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions" ng-show="server.vendors_allowed">
+                <div class="md-toolbar-tools">
+                  <h3 class="ng-binding">Vendors</h3>
+                </div>
+              </md-toolbar>
+                <md-content layout-padding="" class="layout-padding _md" ng-show="server.vendors_allowed">
+
+                  <div ng-show="!loaded_vendors" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+                  <div ng-show="loaded_vendors">
+
+
+
+                  <div>Vendors facilitate trade between players, and are added within the game client.</div>
+
+                  <div ng-show="!vendors.length">Nothing to show.</div>
+
+                    <div layout="row" layout-wrap>
+                    <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch ng-repeat="serverlink in serverlinks">
+                      <md-card-title>
+                        <md-card-title-text>
+                          <span class="md-headline">{{vendor.title}}</span>
+
+                        </md-card-title-text>
+                        <md-card-title-media>
+                          <div class="md-media-sm card-media"></div>
+                        </md-card-title-media>
+                      </md-card-title>
+                      <md-card-actions layout="row" layout-align="end center">
+                        <md-button ui-sref="developervendordetail({key_id: vendor.key_id})">Edit</md-button>
+
+                      </md-card-actions>
+                    </md-card>
+                    </div>
+
+                  </div>
+
+
+                  </md-content>
+</div>

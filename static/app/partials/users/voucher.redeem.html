@@ -1,0 +1,74 @@
+
+        <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+              <div class="md-toolbar-tools">
+                <h3 class="ng-binding">Redeem a voucher</h3>
+              </div>
+        </md-toolbar>
+              <md-content layout-padding="" class="layout-padding _md">
+                  <div>{{ response.response_message }}</div>
+
+
+
+                  <form class="form-horizontal" name="redeemVoucher" ng-show="showVoucherKeyForm">
+                  <fieldset>
+                          <md-input-container class="md-block md-input-has-value">
+                            <label for="input_title">Enter the voucher key</label>
+                            <input required ng-model="voucherKey" class="ng-pristine ng-untouched ng-valid md-input " id="input_voucherKey" aria-invalid="false"><div class="md-errors-spacer"></div>
+                          </md-input-container>
+
+                  <md-button type="submit" ng-click="submitAdd(redeemVoucher)">Validate</md-button>
+
+                  </fieldset>
+                  </form>
+
+                  <div ng-show="showOfferDetails">
+
+                    <form class="form-horizontal" name="redeemVoucherDetails">
+                    <fieldset>
+
+                      <h2>This voucher grants you access to: {{ offer.gameTitle }} : {{ offer.title }} </h2>
+
+                      <div ng-show="offer.existingBadge"> You already have a badge for this offer </div>
+
+                      <div ng-show="!offer.existingBadge">
+
+                        <h3 ng-show="offer.price == 0">FREE</h3>
+                        <h3 ng-show="offer.price > 0">The cost to purchase this offer is {{ offer.price }} CRED</h3>
+
+                        <div ng-show="offer.timed">
+                        <h3>This offer lasts for a duration of {{ offer.duration_days }}  days and {{ offer.duration_seconds }} seconds</h3>
+
+                          <div ng-show="offer.autoRefreshCapable">
+                            <p>This offer can be setup to refresh itself when it expires.  </p>
+                            <md-checkbox ng-model="autoRefresh" aria-label="Auto Refresh">
+                                Enable Auto-refresh
+                            </md-checkbox>
+
+                          </div>
+                        </div>
+
+
+                        <h3 ng-show="!offer.timed">This offer is not timed, and will never expire.</h3>
+
+                        <p>{{ offer.description}}</p>
+
+                        <h3>This offer grants the following tags</h3>
+                        <md-chips >
+                          <md-chip ng-repeat="tag in offer.tags">{{tag}}</md-chip>
+                        </md-chips>
+
+                        <br><br>
+
+                        <md-button class="md-primary md-raised" ng-click="showConfirm($event)" >
+                          Confirm and Claim this offer
+                        </md-button>
+
+                      </div>
+
+                    </fieldset>
+                    </form>
+
+
+                  </div>
+
+              </md-content>

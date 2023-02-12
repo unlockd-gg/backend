@@ -1,0 +1,52 @@
+<md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">Groups</h3>
+
+      </div>
+    </md-toolbar>
+
+    <md-content layout-padding="" class="layout-padding _md">
+
+      <div ng-show="!groups.length">No groups to show.</div>
+
+      <md-button ng-show="user" style="margin-bottom: 20px;" type="submit" ui-sref="groupcreate">Add a guild, clan, or community</md-button>
+      <md-button ng-show="!user" style="margin-bottom: 20px;" type="submit" ng-disabled="true">Login to Add a guild, clan, or community</md-button>
+
+        <div layout="row" layout-wrap>
+          <md-card ng-repeat="group in groups" style="width: 400px;">
+           <md-card-header>
+             <md-card-avatar>
+               <span ng-hide="group.icon_url">
+                 <i ng-show="group.genre=='Community'" class="material-icons">group</i>
+                 <i ng-show="group.genre=='Clan'" class="material-icons">grain</i>
+                 <i ng-show="group.genre=='eSports'" class="material-icons">event_seat</i>
+                 <i ng-show="group.genre=='Guild'" class="material-icons">group_work</i>
+               </span>
+
+               <img ng-show="group.icon_url" ng-src="{{ group.icon_url }}"/>
+             </md-card-avatar>
+
+           </md-card-header>
+           <img ng-src="{{group.bannerServingUrl }}" class="md-card-image" alt="group banner" style="width: 400px;">
+           <md-card-title>
+             <md-card-title-text>
+               <span class="md-headline">{{group.title}}</span>
+             </md-card-title-text>
+           </md-card-title>
+           <md-card-content>
+             <p>
+               {{ group.description }}
+             </p>
+           </md-card-content>
+           <md-card-actions layout="row" layout-align="end center">
+             <md-button ui-sref="groupdetail({key_id:group.key_id})">View</md-button>
+
+           </md-card-actions>
+         </md-card>
+
+
+
+        </div>
+
+
+      </md-content>

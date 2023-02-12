@@ -1,0 +1,209 @@
+<md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">My Profile</h3>
+
+      </div>
+    </md-toolbar>
+
+    <md-content layout-padding="" class="layout-padding _md">
+
+        <form name="form" novalidate>
+
+        <md-input-container class="md-block md-input-has-value">
+          <label for="input_title">Your name/handle.  This is how other users will see you.</label>
+          <input ng-model="thisuser.title" class="ng-pristine ng-untouched ng-valid md-input" id="input_title" required aria-invalid="false" minlength="3" maxlength="13" ng-pattern="/^[a-zA-Z0-9]*$/" >
+          <div ng-messages="form.input_title.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+              Your title must be between 3 and 13 characters long and contain no special characters
+            </div>
+          </div>
+          <div class="md-errors-spacer"></div>
+        </md-input-container>
+
+      <md-input-container class="md-block">
+        <label for="region">Which region is closest to you:</label>
+        <md-select ng-model="thisuser.selectedRegion" placeholder="Region" class="md-no-underline">
+          <md-option value="northamerica-northeast1">Northeast North America: Montreal, Canada</md-option>
+          <md-option value="us-west1">Western US:	 Oregon</md-option>
+          <md-option value="us-west2">Western US:  Los Angeles</md-option>
+
+          <md-option value="us-west3">Western US: Salt Lake City</md-option>
+          <md-option value="us-west4">Western US: Las Vegas</md-option>
+
+          <md-option value="us-central1">Central US:	Iowa</md-option>
+          <md-option value="us-east1">Eastern US:	South Carolina</md-option>
+          <md-option value="us-east4">Eastern US: Northern Virginia</md-option>
+          <md-option value="southamerica-east1">Eastern South America: Sao Paulo, Brazil</md-option>
+          <md-option value="europe-north1">North Europe: Hamina, Finland</md-option>
+          <md-option value="europe-west1">Western Europe:	 Belgium</md-option>
+          <md-option value="europe-west2">Western Europe:	 London U.K.</md-option>
+          <md-option value="europe-west3">Western Europe:	 Frankfurt, Germany</md-option>
+          <md-option value="europe-west4">Western Europe:	 Eemshaven, Netherlands</md-option>
+
+          <md-option value="europe-west6">Western Europe: Zurich</md-option>
+
+          <md-option value="asia-south1">South Asia:	Mumbai, India</md-option>
+          <md-option value="asia-southeast1">Southeast Asia:	Singapore</md-option>
+          <md-option value="asia-east1">East Asia:	Changhua County, Taiwan</md-option>
+          <md-option value="asia-east2">East Asia: Hong Kong</md-option>
+          <md-option value="asia-northeast1">Northeast Asia:	Tokyo</md-option>
+
+          <md-option value="asia-northeast2">Northeast Asia: Osaka</md-option>
+          <md-option value="asia-northeast3">Northeast Asia: Seoul</md-option>
+
+          <md-option value="australia-southeast1">Southeast Australia:	Sydney, Australia</md-option>
+        </md-select>
+      </md-input-container>
+
+<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+      <md-button class="md-raised md-primary" type="submit" ng-click="submit(form,thisuser)" >Save</md-button>
+          <md-button class="md-raised" ng-show="!viewOptionalForm" ng-click="toggleViewOptionalForm()" >Show Optional Fields</md-button>
+          <md-button class="md-raised" ng-show="viewOptionalForm" ng-click="toggleViewOptionalForm()" >Hide Optional Fields</md-button>
+</section>
+
+        <div ng-show="viewOptionalForm">
+
+
+          <md-input-container class="md-block" ng-show="group_users">
+            <label for="groupTag">Which group tag do you want to display:</label>
+            <md-select ng-model="thisuser.groupTagKeyIdStr" placeholder="[tag]" class="md-no-underline"  id="groupTag" >
+              <md-option ng-repeat="group_user in group_users" value="{{group_user.groupKeyId}}">
+                {{group_user.groupTitle}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-input-container class="md-block md-input-has-value">
+            <label for="input_title">Default team title.  </label>
+            <input ng-model="thisuser.defaultTeamTitle" class="ng-pristine ng-untouched ng-valid md-input" id="input_title"  aria-invalid="false" minlength="3" maxlength="18" >
+            <div ng-messages="form.input_team_title.$error" role="alert">
+              <div ng-message-exp="['minlength', 'maxlength']">
+                Team title must be between 3 and 18 characters long
+              </div>
+            </div>
+            <div class="md-errors-spacer"></div>
+          </md-input-container>
+
+
+
+
+          <md-input-container class="md-block">
+            <label>A short summary of your gaming profile.</label>
+            <textarea ng-model="thisuser.description" md-maxlength="300" rows="5" md-select-on-focus></textarea>
+          </md-input-container>
+
+          <md-input-container class="md-block" ng-if="!thisuser.profile_saved">
+            <label for="Personality">When you are playing games, you are mostly interested in:</label>
+            <md-select ng-model="thisuser.selectedPersonality" placeholder="Personality" class="md-no-underline">
+              <md-option value="killer">Killing. I like to interfere with the functioning of the game world or the play experience of other players</md-option>
+      				<md-option value="achiever">Achieveing. I  like to accumulate status tokens by beating the rules-based challenges of the game world</md-option>
+      				<md-option value="explorer">Exploring.  I like to discover the systems governing the operation of the game world</md-option>
+      				<md-option value="socializer">Socializing. I like to form relationships with other players by telling stories within the game world</md-option>
+            </md-select>
+          </md-input-container>
+
+          <div class="developer-enabled" ng-show="thisuser.developer">
+            Developer Enabled {{ saveReminder }}
+          </div>
+          <div class="developer-enabled" ng-show="!thisuser.developer">
+            <md-button type="submit" ng-click="enableDeveloperTools($event)" >Enable Developer Tools</md-button>
+          </div>
+
+          <md-input-container class="md-block">
+          <md-checkbox ng-model="thisuser.twitch_streamer" aria-label="Developer">
+              Do you stream on twitch.tv?
+            </md-checkbox>
+          </md-input-container>
+
+          <md-input-container class="md-block md-input-has-value">
+            <label for="input_title">Your twitch username.</label>
+            <input ng-model="thisuser.twitch_channel_id" class="ng-pristine ng-untouched ng-valid md-input" id="input_title" aria-invalid="false"><div class="md-errors-spacer"></div>
+          </md-input-container>
+
+
+
+          <p>How do you prefer to financially support the games you play?</p>
+
+          <md-input-container class="md-block">
+          <md-checkbox ng-model="thisuser.gsp_totally_free" aria-label="Developer">
+              I like games that are totally free
+            </md-checkbox>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+          <md-checkbox ng-model="thisuser.gsp_advertisements" aria-label="Developer">
+              I like to view Advertisements
+            </md-checkbox>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+          <md-checkbox ng-model="thisuser.gsp_free_to_play" aria-label="Developer">
+              I like the free-to-play model, with in-game transactions
+            </md-checkbox>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+          <md-checkbox ng-model="thisuser.gsp_subscription" aria-label="Developer">
+              I like to pay for subscriptions on a weekly, monthly or yearly basis
+            </md-checkbox>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+          <md-checkbox ng-model="thisuser.gsp_sticker_price_purchase" aria-label="Developer">
+              I like to pay the sticker price
+            </md-checkbox>
+          </md-input-container>
+
+          <p>Push your notifications to a personal discord channel</p>
+
+          <md-input-container class="md-block md-input-has-value">
+            <label for="discord_webhook">Discord Webhook</label>
+            <input ng-model="thisuser.discord_webhook" class="ng-pristine ng-untouched ng-valid md-input" id="discord_webhook" aria-invalid="false"><div class="md-errors-spacer"></div>
+          </md-input-container>
+
+          <md-checkbox ng-model="thisuser.discord_subscribe_errors" aria-label="discord_subscribe_errors">
+              Errors
+          </md-checkbox>
+          <md-checkbox ng-model="thisuser.discord_subscribe_transactions" aria-label="discord_subscribe_transactions">
+              Transactions
+          </md-checkbox>
+          <md-checkbox ng-model="thisuser.discord_subscribe_consignments" aria-label="discord_subscribe_consignments">
+              Consignment activity
+          </md-checkbox>
+
+          <p>Getting too many emails from us?</p>
+
+          <md-input-container class="md-block">
+          <md-checkbox ng-model="thisuser.opt_out_email_promotions" aria-label="Promotional Email opt-out">
+              Opt-out of promotional emails
+            </md-checkbox>
+          </md-input-container>
+          <md-input-container class="md-block">
+          <md-checkbox ng-model="thisuser.opt_out_email_alerts" aria-label="Alert Email opt-out">
+              Opt-out of alert emails
+            </md-checkbox>
+          </md-input-container>
+
+
+
+
+<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+              <md-button class="md-raised md-primary" type="submit" ng-click="submit(form,thisuser)" >Save</md-button>
+              <md-button class="md-raised" type="submit" ui-sref="userprofile({key_id: userAccount.key})" >View my public profile</md-button>
+</section>
+          </form>
+
+    </md-content>
+
+
+<md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">My Referral Link</h3>
+
+      </div>
+    </md-toolbar>
+
+<md-content layout-padding="" class="layout-padding _md">
+  <p>Help spread the fun!  You'll get free CRED for every user that uses your referral code.</p>
+  <p>https://uetopia.com/#/user/{{ userAccount.key }}/referral</p>
+</md-content>

@@ -1,0 +1,29 @@
+<div ng-show="!loaded_game_offers" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+<div ng-show="loaded_game_offers">
+
+
+
+                    <md-toolbar class="demo-toolbar md-primary md-hue-3 _md _md-toolbar-transitions" >
+                      <div class="md-toolbar-tools">
+                        <h3 class="ng-binding">Offers</h3>
+                      </div>
+                    </md-toolbar>
+                      <md-content layout-padding="" class="layout-padding _md" >
+
+                          <div>Offers allow access to certain features, modes, or areas of a game.</div>
+
+                          <div ng-show="!offers.length">Nothing to show.</div>
+
+                          <md-button style="margin-bottom: 20px;" type="submit" ui-sref="developergameoffercreate({gameKeyId:gameKeyId})">Add an offer</md-button>
+
+                          <md-list>
+                           <md-list-item ng-repeat="offer in offers" class="noright">
+                             <p><b><span am-time-ago="offer.created | amUtc "></span></b> : {{ offer.title }}</p>
+                             <md-button class="md-secondary" ui-sref="developergameofferdetail({gameKeyId:offer.gameKeyId, offerKeyId:offer.key_id})">edit</md-button>
+                           </md-list-item>
+                          </md-list>
+
+                        </md-content>
+
+</div>

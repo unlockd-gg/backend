@@ -1,0 +1,110 @@
+<md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">Add a Server Cluster</h3>
+      </div>
+    </md-toolbar>
+      <md-content layout-padding="" class="layout-padding _md">
+        <form name="form" novalidate>
+        <md-input-container class="md-block md-input-has-value">
+          <label for="input_title">Title</label>
+          <input ng-model="servercluster.title" class="ng-pristine ng-untouched ng-valid md-input ng-valid-email" id="input_title" aria-invalid="false"><div class="md-errors-spacer"></div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Description</label>
+          <textarea ng-model="servercluster.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+
+
+
+
+        <md-input-container class="md-block">
+          <label>Server to game CRED transfers happen automatically when the server's balance exceeds this amount.</label>
+          <input required type="number" step="any" name="min_online" min="1000000"
+               max="10000000" ng-model="servercluster.server_to_game_transfer_threshold"  />
+
+          <div ng-messages="projectForm.server_to_game_transfer_threshold.$error" multiple md-auto-hide="true">
+            <div ng-message="required">
+              A number is required here.
+            </div>
+            <div ng-message="min">
+              Minimum 1000000
+            </div>
+            <div ng-message="max">
+              Maximum 10000000
+            </div>
+          </div>
+        </md-input-container>
+
+
+        <md-input-container class="md-block">
+          <label for="region">Server Creation Mode:</label>
+          <md-select ng-model="servercluster.serverCreationMode" placeholder="Server Creation Mode" class="md-no-underline">
+            <md-option value="fixed">Fixed number of servers.  You specifically define them.</md-option>
+    				<md-option value="infinite">Infinite number of servers.	 They are defined as needed.</md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label for="region">Player Travel Mode:</label>
+          <md-select ng-model="servercluster.travelMode" placeholder="Player Travel Mode" class="md-no-underline">
+            <md-option value="restricted">Restricted.  Players must use in-game portals to move between servers.</md-option>
+    				<md-option value="free">Free.	 Players may join any server at any time, and can use in-game portals also.</md-option>
+          </md-select>
+        </md-input-container>
+
+
+        <md-input-container class="md-block">
+          <label for="region">New Player Start Mode:</label>
+          <md-select ng-model="servercluster.newPlayerStartMode" placeholder="Server Creation Mode" class="md-no-underline">
+            <md-option value="random entry">Pick an entry server at random.</md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label for="region">Rejoining player Start Mode:</label>
+          <md-select ng-model="servercluster.rejoiningPlayerStartMode" placeholder="Server Creation Mode" class="md-no-underline">
+            <md-option value="previous">Start players on the server they were last on. </md-option>
+    				<md-option value="random entry">Start players on a random entry server.</md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container class="md-block" ng-show="servercluster.serverCreationMode == 'fixed'">
+          <label>How many servers are allowed</label>
+          <input required type="number" step="any" name="max_count" min="2"
+               max="16" ng-model="servercluster.max_count"  />
+
+          <div ng-messages="projectForm.max_count.$error" multiple md-auto-hide="true">
+            <div ng-message="required">
+              A number is required here.
+            </div>
+            <div ng-message="min">
+              Minimum 2
+            </div>
+            <div ng-message="max">
+              Maximum 16
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" ng-show="servercluster.serverCreationMode == 'infinite'">
+          <label>When a new server is created, some CRED is moved from the game wallet, into the server's wallet.  How much should be moved?</label>
+          <input required type="number" step="any" name="min_online" min="0"
+               max="10000000" ng-model="servercluster.game_to_server_initial_transfer_amount"  />
+
+          <div ng-messages="projectForm.game_to_server_initial_transfer_amount.$error" multiple md-auto-hide="true">
+            <div ng-message="required">
+              A number is required here.
+            </div>
+            <div ng-message="min">
+              Minimum 0
+            </div>
+            <div ng-message="max">
+              Maximum 10000000
+            </div>
+          </div>
+        </md-input-container>
+
+
+        <md-button type="submit" ng-click="submitAdd()">Submit</md-button>
+      </form>
+</md-content>

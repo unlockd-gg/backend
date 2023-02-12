@@ -1,0 +1,63 @@
+<md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">FAQ</h3>
+
+      </div>
+    </md-toolbar>
+
+    <md-content layout-padding="" class="layout-padding _md">
+
+      <p><b>What is UETOPIA?</b></p>
+      <p>At it's core, UEtopia is a dedicated server manager.  It controls the physical servers, and configures Unreal Engine dedicated server code.
+        Providing these servers with additional information about the players and thier environment allows the game servers to do more things, like matchmaker, tournaments and instanced dungeons.  </p>
+
+      <p><b>What platforms are supported?</b></p>
+      <p>Windows is the only platform that is supported currently.  Mobile and console support is on the roadmap.</p>
+
+      <p><b>Do I need an external service to host my dedicated servers?</b></p>
+      <p>One of UEtopia's strenghs is the ability to manage dedicated servers and scale them to suit the needs of your game's playerbase.
+        You can use other server providers, but you miss out on a lot of UEtopia's features - like spinning down servers with no players.</p>
+
+      <p><b>Do I have to build a ranking system?</b></p>
+      <p>UEtopia example code comes with an ELO ranking system implementation, and all of the logic to keep track of it.  So out of the box, ranking works.
+        If you want to use a special ranking system of your own design, or bounce up against an api to calculate it, that is totally possible.  </p>
+
+      <p><b>Is it easy for game modes to be 5v5 or 10v10?</b></p>
+      <p>The only limit to the number of players in a match is the engine itself.  </p>
+
+      <p><b>What about latency?</b></p>
+      <p>UEtopia uses datacenters worldwide to deploy dedicated servers.  You can see the list of supported regions in your profile page.  Matchmaker and the server browser will match up players in the same region. </p>
+
+
+      <p><b>Who is paying for the dedicated server costs?</b></p>
+      <p>We're going to get into some FAQ redundancy here….  This is a question that ties in with some bigger questions that you need to answer…  How do you want to monetize your game?  How do players want to pay to support your game?  </p>
+
+      <p>If you want to do the traditional AAA "sticker price" model, you would deposit funds into your game's wallet, which would pay for server uptime.</p>
+
+      <p>If you want to do FTP with in-game purchases, you would deposit funds into your game wallet initially, and it would get topped off as players purchased new items.  Withdraw from your game wallet when your game is profitable.</p>
+
+      <p>If you want to do a pay-as-you-go model, you can assign admission fees to servers/matches and your players are charged for each use.
+        The admission fees that are not used to pay for server uptime are deposited back into your game wallet.  Withdraw from your game wallet when your game is profitable.</p>
+
+      <p><b>How does UETOPIA make money?</b></p>
+      <p>A 5% transaction fee is applied to game and server income.</p>
+
+      <p><b>What kind of Server hosting service are you using?</b></p>
+      <p>The dedicated server management infrastructure was built to be provider agnostic.  This is a highly competitive area, and we are always looking for the best providers that fulfill our needs.
+        Security, reliability, global reach, and speed are the primary evaluation criteria.  </p>
+
+      <p><b>What about DDOS??</b></p>
+      <p>The servers that we rely on are extremely hardened by default.  And since they are dynamically allocated, new servers are coming up and down constantly, which makes for a very difficult (moving) target.</p>
+
+      <p><b>How much is one CRED worth?</b></p>
+      <p>The value of a single CRED is not fixed, and is based on demand.  Currently: $ {{ CREDValue.$value }} USD</p>
+
+      <p><b>How much does it cost to run matchmaker dedicated servers?</b></p>
+      <p>A ten minute game on a single vCPU currently costs about $0.0075 USD - or {{ 0.0075 / CREDValue.$value | number: 2 }} CRED</p>
+
+      <p><b>Can I run my own version of the backend?</b></p>
+      <p>If you want to pay and run your own, contact us and we can talk about white label licensing.</p>
+
+</p>
+
+    </md-content>

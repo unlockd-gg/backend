@@ -1,0 +1,178 @@
+<md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">API DOCUMENTATION</h3>
+
+      </div>
+    </md-toolbar>
+
+    <md-content layout-padding="" class="layout-padding _md">
+      <p>There are two aspects to the UETOPIA API.  They are used for different purposes, and require different authentication.</p>
+      <h2>User authenticated endpoints </h2>
+      <p>These are used for things that users can do.  You need a valid authentication token in order to use these.  Endpoints marked "PROTECTED" can only be used from uetopia.com.  All other endpoints may be used on a third-party website.</p>
+      <p>The Endpoints portal is currently down.  </p>
+
+      <h2>Server authenticated endpoints</h2>
+      <p>These are used for things that only dedicated servers are allowed to do.  Authentication is the server API key/secret.</p>
+
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/info</div>
+        <div class="api-description" flex=50> <p>Notify the backend that the server is ready.  Retrieve server specific details.  </p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 254-358)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/links</div>
+        <div class="api-description" flex=50> <p>Get the list of outgoing server links.</p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 480-570)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/report</div>
+        <div class="api-description" flex=50> <p>Post all of the game information to the backend.  Kills, events, scores, etc.</p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 4046-4146)</a> </p>
+        </div>
+      </div>
+
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/down_ready</div>
+        <div class="api-description" flex=50> <p>Notify the backend that all players have left, and it is clear to bring this server down.</p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 5676-5723)</a> </p>
+        </div>
+      </div>
+
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/player/&lt;userid&gt;/activate</div>
+        <div class="api-description" flex=50> <p>Called when a player has connected to the server.  Verify permission, and retrieve basic player information.</p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 572-938)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/player/&lt;userid&gt;/deactivate</div>
+        <div class="api-description" flex=50> <p>Called when a player has left the server.  Save basic player information.</p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 2127-2321)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/player/&lt;userid&gt;/purchase</div>
+        <div class="api-description" flex=50> <p>In-game purchase.  Deducts the amount from the player's balance, and transfers it to the server.</p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 2531-2623)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/player/&lt;userid&gt;/reward</div>
+        <div class="api-description" flex=50> <p>In-game credit.  Deducts the amount from the server's balance, and transfers it to the player.</p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 3665-3757)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/&lt;targetServerKeyId&gt;/player/&lt;userid&gt;/transfer</div>
+        <div class="api-description" flex=50> <p>Travel a player to the target server.</p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 2324-2526)</a> </p>
+        </div>
+      </div>
+
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/game/player/&lt;gamePlayerKeyId&gt;</div>
+        <div class="api-description" flex=50> <p>Get all of the persistent data for this player (or this player's character - if characters are enabled)</p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 1167-1893)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/game/player/&lt;gamePlayerKeyId&gt;/update</div>
+        <div class="api-description" flex=50> <p>Save the persistent data for this player (or this player's character - if characters are enabled)</p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 1897-2123)</a> </p>
+        </div>
+      </div>
+
+
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/matchmaker/info</div>
+        <div class="api-description" flex=50> <p>Notify the backend that the matchmaker server is ready.  Retrieve matchmaker specific details.  </p>
+          <p><a href="https://github.com/uetopia/ProESports/blob/4.18_OSS_Enhancements/Source/ProESports/MyGameInstance.cpp">Code example (lines 332-358)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/match/player/&lt;userid&gt;/activate</div>
+        <div class="api-description" flex=50> <p>Called when a player has connected to the match.  Verify permission, and retrieve basic player information.</p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 541-1115)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/matchmaker/results</div>
+        <div class="api-description" flex=50> <p>Post the all of the match information to the backend.  Kills, events, scores, etc.</p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 1930-2032)</a> </p>
+        </div>
+      </div>
+
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/vendor/create</div>
+        <div class="api-description" flex=50> <p>Create a player owned vendor.  This is normally called when the player deploys a vendor object </p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 2626-2774)</a> </p>
+        </div>
+      </div>
+
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/vendor/&lt;vendorKeyId&gt;/update</div>
+        <div class="api-description" flex=50> <p>Update a player owned vendor.  Set title, description etc.</p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 2778-2860)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/vendor/&lt;vendorKeyId&gt;/delete</div>
+        <div class="api-description" flex=50> <p>Delete a player owned vendor. </p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 2863-2937)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/vendor/&lt;vendorKeyId&gt;/withdraw</div>
+        <div class="api-description" flex=50> <p>Withdraw currency from a player owned vendor. </p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 3370-3445)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/vendor/&lt;vendorKeyId&gt;/item/create</div>
+        <div class="api-description" flex=50> <p>Create a listing on a player-owned vendor.  </p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 2940-3041)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/vendor/&lt;vendorKeyId&gt;/item/&lt;vendorItemKeyId&gt;/delete</div>
+        <div class="api-description" flex=50> <p>Delete a listing on a player-owned vendor.  </p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 3044-3212)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/vendor/&lt;vendorKeyId&gt;/item/&lt;vendorItemKeyId&gt;/buy</div>
+        <div class="api-description" flex=50> <p>Buy a listing on a player-owned vendor.  </p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 3215-3367)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/vendor/&lt;vendorKeyId&gt;/item/&lt;vendorItemKeyId&gt;/decline</div>
+        <div class="api-description" flex=50> <p>Decline an offer.  Makes the vendor item claimable by the original owner. </p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 3448-3513)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/server/vendor/&lt;vendorKeyId&gt;/item/&lt;vendorItemKeyId&gt;/claim</div>
+        <div class="api-description" flex=50> <p>Claim a vendor listing.  Removes the item from the vendor inventory and moves it to player inventory. </p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 3516-3657)</a> </p>
+        </div>
+      </div>
+
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/game/data/</div>
+        <div class="api-description" flex=50> <p>Get a list of all available game data </p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 3760-3820)</a> </p>
+        </div>
+      </div>
+      <div layout="row">
+        <div class="api-url" flex=50>/api/v1/game/data/&lt;key_id_str&gt;</div>
+        <div class="api-description" flex=50> <p>Get a game data record</p>
+          <p><a href="https://github.com/uetopia/ProMMO/blob/4.18_OSS_Enhancements/Source/ProMMO/MyGameInstance.cpp">Code example (lines 3823-3880)</a> </p>
+        </div>
+      </div>
+
+
+
+    </md-content>

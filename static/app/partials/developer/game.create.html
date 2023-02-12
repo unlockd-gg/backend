@@ -1,0 +1,24 @@
+<md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">Create a new game</h3>
+      </div>
+    </md-toolbar>
+      <md-content layout-padding="" class="layout-padding _md">
+
+  You can fill in all of the details later.  To get started, enter your game's title and a brief description.
+
+<form class="form-horizontal" name="addContact">
+<fieldset>
+        <md-input-container class="md-block md-input-has-value">
+          <label for="input_title">Title</label>
+          <input ng-model="game.title" class="ng-pristine ng-untouched ng-valid md-input ng-valid-email" id="input_title" aria-invalid="false"><div class="md-errors-spacer"></div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Description</label>
+          <textarea ng-model="game.description" md-maxlength="550" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+
+<md-button type="submit" ng-click="submitAdd()">Submit</md-button>
+
+</fieldset>
+</form>

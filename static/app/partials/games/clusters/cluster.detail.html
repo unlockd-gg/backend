@@ -1,0 +1,156 @@
+<link ng-if="game.css_url" rel="stylesheet" ng-href="{{ game.css_url }}"> <!-- developer  defined stylesheet -->
+
+<md-toolbar ng-cloak class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">{{ game.title }} : {{ cluster.title }}</h3>
+      </div>
+    </md-toolbar>
+
+    <md-content layout-padding="" class="layout-padding _md">
+      <div layout="column" layout-gt-sm="row" class="layout-padding" flex>
+        <div flex="44" layout-fill>
+          <img src="{{ game.banner_url}}" ng-show="game.banner_url" alt="banner" style="width: 100%" ng-cloak>
+          <img src="/img/groups/default_blue.png" ng-show="!game.banner_url" alt="banner" style="width: 100%" ng-cloak>
+        </div>
+
+        <div flex="29" layout-fill>
+
+            <p>Genre: {{ game.genre }}</p>
+
+            <p ng-cloak>{{ game.description }}</p>
+
+            <p ng-cloak>{{ game.instructions }}</p>
+
+            <p ng-show="!user" > Click Sign-In above to Download</p>
+
+            <p ng-cloak ng-show="game.website_url"> <a href="http://{{ game.website_url}}" target="_new">Website</a> </p>
+
+        </div>
+
+      </div>
+
+
+
+    </md-content>
+
+
+      <div class="gameDetailLists"  layout="column" layout-gt-sm="row"  flex>
+
+<div flex="noshrink" ng-show="game.server_instance_continuous"  ng-cloak>
+    <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+          <div class="md-toolbar-tools">
+            <h3 class="ng-binding">Servers</h3>
+          </div>
+        </md-toolbar>
+    <md-content layout-padding="" class="layout-padding _md">
+
+
+          <div ng-show="!servers.length">No servers to show.</div>
+
+          <md-list class="md-dense" flex="noshrink">
+            <md-list-item class="md-2-line" ng-repeat="server in servers" ui-sref="serverdetail({gameKeyId:game.key_id, clusterKeyId:cluster.key_id, key_id:server.key_id})" ng-show="user">
+              <i ng-show="server.continuous_server_provisioned" class="material-icons md-avatar-icon iconServerUp">keyboard_arrow_up</i>
+              <i ng-show="!server.continuous_server_provisioned" class="material-icons md-avatar-icon md-accent">keyboard_arrow_down</i>
+
+              <i ng-show="server.sharded_server_template" class="material-icons md-avatar-icon iconServerUp">list</i>
+              <i ng-show="server.instance_server_template" class="material-icons md-avatar-icon iconServerUp">toc</i>
+              <span ng-show="!server.sharded_server_template">
+                <i ng-show="!server.instance_server_template" class="material-icons md-avatar-icon iconServerUp">flag</i>
+              </span>
+
+              <div class="md-list-item-text" layout="column">
+                <h3>{{server.title}}</h3>
+                <span ng-if="server.continuous_server_active"  aria-hidden="true">
+                  <md-tooltip md-direction="left">
+                    Active
+                  </md-tooltip>
+                </span>
+                <span ng-if="server.continuous_server_provisioned" aria-hidden="true">
+                  <md-tooltip md-direction="left">
+                    Provisioned
+                  </md-tooltip>
+                </span>
+                <span ng-if="server.continuous_server_region" aria-hidden="true">{{ server.continuous_server_region }}</span>
+              </div>
+              <span flex></span>
+              <span class="server-active-player-count">{{ server.active_player_count }}</span>
+            </md-list-item>
+
+            <md-list-item class="md-2-line" ng-repeat="server in servers" ng-click="" ng-show="!user">
+              <i ng-show="server.continuous_server_provisioned" class="material-icons md-avatar-icon iconServerUp">keyboard_arrow_up</i>
+              <i ng-show="!server.continuous_server_provisioned" class="material-icons md-avatar-icon md-accent">keyboard_arrow_down</i>
+
+              <i ng-show="server.sharded_server_template" class="material-icons md-avatar-icon iconServerUp">list</i>
+              <i ng-show="server.instance_server_template" class="material-icons md-avatar-icon iconServerUp">toc</i>
+              <span ng-show="!server.sharded_server_template">
+                <i ng-show="!server.instance_server_template" class="material-icons md-avatar-icon iconServerUp">flag</i>
+              </span>
+
+              <div class="md-list-item-text" layout="column">
+                <h3>{{server.title}}</h3>
+                <span ng-if="server.continuous_server_active"  aria-hidden="true">
+                  <md-tooltip md-direction="left">
+                    Active
+                  </md-tooltip>
+                </span>
+                <span ng-if="server.continuous_server_provisioned" aria-hidden="true">
+                  <md-tooltip md-direction="left">
+                    Provisioned
+                  </md-tooltip>
+                </span>
+                <span ng-if="server.continuous_server_region" aria-hidden="true">{{ server.continuous_server_region }}</span>
+              </div>
+              <span flex></span>
+              <span class="server-active-player-count">{{ server.active_player_count }}</span>
+            </md-list-item>
+          </md-list>
+
+
+
+
+      </md-content>
+    </div>
+
+    <div flex="noshrink">
+      <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions" ng-cloak>
+            <div class="md-toolbar-tools">
+              <h3 class="ng-binding">Leaderboard</h3>
+            </div>
+          </md-toolbar>
+
+        <md-list class="md-dense" flex>
+          <md-list-item class="md-3-line" ng-repeat="player in leaderboard | orderBy: '-rank'"  >
+            <img ng-src="/img/user_photo_placeholder.jpg" class="md-avatar" alt="{{player.title}}" />
+            <div class="md-list-item-text" layout="column">
+              <h3>{{ player.groupTag }} {{ player.title }}</h3>
+              <h4>Rank: {{ player.rank }}</h4>
+              <p>Score: {{ player.score }}</p>
+            </div>
+          </md-list-item>
+
+        </md-list>
+
+    </div>
+
+    <div flex="noshrink">
+      <md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions" ng-cloak>
+            <div class="md-toolbar-tools">
+              <h3 class="ng-binding">News Feed</h3>
+            </div>
+          </md-toolbar>
+
+        <md-list class="md-dense" flex>
+          <md-list-item class="md-2-line" ng-repeat="event in eventfeed" >
+            <i class="material-icons md-avatar-icon md-accent">{{ event.icon }}</i>
+            <div class="md-list-item-text" layout="column">
+              <b><span am-time-ago="event.created | amUtc "></span></b>
+              <h3>{{ event.text }}</h3>
+            </div>
+          </md-list-item>
+
+        </md-list>
+
+    </div>
+
+
+</div>

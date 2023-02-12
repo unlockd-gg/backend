@@ -1,0 +1,241 @@
+<div ng-show="!loaded_game_player" class="center"> <md-progress-circular md-mode="indeterminate"></md-progress-circular> </div>
+
+<div ng-show="loaded_game_player">
+
+  <md-toolbar class="demo-toolbar md-primary md-hue-3 _md _md-toolbar-transitions" >
+    <div class="md-toolbar-tools">
+      <h3 class="ng-binding">Game Player: {{ game_player.userTitle }} : {{ game_player.modified }}</h3>
+    </div>
+  </md-toolbar>
+
+  <div ng-show="loaded_game_players">
+    <md-toolbar class="demo-toolbar md-accent _md _md-toolbar-transitions" >
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">Historical Snapshots</h3>
+        <span flex></span>
+          <md-button class="md-icon-button" ng-click="toggleViewSnapshots()">
+            <i class="material-icons">theaters</i>
+          </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-content layout-padding="" class="layout-padding _md" ng-show="viewSnapshots">
+
+        <div>Snapshots are created everytime a character is saved. </div>
+
+        <div ng-show="!snapshots.length">Nothing to show.</div>
+
+        <md-list>
+         <md-list-item ng-repeat="snapshot in snapshots" class="noright">
+           <p><b><span am-time-ago="snapshot.created | amUtc "></span></b> : {{ snapshot.created }}</p>
+           <md-button class="md-secondary" ui-sref="developergameplayersnapshotdetail({gameKeyId: gameKeyId, gamePlayerKeyId: gamePlayerKeyId, gamePlayerSnapshotKeyId: snapshot.key_id})">edit</md-button>
+         </md-list-item>
+        </md-list>
+
+      </md-content>
+    </div>
+
+  <div ng-show="game.characters_enabled">
+
+    <md-toolbar class="demo-toolbar md-primary md-hue-3 _md _md-toolbar-transitions" >
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">Characters</h3>
+      </div>
+    </md-toolbar>
+      <md-content layout-padding="" class="layout-padding _md" >
+
+          <div>Characters hold in-game data. </div>
+
+          <div ng-show="!characters.length">Nothing to show.</div>
+
+          <md-list>
+           <md-list-item ng-repeat="character in characters" class="noright">
+             <p><b><span am-time-ago="character.modified | amUtc "></span></b> : {{ character.title }}</p>
+             <md-button class="md-secondary" ui-sref="developergamecharacterdetail({gameKeyId: gameKeyId, gamePlayerKeyId: gamePlayerKeyId, gameCharacterKeyId:character.key_id})">edit</md-button>
+           </md-list-item>
+          </md-list>
+
+        </md-content>
+
+  </div>
+
+  <!-- TODO we want a form even if characters are enabled to update character count max -->
+
+
+
+    <div ng-show="game_player.locked">
+      <md-toolbar class="demo-toolbar md-accent _md _md-toolbar-transitions" >
+        <div class="md-toolbar-tools">
+          <h3 class="ng-binding">Player Locked</h3>
+        </div>
+      </md-toolbar>
+
+      <md-content>
+        <p>Abilities: {{ game_player.abilities }}</p>
+        <p>Equipment: {{ game_player.equipment }}</p>
+        <p>Interface: {{ game_player.interface }}</p>
+        <p>Inventory: {{ game_player.inventory }}</p>
+        <p>lastServerKeyId: {{ game_player.lastServerKeyId }}</p>
+      </md-content>
+
+    </div>
+
+    <div ng-show="!game_player.locked">
+      <md-toolbar class="demo-toolbar md-primary md-hue-3 _md _md-toolbar-transitions" >
+        <div class="md-toolbar-tools">
+          <h3 class="ng-binding">Player Unlocked</h3>
+        </div>
+      </md-toolbar>
+
+      <md-content layout-padding>
+
+        <form name="form" novalidate>
+
+            <div ng-show="!game.characters_enabled">
+
+          <div layout="row">
+            <div flex>
+              <md-input-container class="md-block">
+                <label>Rank</label>
+                <input type="number" step="any" name="rank" ng-model="game_player.rank"  />
+              </md-input-container>
+            </div>
+            <div flex>
+              <md-input-container class="md-block">
+                <label>Level</label>
+                <input type="number" step="any" name="level" ng-model="game_player.level"  />
+              </md-input-container>
+            </div>
+            <div flex>
+              <md-input-container class="md-block">
+                <label>Score</label>
+                <input type="number" step="any" name="score" ng-model="game_player.score"  />
+              </md-input-container>
+            </div>
+          </div>
+
+          <div layout="row">
+            <div flex>
+              <md-input-container class="md-block">
+                <label>Experience</label>
+                <input type="number" step="any" name="experience" ng-model="game_player.experience"  />
+              </md-input-container>
+            </div>
+            <div flex>
+              <md-input-container class="md-block">
+                <label>Experience This Level</label>
+                <input type="number" step="any" name="experienceThisLevel" ng-model="game_player.experienceThisLevel"  />
+              </md-input-container>
+            </div>
+          </div>
+
+          <div layout="row">
+            <div flex>
+              <md-input-container class="md-block">
+                <label>coordLocationX</label>
+                <input type="number" step="any" name="coordLocationX" ng-model="game_player.coordLocationX"  />
+              </md-input-container>
+            </div>
+            <div flex>
+              <md-input-container class="md-block">
+                <label>coordLocationY</label>
+                <input type="number" step="any" name="coordLocationY" ng-model="game_player.coordLocationY"  />
+              </md-input-container>
+            </div>
+            <div flex>
+              <md-input-container class="md-block">
+                <label>coordLocationZ</label>
+                <input type="number" step="any" name="coordLocationZ" ng-model="game_player.coordLocationZ"  />
+              </md-input-container>
+            </div>
+          </div>
+
+          <md-input-container class="md-block md-input-has-value">
+            <label for="input_lastServerKeyId">lastServerKeyId</label>
+            <input ng-model="game_player.lastServerKeyId" class="ng-pristine ng-untouched ng-valid md-input" id="input_lastServerKeyId" aria-invalid="false"><div class="md-errors-spacer"></div>
+          </md-input-container>
+
+
+          <md-input-container class="md-block md-input-has-value">
+            <label for="input_zoneName">zoneName</label>
+            <input ng-model="game_player.zoneName" class="ng-pristine ng-untouched ng-valid md-input" id="input_zoneName" aria-invalid="false"><div class="md-errors-spacer"></div>
+          </md-input-container>
+          <md-input-container class="md-block md-input-has-value">
+            <label for="input_zoneKey">zoneKey</label>
+            <input ng-model="game_player.zoneKey" class="ng-pristine ng-untouched ng-valid md-input" id="input_zoneKey" aria-invalid="false"><div class="md-errors-spacer"></div>
+          </md-input-container>
+
+
+
+                    <div layout="row">
+                      <md-button class="md-raised" ng-click="toggleViewAbilities()">Abilities</md-button>
+                      <md-button class="md-raised" ng-click="toggleViewEquipment()">Equipment</md-button>
+                      <md-button class="md-raised" ng-click="toggleViewInterface()">Interface</md-button>
+                      <md-button class="md-raised" ng-click="toggleViewInventory()">Inventory</md-button>
+                      <md-button class="md-raised" ng-click="toggleViewCrafting()">Crafting</md-button>
+                      <md-button class="md-raised" ng-click="toggleViewRecipes()">Recipes</md-button>
+                      <md-button class="md-raised" ng-click="toggleViewCharacter()">Character</md-button>
+                    </div>
+
+
+                  <md-input-container ng-if="viewAbilities" class="md-block">
+                    <label>Abilities</label>
+                    <textarea ng-model="game_player.abilities" rows="5" md-select-on-focus></textarea>
+                  </md-input-container>
+                  <md-input-container ng-if="viewEquipment" class="md-block">
+                    <label>Equipment</label>
+                    <textarea ng-model="game_player.equipment"  rows="5" md-select-on-focus></textarea>
+                  </md-input-container>
+                  <md-input-container ng-if="viewInterface" class="md-block">
+                    <label>Interface</label>
+                    <textarea ng-model="game_player.interface" rows="5" md-select-on-focus></textarea>
+                  </md-input-container>
+                  <md-input-container ng-if="viewInventory" class="md-block">
+                    <label>Inventory</label>
+                    <textarea ng-model="game_player.inventory"  rows="5" md-select-on-focus></textarea>
+                  </md-input-container>
+                  <md-input-container ng-if="viewCrafting" class="md-block">
+                    <label>Crafting</label>
+                    <textarea ng-model="game_player.crafting"  rows="5" md-select-on-focus></textarea>
+                  </md-input-container>
+                  <md-input-container ng-if="viewRecipes" class="md-block">
+                    <label>Recipes</label>
+                    <textarea ng-model="game_player.recipes"  rows="5" md-select-on-focus></textarea>
+                  </md-input-container>
+                  <md-input-container ng-if="viewCharacter" class="md-block">
+                    <label>Character</label>
+                    <textarea ng-model="game_player.character"  rows="5" md-select-on-focus></textarea>
+                  </md-input-container>
+
+
+
+                  </div> <!-- end if not game characters enabled -->
+
+
+                  <div layout="row">
+                      <md-input-container class="md-block">
+                        <label>Character Maximum Count</label>
+                        <input type="number" step="any" name="characterMaxAllowedCount" ng-model="game_player.characterMaxAllowedCount"  />
+                      </md-input-container>
+                    </div>
+
+
+
+        <div>
+          <md-button type="submit" ng-click="submit(form, game_player)" >Save</md-button>
+        </div>
+
+
+
+      </form>
+
+
+
+
+      </md-content>
+
+    </div>
+
+
+
+</div>

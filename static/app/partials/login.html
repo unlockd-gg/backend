@@ -1,0 +1,37 @@
+<div class="content">
+	<md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">Login</h3>
+      </div>
+    </md-toolbar>
+
+    <md-content layout-padding="" class="layout-padding _md">
+			<div layout="row" layout-wrap>
+<md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch ng-if="!loginClicked">
+	<md-card-title>
+		<md-card-title-text>
+			<span class="md-headline">Login</span>
+		</md-card-title-text>
+		<md-card-title-media>
+			<div class="md-media-sm card-media"></div>
+		</md-card-title-media>
+	</md-card-title>
+	<md-card-actions layout="row" layout-align="end center">
+		<md-button class="btn btn-primary btn-lg" ng-click="doLogin()" href="" role="button">Login</md-button>
+
+	</md-card-actions>
+
+
+</md-card>
+
+<md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+<div id="logged-out">
+	<div id="firebaseui-auth-container"></div>
+</div>
+
+</md-card>
+
+
+</div>
+</md-content>
+</div>

@@ -1,0 +1,26 @@
+<md-toolbar class="demo-toolbar md-primary _md _md-toolbar-transitions">
+      <div class="md-toolbar-tools">
+        <h3 class="ng-binding">Group Ad Details</h3>
+      </div>
+    </md-toolbar>
+      <md-content layout-padding="" class="layout-padding _md">
+        <h1>{{ ad.title }}</h1>
+
+        <p>STATUS: 
+          <span ng-show="ad.approved">APPROVED</span>
+          <span ng-show="ad.active">ACTIVE</span>
+          <span ng-show="ad.rejected">REJECTED</span>
+          <span ng-show="ad.refunded">REFUNDED</span>
+          <span ng-show="ad.finalized">FINALIZED</span>
+        </p>
+
+        <p ng-show="ad.rejected">Rejection message: {{ ad.rejection_message }}</p>
+
+        <p>Game: {{ ad.gameTitle }}</p>
+        <p>Game Mode: {{ ad.gameModeTitle }}</p>
+        <p>Bid per impression: {{ ad.bid_per_impression }}</p>
+        <p>Desired number of impressions: {{ ad.number_of_impressions }}</p>
+        <p>Impressions shown: {{ ad.count_shown }}</p>
+
+
+</md-content>

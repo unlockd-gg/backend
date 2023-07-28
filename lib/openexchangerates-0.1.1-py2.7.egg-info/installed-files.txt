@@ -1,9 +1,0 @@
-../openexchangerates/__init__.py
-../openexchangerates/tests.py
-../openexchangerates/__init__.pyc
-../openexchangerates/tests.pyc
-PKG-INFO
-SOURCES.txt
-requires.txt
-top_level.txt
-dependency_links.txt

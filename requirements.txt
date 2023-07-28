@@ -1,8 +1,0 @@
-#google-api-python-client
-google-endpoints==4.4.0
-google-endpoints-api-management==1.8.0
-pyjwt==1.5.3
-google-auth==1.2.1
-requests==2.18.4
-requests-toolbelt==0.8.0
-google-api-python-client

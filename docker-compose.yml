@@ -30,8 +30,8 @@ services:
   unlockd-webclient:
     image: unlockd-webclient
     build:
-      context: ./unlockd-webclient 
-      dockerfile: Dockerfile 
+      context: ./unlockd-webclient
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
   mongo:

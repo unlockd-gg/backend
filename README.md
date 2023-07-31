@@ -34,14 +34,14 @@ https://uetopia.com
 
 ## AWS Production Installation
 
-- Create an ec2 instance (ubuntu latest)
+- Create an ec2 instance (ubuntu latest) (suggest adding some extra storage space 8gb will run out)
 - Create and assosiate an elastic IP address to this instance for convenience
 - Create an ec2 target group
 - Create an ec2 load balancer
 - SSH into the instance
 - mkdir docker
 - cd docker
-- install docker (https://docs.docker.com/engine/install/ubuntu/)
+- install docker (https://docs.docker.com/engine/install/ubuntu/) (remember the group/user step)
 - git clone https://github.com/unlockd-gg/backend.git 
 - cd backend
 - docker compose up --build

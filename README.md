@@ -3,7 +3,9 @@ unlockd backend
 
 Multiplayer game backend.
 
-features: Abilities, Inventory, Action bar, Chat, Characters, Friends, Recent Players, Party, Guilds/Clans, Player owned vendors, Game Store (microtransactions), Matchmaker, Tournaments, External Metagame, Leaderboard, Server persistence, Player data persistence, Server connections (travel), Server instances (private, guild, party), Server management, Server List, Access Control, Sponsors / Ads, Consignments, Player Statistics, Achievements.
+Features working:  None.  We're working on converting these over from the old version.
+
+Features TODO: Abilities, Inventory, Action bar, Chat, Characters, Friends, Recent Players, Party, Guilds/Clans, Player owned vendors, Game Store (microtransactions), Matchmaker, Tournaments, External Metagame, Leaderboard, Server persistence, Player data persistence, Server connections (travel), Server instances (private, guild, party), Server management, Server List, Access Control, Sponsors / Ads, Consignments, Player Statistics, Achievements.
 
 ## Main Branch
 
@@ -21,16 +23,24 @@ https://uetopia.com
 
 ## Directory Layout
 
-- TBD - in active development
+- backend:  python flask API endpoints
+- nginx: container routing
+- unlockd-webclient:  Angular 16 frontend
 
 ## Installation notes
 
 - lightning login requires a network accessible ip address for some provicers (getalby), and an https accessbile domain name for others (WoS).  
+- If you don't have an SSL enabled domain name for development, just use the email login functionality.  You can get the auth code by visiting:  /api/lightning/wallets
 
 ## Local/Dev Installation 
 
 - install docker desktop
+- clone the repo
 - docker compose up
+- open a VSCode window to the frontend by itself
+- ng serve
+- open a VSCode window to the backend by itself
+- create python environment using requirements.txt 
 
 ## AWS Production Installation
 
@@ -48,5 +58,6 @@ https://uetopia.com
 - docker compose up --build
 
 
-# Build the angular files.
-ng build --configuration development
+# Making frontend changes
+- after changing html, ts, or css, run:
+- ng build --configuration development

@@ -5,9 +5,13 @@ from flask import request, make_response
 from flask import jsonify
 from flask_cors import CORS
 from datetime import datetime
+from base64 import encodebytes, b64encode
 from base64 import encodebytes
 from bson.objectid import ObjectId
 from bson import json_util
+import io
+import string
+import http.client
 
 from . import app
 from app.models import users
@@ -227,9 +231,27 @@ def signin():
 @app.route("/generate_qr/<bech_32_url>")
 def generate_qr(bech_32_url = None):
     #save as url code and send
-    qr = pyqrcode.create(bech_32_url)
-    qr.svg("ln-auth-challenge.svg",scale=8)
-    return send_file("../ln-auth-challenge.svg",mimetype="image/svg+xml")
+
+    # https://github.com/chill117/passport-lnurl-auth
+    # The URI schema prefix used before the encoded LNURL.
+    # e.g. "lightning:" or "LIGHTNING:" or "" (empty-string)
+    uriSchemaPrefix = "LIGHTNING:"
+
+    # https://github.com/mnooner256/pyqrcode/issues/39#issuecomment-207621532
+    # c = pyqrcode.create("hello")
+    # s = io.BytesIO()
+    # c.png(s,scale=6)
+    # encoded = base64.b64encode(s.getvalue()).decode("ascii")
+
+
+    qr = pyqrcode.create(uriSchemaPrefix+bech_32_url.upper())
+    s = io.BytesIO()
+    qr.png(s, scale=6)
+    encoded = b64encode(s.getvalue()).decode("ascii")
+
+    #qr.svg("ln-auth-challenge.svg",scale=8)
+    #return send_file("../ln-auth-challenge.svg",mimetype="image/svg+xml")
+    return s.getvalue()
 
 @app.route("/me")
 def me():
@@ -416,6 +438,140 @@ def userEmailValidationComplete(wallet, incoming_email = None, incoming_validati
         return jsonify({'success' : False})
 
     return jsonify({'success' : True})
+
+
+## Login support for regular email and no lightning
+@app.route("/user/email/<incoming_email>/start-no-lightning")
+def userEmailValidationStartNoLightning(incoming_email = None):
+    lightning_wallet_model = lightningwallets.LightningWallets()
+
+    # start the email validation process.
+    print(incoming_email)
+
+    # create a fake wallet
+
+    # initializing size of string
+    N = 64
+    
+    # using random.choices()
+    # generating random strings
+    fake_pub_key = ''.join(random.choices(string.ascii_uppercase +
+                                string.digits, k=N))
+    
+    fake_k1 = ''.join(random.choices(string.ascii_uppercase +
+                                string.digits, k=N))
+    
+    fake_bech_32_url = ''.join(random.choices(string.ascii_uppercase +
+                                string.digits, k=N))
+    
+
+    randomInt = str(random.randint(100000, 999999))
+
+    new_wallet = lightning_wallet_model.create(
+                {
+                    "publickey": fake_pub_key,
+                    "userid": "0",
+                    "userconnected": False,
+                    "emailaddress": incoming_email,
+                    "emailverificationcode": randomInt,
+                    "emailvalidated": False,
+                    "k1": fake_k1,
+                    "bech_32_url": fake_bech_32_url,
+                    "fakewallet": True
+
+                 }
+            )
+
+
+    # send an email containing the verification code and link
+
+
+    return jsonify({'success' : True, 
+                    'publickey': fake_pub_key,
+                    'k1': fake_k1,
+                    'bech_32_url':fake_bech_32_url    })
+
+@app.route("/user/email/<incoming_email>/validate-no-lightning/<incoming_validation>/<incoming_fake_pub_key>")
+def userEmailValidationCompleteNoLightning(incoming_email = None, incoming_validation = None, incoming_fake_pub_key = None):
+    lightning_wallet_model = lightningwallets.LightningWallets()
+    user_model = users.Users()
+
+    # start the email validation process.
+    print(incoming_email)
+    print(incoming_validation)
+
+    # look up the fake wallet from the generated pubkey
+    ## TODO - set up a cron job to delete these
+
+    print(incoming_fake_pub_key)
+
+    fakewallet = lightning_wallet_model.find_by_publickey(incoming_fake_pub_key)
+
+    if fakewallet == None:
+        print('fake wallet not found')
+    else:
+        print('found fake wallet')
+
+        if fakewallet['emailverificationcode'] == incoming_validation:
+            print('validation match')
+
+            ## look up user by email
+            user = user_model.find_by_emailaddress(incoming_email)
+            if user is None:
+                print('user not found - creating')
+                newuser_id = user_model.create({'emailaddress': incoming_email,
+                                        "contact_preference_sms": False,
+                                        "role_assigned": False,
+                                        "member": False,
+                                        "travel_request_active": False
+
+                                        })
+                lightning_wallet_model.update(fakewallet['_id'], { 'userid': newuser_id, 'userconnected': True })
+
+                ## get the user we just created, and replace the previous user that did not exist
+                user = user_model.find_by_id(ObjectId(newuser_id))
+
+                ## Send a msg to discord
+                data = http.client.HTTPSConnection("discord.com")
+                headers = {"Content-Type": "application/json"}
+                message = "A new user has registered: %s" %incoming_email
+                url = "https://willdev.net/admin-user-detail/%s" %newuser_id
+                discord_data = { "embeds": [{"title": "New User", "url": url, "description": message}] }
+                discord_data_json=json_util.dumps(discord_data)
+                data.request('POST', NEW_USER_DISCORD_WEBHOOK, discord_data_json, headers)
+                response = data.getresponse()
+                header = response.getheaders()
+                ##print(header)
+                ##print(response.reason)
+                ##print(response.status)
+                data.close()
+
+            else:
+                print('found user with this email')
+                lightning_wallet_model.update(fakewallet['_id'], { 'userid': user['_id'], 'userconnected': True })
+
+            ## generate an auth token
+            auth_token = lightning_wallet_model.encode_auth_token(str(fakewallet['_id']))
+            print(auth_token)
+            if auth_token:
+                responseObject = {
+                    'success' : True,
+                    #'userid': str(user['_id']),
+                    'name': 'anonymous user',
+                    'status': 'success',
+                    'message': 'Successfully logged in.',
+                    'auth_token': auth_token,
+                    'do_email_validation': False,
+                    'user':  user_model.to_json(user)
+                }
+                return make_response(jsonify(responseObject)), 200
+
+        else:
+            print('validation mismatch')
+            return jsonify({'success' : False})
+
+    return jsonify({'success' : False})
+
 
 
 @app.route("/setup_database")

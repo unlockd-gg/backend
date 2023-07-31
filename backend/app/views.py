@@ -519,11 +519,7 @@ def userEmailValidationCompleteNoLightning(incoming_email = None, incoming_valid
             user = user_model.find_by_emailaddress(incoming_email)
             if user is None:
                 print('user not found - creating')
-                newuser_id = user_model.create({'emailaddress': incoming_email,
-                                        "contact_preference_sms": False,
-                                        "role_assigned": False,
-                                        "member": False,
-                                        "travel_request_active": False
+                newuser_id = user_model.create({'emailaddress': incoming_email
 
                                         })
                 lightning_wallet_model.update(fakewallet['_id'], { 'userid': newuser_id, 'userconnected': True })

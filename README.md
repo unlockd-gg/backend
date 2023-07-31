@@ -44,6 +44,7 @@ https://uetopia.com
 - install docker (https://docs.docker.com/engine/install/ubuntu/) (remember the group/user step)
 - git clone https://github.com/unlockd-gg/backend.git 
 - cd backend
+- update ip address (or SSL domain): webclient/src/app/app.component.ts, login-dialog/login-dialog-component.ts
 - docker compose up --build
 
 

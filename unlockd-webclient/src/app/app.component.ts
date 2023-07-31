@@ -1,4 +1,12 @@
 import { Component } from '@angular/core';
+import { Router, ActivatedRoute} from '@angular/router';
+
+import { AuthChallenge } from './authchallenge';
+
+import { LightningService } from '../app/lightning.service';
+import { LoginDialogComponent } from '../app/login-dialog/login-dialog.component'
+
+import {MatDialog, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +15,91 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'unlockd-webclient';
+  qrcodesrc = '';
+  loginComplete = false;
+  loginButtonVisible = false;
+  logoutButtonVisible = false;
+  public userTitle = "Lightning User";
+  authchall: AuthChallenge | undefined;
+
+  constructor(public lightningService: LightningService, private dialog: MatDialog, private router: Router) { }
+
+  ngOnInit(): void {
+    if (localStorage.getItem("token") === null) {
+      this.loginButtonVisible = true;
+      this.logoutButtonVisible = false;
+    }
+    else
+    {
+      this.loginButtonVisible = false;
+      this.logoutButtonVisible = true;
+    }
+
+    if (localStorage.getItem("usertitle") === null) {
+      console.log('usertitle not found in localstorage');
+    }
+    else 
+    {
+      this.userTitle = localStorage.getItem("usertitle") || "";
+    }
+
+    if (localStorage.getItem("role") === null) {
+      console.log('role not found in localstorage');
+    }
+    else 
+    {
+      var role_str = localStorage.getItem("role") || "";
+      console.log('roleObject: ', JSON.parse(role_str));
+      //this.role = JSON.parse(role_str);
+    }
+
+    // Subscribe to the login user in lightning service to know if we need to run auth again
+    this.lightningService.login_user.subscribe( (value) => {
+      console.log('lightning service requesting re-authentication');
+      // Only do this if there is an old token in localstorage
+      if (localStorage.getItem('token'))
+      {
+        console.log('found an old token');
+        this.loginChallenge();
+      }
+    });
+
+  }
+
+  loginChallenge() {
+    console.log('App Component Login pressed');
+
+    this.lightningService.loginChallenge()
+    .subscribe(authchall => {
+      this.authchall = authchall;
+      this.qrcodesrc = 'http://54.219.218.253/generate_qr/' + authchall.lnurl;
+
+      // open the login dialog
+      this.dialog.open(LoginDialogComponent, {
+        data: {
+          lnurl: this.authchall,
+          qrcodesrc: this.qrcodesrc
+        },
+      });
+    });
+  }
+
+  
+
+  closeDialog () {
+    this.dialog.closeAll();
+  }
+
+  logout () {
+    this.lightningService.doLogout();
+    this.loginButtonVisible = true;
+    this.logoutButtonVisible = false;
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    //localStorage.removeItem('role');
+    this.router.navigate(['']);
+  }
+
+
+
 }

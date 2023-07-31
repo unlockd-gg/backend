@@ -23,6 +23,27 @@ https://uetopia.com
 
 - TBD - in active development
 
-## Installation
+## Installation notes
 
-- TBD - in active development
+- lightning login requires a network accessible ip address for some provicers (getalby), and an https accessbile domain name for others (WoS).  
+
+## Local/Dev Installation 
+
+- install docker desktop
+- docker compose up
+
+## AWS Production Installation
+
+- Create an ec2 instance (ubuntu latest)
+- Create and assosiate an elastic IP address to this instance for convenience
+- Create an ec2 target group
+- Create an ec2 load balancer
+- SSH into the instance
+- mkdir docker
+- cd docker
+- install docker (https://docs.docker.com/engine/install/ubuntu/)
+- git clone https://github.com/unlockd-gg/backend.git 
+- cd backend
+- docker compose up --build
+
+

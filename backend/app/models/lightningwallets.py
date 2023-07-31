@@ -23,12 +23,13 @@ class LightningWallets(object):
             "k1": "string",
             "created": "datetime",
             "updated": "datetime",
+            "fakewallet": "bool"
         }
 
         self.create_required_fields = ["publickey", "k1", "userid", "userconnected", "emailaddress", "emailvalidated", "bech_32_url"]
 
         # Fields optional for CREATE
-        self.create_optional_fields = []
+        self.create_optional_fields = ["emailverificationcode", "fakewallet"]
 
         # Fields required for UPDATE
         self.update_required_fields = []

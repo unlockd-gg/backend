@@ -47,3 +47,5 @@ https://uetopia.com
 - docker compose up --build
 
 
+# Build the angular files.
+ng build --configuration development

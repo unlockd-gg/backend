@@ -185,6 +185,7 @@ class AppComponent {
     this.loginButtonVisible = false;
     this.logoutButtonVisible = false;
     this.userTitle = "Lightning User";
+    this.user = this.lightningService.user;
   }
   ngOnInit() {
     if (localStorage.getItem("token") === null) {
@@ -214,6 +215,27 @@ class AppComponent {
         console.log('found an old token');
         this.loginChallenge();
       }
+    });
+    // subscribe to the user in lightning service for changes 
+    this.lightningService.sub_user.subscribe(value => {
+      console.log('lightning service user changed');
+      console.log(this.lightningService.user);
+      //console.log(this.lightningService.role);
+      this.user = this.lightningService.user;
+      this.userTitle = this.lightningService.user.title;
+      //this.role = this.lightningService.role;
+      //console.log(this.role.view_admin_interface.valueOf());
+    });
+    // subscribe to UI changes
+    this.lightningService.showCloseDialog.subscribe(value => {
+      console.log('show close dialog');
+      this.closeDialog();
+      this.loginButtonVisible = false;
+      this.logoutButtonVisible = true;
+    });
+    this.dialog.afterAllClosed.subscribe(data => {
+      console.log("data returned from mat-dialog-close is ", data);
+      this.lightningService.signinActive = false;
     });
   }
   loginChallenge() {

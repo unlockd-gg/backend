@@ -58,4 +58,22 @@ class Users(object):
     def delete(self, id):
         return self.db.delete(id, self.collection_name)
     
+    
+    def to_json(self, thisuser):
+        if 'title' in thisuser.keys():
+            title = thisuser['title']
+        else:
+            title = ""
+
+        if 'emailaddress' in thisuser.keys():
+            emailaddress = thisuser['emailaddress']
+        else:
+            emailaddress = ""
+
+        return_data = {
+            "title": title,
+            "emailaddress": emailaddress
+        }
+        return return_data
+    
 

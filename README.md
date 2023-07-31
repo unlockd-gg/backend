@@ -30,7 +30,7 @@ https://uetopia.com
 ## Installation notes
 
 - lightning login requires a network accessible ip address for some provicers (getalby), and an https accessbile domain name for others (WoS).  
-- If you don't have an SSL enabled domain name for development, just use the email login functionality.  You can get the auth code by visiting:  /api/lightning/wallets
+- If you don't have an SSL enabled domain name for development, just use the email login functionality.  You can get the auth code by visiting:  /api/lightning/wallets  (this email login AND THIS API ENDPOINT should not be used in production - for convenience only)
 
 ## Local/Dev Installation 
 
@@ -54,7 +54,7 @@ https://uetopia.com
 - install docker (https://docs.docker.com/engine/install/ubuntu/) (remember the group/user step)
 - git clone https://github.com/unlockd-gg/backend.git 
 - cd backend
-- update ip address (or SSL domain): webclient/src/app/app.component.ts, login-dialog/login-dialog-component.ts
+- update ip address (or SSL domain): webclient/src/app/app.component.ts, login-dialog/login-dialog-component.ts, webclient/src/app/lightning.service.ts, backend/app/views.py (91)
 - docker compose up --build
 
 

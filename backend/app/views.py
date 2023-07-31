@@ -88,7 +88,7 @@ def auth():
     #32 byte challenge k1
     k1 = secrets.token_hex(32)
     #host_address = socket.gethostbyname(socket.gethostname())
-    host_address = "54.176.48.9"
+    host_address = "54.219.218.253"
     #client = docker.DockerClient()
     #container = client.containers.get('fplb')
     #host_address = container.attrs['NetworkSettings']['IPAddress']
@@ -532,19 +532,6 @@ def userEmailValidationCompleteNoLightning(incoming_email = None, incoming_valid
                 user = user_model.find_by_id(ObjectId(newuser_id))
 
                 ## Send a msg to discord
-                data = http.client.HTTPSConnection("discord.com")
-                headers = {"Content-Type": "application/json"}
-                message = "A new user has registered: %s" %incoming_email
-                url = "https://willdev.net/admin-user-detail/%s" %newuser_id
-                discord_data = { "embeds": [{"title": "New User", "url": url, "description": message}] }
-                discord_data_json=json_util.dumps(discord_data)
-                data.request('POST', NEW_USER_DISCORD_WEBHOOK, discord_data_json, headers)
-                response = data.getresponse()
-                header = response.getheaders()
-                ##print(header)
-                ##print(response.reason)
-                ##print(response.status)
-                data.close()
 
             else:
                 print('found user with this email')

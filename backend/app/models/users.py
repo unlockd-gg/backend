@@ -14,8 +14,8 @@ class Users(object):
 
         self.fields = {
             "name": "string",
-            "address": "string",
             "emailaddress": "string",
+            "admin": "bool",
             "created": "datetime",
             "updated": "datetime",
         }
@@ -26,7 +26,7 @@ class Users(object):
         self.create_optional_fields = []
 
         # Fields required for UPDATE
-        self.update_required_fields = ["name", "address"]
+        self.update_required_fields = ["name"]
 
         # Fields optional for UPDATE
         self.update_optional_fields = []

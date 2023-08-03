@@ -305,9 +305,8 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
 
-  <b>unlockd</b>
 
-  <button mat-button routerLink="/">HOME</button>
+  <button mat-button routerLink="/">unlockd</button>
   <button mat-button routerLink="/pages/news">SOCIAL</button>
   <button mat-button routerLink="/pages/about">INFO</button>
 
@@ -321,13 +320,9 @@
             <mat-icon>admin_panel_settings</mat-icon>
           </button>
           <mat-menu #adminmenu="matMenu">
-            <button  mat-menu-item routerLink="admin-semesters">
-              <mat-icon>calendar_month</mat-icon>
-              <span>semesters</span>
-            </button>
             <button  mat-menu-item routerLink="admin-courses">
               <mat-icon>cast for education</mat-icon>
-              <span>Courses</span>
+              <span>Games</span>
             </button>
             <button  mat-menu-item routerLink="admin-users">
               <mat-icon>group</mat-icon>
@@ -335,7 +330,7 @@
             </button>
             <button  mat-menu-item routerLink="admin-roles">
               <mat-icon>event_list</mat-icon>
-              <span>Roles</span>
+              <span>Blog</span>
             </button>
           </mat-menu>
         </span>
@@ -350,17 +345,21 @@
             <mat-icon>person</mat-icon>
             <span>profile</span>
           </button>
-          <button mat-menu-item routerLink="enrollment-list">
+          <button mat-menu-item routerLink="transactions">
             <mat-icon>list</mat-icon>
-            <span>My Course List</span>
+            <span>transactions</span>
           </button>
-          <button mat-menu-item routerLink="semester-signup">
+          <button mat-menu-item routerLink="badges">
             <mat-icon>checklist</mat-icon>
-            <span>Course Sign Ups</span>
+            <span>badges</span>
+          </button>
+          <button mat-menu-item routerLink="badges">
+            <mat-icon></mat-icon>
+            <span>redeem voucher</span>
           </button>
           <button mat-menu-item *ngIf="logoutButtonVisible" (click)="logout()">
             <mat-icon>logout</mat-icon>
-            <span>Logout</span>
+            <span>logout</span>
           </button>
         </mat-menu>
         </span>
@@ -375,11 +374,10 @@
 		<div id="recent">
 			<div class="tag">Now</div>
 			<div class="fourcolcontent post">
-				<h3><a href="#">uetopia is unlockd</a></h3>
+				<h3><a href="#">gaming unlockd</a></h3>
 
-We are moving beyond only supporting Unreal Engine, and aim to support all multiplayer game engines.  Godot, Unity, and Lumberyard devs - LFG!
-
-We are also making some changes to support our ethics and mission.  Open source, decentralization, and bitcoin.
+Open source, decentralized, bitcoin powered tools for modern multiplayer and competitive games.<br>
+Run your own multiplayer game backend, and customize it however you want.
 
 			</div>
 			<div class="fourcolside" id="comments">
@@ -394,7 +392,7 @@ We are also making some changes to support our ethics and mission.  Open source,
 			<div class="tag">Mission</div>
 			<div class="fourcolside post">
 				<h3>Bitcoin Only</h3>
-        We are exclusively focused on bitcoin.  No site token, no shi*coins.  It's btc and lightning ftw.
+        We are exclusively focused on bitcoin.  No site token, no shi*coins.  BTC and lightning ftw.
 			</div>
 			<div class="fourcolside post">
 				<h3>Support developers</h3>
@@ -497,12 +495,5 @@ We are also making some changes to support our ethics and mission.  Open source,
 
 </div>
 
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 <router-outlet></router-outlet>

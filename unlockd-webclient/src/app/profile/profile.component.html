@@ -1,0 +1,15 @@
+
+    <h3 class="ng-binding" ><b>Update My Profile</b></h3>
+
+
+<form #heroForm="ngForm">
+    <mat-form-field class="example-full-width">
+        <mat-label for="title">Name </mat-label>
+        <input matInput id="title" type="text" [formControl]="title">
+    </mat-form-field>
+    
+
+
+</form>
+
+    <button mat-raised-button color="primary" (click)="updateProfile()">Update Profile</button>

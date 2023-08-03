@@ -21,10 +21,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatListModule} from '@angular/material/list';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
+import { ProfileComponent } from './profile/profile.component';
+import { GenericResponseDialogComponent } from './generic-response-dialog/generic-response-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ProfileComponent,
+    GenericResponseDialogComponent,
     //LoginDialogComponent
   ],
   imports: [

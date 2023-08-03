@@ -34,10 +34,8 @@ export class LightningService {
   user: User = {
     id: 0,
     title: 'Service Test User',
-    address: '',
     emailvalidated: false,
-    travel_request_active: false,
-    member: false
+    admin: false
   };
 
 
@@ -210,7 +208,6 @@ export class LightningService {
   update_user(title: string, address: string )
   {
     console.log('lightning service update user');
-    this.user['address'] = address;
     this.user['title'] = title;
     this.sub_user.next(true);
   }

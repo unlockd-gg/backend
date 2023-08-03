@@ -644,3 +644,98 @@ def after_request(response):
   response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
   return response
 
+
+## Actual API endpoints
+@app.route("/users/profile/update", methods = ['POST'])
+@token_required
+def user_profile_update(wallet):
+    print('user profile update')
+    lightning_wallet_model = lightningwallets.LightningWallets()
+    user_model = users.Users()
+
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json = request.json
+        # get the wallet from the decorator
+        print(wallet)
+
+        print(json.get('title'))
+
+        # check if the wallet is connected to a user
+        if wallet['userconnected']: 
+            print('user connected')
+
+            # get the user
+            user = user_model.find_by_id(ObjectId(wallet['userid']))
+            
+            if user == None:
+                print('did not find user')
+            else:
+                print('found user')
+                print(user)
+                print(json.get('title'))
+
+                ## default response
+                response_message="Success."
+                response_title = "Success"
+
+                ##  update the database
+                user_model.update(user['_id'], 
+                                  {'title': json.get('title'),
+                                   
+                                   
+                                    })
+                user['title'] = json.get('title')
+                result = jsonify({'success' : True,
+                                'user':  user_model.to_json(user),
+                                'response_message': response_message,
+                                'response_title': response_title
+                                })
+                print(result)
+
+
+                return result
+            
+    print('returning failure')
+
+    return jsonify({'success' : False,
+                    'user':  user_model.to_json(user)
+                    })
+        
+
+    
+@app.route("/users/data", methods = ['POST', 'GET'])
+@token_required
+def user_data(wallet):
+    print('user data')
+    lightning_wallet_model = lightningwallets.LightningWallets()
+    user_model = users.Users()
+
+    print(wallet)
+
+    # check if the wallet is connected to a user
+    if wallet['userconnected']: 
+        print('user connected')
+
+        # get the user
+        user = user_model.find_by_id(ObjectId(wallet['userid']))
+        
+        if user == None:
+            print('did not find user')
+        else:
+            print('found user')
+            print(user)
+
+            #print(build_frontend_user_json(user) )
+            result = jsonify({'success' : True,
+                            'user': user_model.to_json(user)
+                            })
+            print(result)
+            return result
+            
+    print('returning failure')
+
+    return jsonify({'success' : False,
+                    'user':  None
+                    })
+        

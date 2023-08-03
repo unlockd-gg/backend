@@ -23,12 +23,14 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { ProfileComponent } from './profile/profile.component';
 import { GenericResponseDialogComponent } from './generic-response-dialog/generic-response-dialog.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProfileComponent,
     GenericResponseDialogComponent,
+    HomepageComponent,
     //LoginDialogComponent
   ],
   imports: [

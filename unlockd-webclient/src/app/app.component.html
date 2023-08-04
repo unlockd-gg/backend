@@ -307,7 +307,23 @@
 
 
   <button mat-button routerLink="/">unlockd</button>
-  <button mat-button routerLink="/pages/news">SOCIAL</button>
+  <button mat-button [matMenuTriggerFor]="socialmenu" >SOCIAL</button>
+  <mat-menu #socialmenu="matMenu">
+    <button  mat-menu-item routerLink="admin-courses">
+      <mat-icon>group</mat-icon>
+      <span>Groups</span>
+    </button>
+    <button  mat-menu-item routerLink="admin-users">
+      <mat-icon>group</mat-icon>
+      <span>Show friends</span>
+    </button>
+    <button  mat-menu-item routerLink="admin-roles">
+      <mat-icon>event_list</mat-icon>
+      <span>Search for a friend</span>
+    </button>
+  </mat-menu>
+
+
   <button mat-button routerLink="/pages/about">INFO</button>
 
   <div class="spacer"></div>
@@ -368,5 +384,8 @@
   
 </div>
 
+<div class="content" role="main">
 
 <router-outlet></router-outlet>
+
+</div>

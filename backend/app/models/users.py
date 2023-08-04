@@ -72,7 +72,8 @@ class Users(object):
 
         return_data = {
             "title": title,
-            "emailaddress": emailaddress
+            "emailaddress": emailaddress,
+            "admin": thisuser['admin']
         }
         return return_data
     

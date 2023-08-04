@@ -24,6 +24,7 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { ProfileComponent } from './profile/profile.component';
 import { GenericResponseDialogComponent } from './generic-response-dialog/generic-response-dialog.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { TransactionsComponent } from './transactions/transactions.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { HomepageComponent } from './homepage/homepage.component';
     ProfileComponent,
     GenericResponseDialogComponent,
     HomepageComponent,
+    TransactionsComponent,
     //LoginDialogComponent
   ],
   imports: [

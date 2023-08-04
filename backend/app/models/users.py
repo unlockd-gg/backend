@@ -26,10 +26,10 @@ class Users(object):
         self.create_optional_fields = []
 
         # Fields required for UPDATE
-        self.update_required_fields = ["title"]
+        self.update_required_fields = []
 
         # Fields optional for UPDATE
-        self.update_optional_fields = ["admin", "emailaddress"]
+        self.update_optional_fields = ["title", "admin", "emailaddress"]
 
     def create(self, user):
         # Validator will throw error if invalid

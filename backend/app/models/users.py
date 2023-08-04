@@ -13,7 +13,7 @@ class Users(object):
         self.collection_name = 'users'  # collection name
 
         self.fields = {
-            "name": "string",
+            "title": "string",
             "emailaddress": "string",
             "admin": "bool",
             "created": "datetime",
@@ -26,10 +26,10 @@ class Users(object):
         self.create_optional_fields = []
 
         # Fields required for UPDATE
-        self.update_required_fields = ["name"]
+        self.update_required_fields = ["title"]
 
         # Fields optional for UPDATE
-        self.update_optional_fields = []
+        self.update_optional_fields = ["admin", "emailaddress"]
 
     def create(self, user):
         # Validator will throw error if invalid

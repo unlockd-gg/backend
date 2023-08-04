@@ -572,14 +572,15 @@ def setup_database():
     wallets = lightning_wallet_model.find({})
     for wallet in wallets:
         print('found wallet')
-        lightning_wallet_model.delete(wallet['_id'])
+        #lightning_wallet_model.delete(wallet['_id'])
 
 
     user_model = users.Users()
     site_users = user_model.find({})
     for site_user in site_users:
         print('found user')
-        user_model.delete(site_user['_id'])
+        #user_model.delete(site_user['_id'])
+        user_model.update(site_user['_id'], {'admin': True})
 
     """
 

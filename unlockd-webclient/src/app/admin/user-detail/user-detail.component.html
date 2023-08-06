@@ -1,1 +1,22 @@
-<p>user-detail works!</p>
+
+
+<form #roleUpdateeForm="ngForm">
+    <mat-form-field class="example-full-width">
+      <mat-label for="title">Name </mat-label>
+      <input matInput id="title" type="text" [formControl]="title">
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+      <mat-label for="emailaddress">email address </mat-label>
+      <input matInput id="emailaddress" type="text" [formControl]="emailaddress">
+    </mat-form-field>
+
+  
+    <p><mat-checkbox [formControl]="developer">developer</mat-checkbox></p>
+  
+  
+  </form>
+  
+      <button mat-raised-button color="primary" type="button" (click)="updateUser()">Update</button>
+      <button mat-raised-button color="warn" type="button" (click)="deleteUser()">Delete</button>
+  

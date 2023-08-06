@@ -740,3 +740,176 @@ def user_data(wallet):
                     'user':  None
                     })
         
+
+
+###################################
+## USERS
+###################################
+
+@app.route("/admin/users/<userid>", methods = ['GET','POST'])
+@token_required
+def user_get(wallet, userid = None):
+    print('get user')
+    lightning_wallet_model = lightningwallets.LightningWallets()
+    user_model = users.Users()
+
+    #content_type = request.headers.get('Content-Type')
+   # if (content_type == 'application/json'):
+    #    json = request.json
+
+    # get the wallet from the decorator
+    print(wallet)
+
+    ## roleid is in the request args
+    print(userid)
+
+    # check if the wallet is connected to a user
+    if wallet['userconnected']: 
+        print('user connected')
+
+        # get the user
+        user = user_model.find_by_id(ObjectId(wallet['userid']))
+        
+        if user == None:
+            print('did not find user')
+        else:
+            print('found user')
+
+            ## get the role for this user
+            if user['admin']:
+                print('user is admin')
+
+                print(userid)
+
+                thisuser = user_model.find_by_id(ObjectId(userid))
+
+                if thisuser == None:
+                    print('requested user not found by userid')
+                else:
+                    result = jsonify({'success' : True,
+                        'user': user_model.to_json(thisuser)
+                        })
+                    print(result)
+                    return result
+
+    print('returning failure')
+
+    return jsonify({'success' : False,
+                    'user': {}
+                    })
+
+
+@app.route("/admin/users/<userid>/update", methods = ['POST'])
+@token_required
+def user_update(wallet, userid=None):
+    print('update user')
+    lightning_wallet_model = lightningwallets.LightningWallets()
+    user_model = users.Users()
+
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json = request.json
+        # get the wallet from the decorator
+        print(wallet)
+
+        # check if the wallet is connected to a user
+        if wallet['userconnected']: 
+            print('user connected')
+
+            # get the user
+            user = user_model.find_by_id(ObjectId(wallet['userid']))
+            
+            if user == None:
+                print('did not find user')
+            else:
+                print('found user')
+
+                ## get the role for this user
+                if user['admin']:
+                    print('user is admin')
+
+                    print(userid)
+
+                    thisuser = user_model.find_by_id(ObjectId(userid))
+
+                    if thisuser == None:
+                        print('requested user not found by userid')
+                    else:
+
+                        newuser = user_model.update(userid, {
+                            "title": json.get('title'),
+                            "emailaddress": json.get('emailaddress'),
+                            "developer": json.get('developer'),
+                            
+
+                        })
+
+                        result = jsonify({'success' : True,
+                            'user': newuser
+                            })
+                        print(result)
+
+                        ## TODO Send a msg to discord
+                        
+
+                        return result
+                            
+    print('returning failure')
+
+    return jsonify({'success' : False,
+                    'user': {}
+                    })
+
+
+@app.route("/admin/users/<userid>/delete", methods = ['POST'])
+@token_required
+def user_delete(wallet, userid=None):
+    print('delete user')
+    lightning_wallet_model = lightningwallets.LightningWallets()
+    user_model = users.Users()
+
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json = request.json
+        # get the wallet from the decorator
+        print(wallet)
+
+        # check if the wallet is connected to a user
+        if wallet['userconnected']: 
+            print('user connected')
+
+            # get the user
+            user = user_model.find_by_id(ObjectId(wallet['userid']))
+            
+            if user == None:
+                print('did not find user')
+            else:
+                print('found user')
+
+                ## get the role for this user
+                if user['admin']:
+                    print('user is admin')
+
+                    print(userid)
+
+                    thisuser = user_model.find_by_id(ObjectId(userid))
+
+                    if thisuser == None:
+                        print('requested user not found by userid')
+                    else:
+
+                        user_model.delete(json.get('_id'))
+
+                        result = jsonify({'success' : True
+                            })
+                        print(result)
+
+                        ## TODO Send a msg to discord
+
+                        return result
+            
+    print('returning failure')
+
+    return jsonify({'success' : False,
+                    'user': {}
+                    })

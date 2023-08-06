@@ -11,24 +11,181 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   UserDetailComponent: () => (/* binding */ UserDetailComponent)
 /* harmony export */ });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 1699);
+/* harmony import */ var C_Users_Ed_Documents_GitHub_backend_unlockd_webclient_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ 8849);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 1699);
+/* harmony import */ var _lightning_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../lightning.service */ 707);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ 7947);
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/button */ 895);
+/* harmony import */ var _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/checkbox */ 6658);
+/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/form-field */ 1333);
+/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/input */ 26);
 
-class UserDetailComponent {}
+
+
+
+
+
+
+
+
+
+class UserDetailComponent {
+  constructor(lightningService, route, router) {
+    var _this = this;
+    this.lightningService = lightningService;
+    this.route = route;
+    this.router = router;
+    this.userid = "";
+    this.user = {};
+    this.getUserData = /*#__PURE__*/(0,C_Users_Ed_Documents_GitHub_backend_unlockd_webclient_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      if (localStorage.getItem("token") === null) {
+        console.log('user data - no access token');
+      } else {
+        const response = yield fetch(_this.lightningService.apiUrl + '/admin/users/' + _this.userid, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        const result = yield response.json();
+        console.log(result);
+        console.log(result.user);
+        if (result.status == "401") {
+          _this.lightningService.requestLogin();
+        }
+        if (result.user) {
+          console.log('found user');
+          console.log(result.user['title']);
+          console.log(result.user['description']);
+          _this.developer.setValue(result.user['developer']);
+          _this.user = result.user;
+          _this.title.setValue(result.user['title']);
+        }
+      }
+    });
+    this.title = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__.FormControl('');
+    this.emailaddress = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__.FormControl('');
+    this.developer = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__.FormControl('');
+    this.updateUser = /*#__PURE__*/(0,C_Users_Ed_Documents_GitHub_backend_unlockd_webclient_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      console.log('update user');
+      console.log(localStorage.getItem("token"));
+      //const location = window.location.hostname; // this works for live
+      //const location = '13.56.127.211' // hardcoding for now
+      const settings = {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify({
+          '_id': _this.userid,
+          'title': _this.title.value,
+          'emailaddress': _this.emailaddress.value,
+          'developer': _this.developer.value
+        })
+      };
+      //try {
+      const fetchResponse = yield fetch(_this.lightningService.apiUrl + '/admin/users/' + _this.userid + '/update', settings);
+      console.log(fetchResponse);
+      const data = yield fetchResponse.json();
+      // we dont have to do anything special here.  redirect?
+      _this.router.navigate(['admin-users']);
+      console.log(data);
+      return data;
+      //} catch (e) {
+      //    return e;
+      //} 
+    });
+
+    this.deleteUser = /*#__PURE__*/(0,C_Users_Ed_Documents_GitHub_backend_unlockd_webclient_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      console.log('delete user');
+      console.log(localStorage.getItem("token"));
+      //const location = window.location.hostname; // this works for live
+      //const location = '13.56.127.211' // hardcoding for now
+      const settings = {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify({
+          '_id': _this.userid
+        })
+      };
+      //try {
+      const fetchResponse = yield fetch(_this.lightningService.apiUrl + '/admin/users/' + _this.userid + '/delete', settings);
+      console.log(fetchResponse);
+      const data = yield fetchResponse.json();
+      // we dont have to do anything special here.  redirect?
+      _this.router.navigate(['admin-users']);
+      console.log(data);
+      return data;
+      //} catch (e) {
+      //    return e;
+      //} 
+    });
+  }
+  // load the role into the form 
+  ngOnInit() {
+    console.log('user detail init');
+    this.route.paramMap.subscribe(params => {
+      console.log('user data params changed');
+      this.userid = params.get('userid') || "";
+      //this.role = this.productService.getProduct(this.id);
+      this.getUserData();
+    });
+  }
+}
 UserDetailComponent.ɵfac = function UserDetailComponent_Factory(t) {
-  return new (t || UserDetailComponent)();
+  return new (t || UserDetailComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_lightning_service__WEBPACK_IMPORTED_MODULE_1__.LightningService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__.ActivatedRoute), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__.Router));
 };
-UserDetailComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
+UserDetailComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({
   type: UserDetailComponent,
   selectors: [["app-user-detail"]],
-  decls: 2,
-  vars: 0,
+  decls: 17,
+  vars: 3,
+  consts: [["roleUpdateeForm", "ngForm"], [1, "example-full-width"], ["for", "title"], ["matInput", "", "id", "title", "type", "text", 3, "formControl"], ["for", "emailaddress"], ["matInput", "", "id", "emailaddress", "type", "text", 3, "formControl"], [3, "formControl"], ["mat-raised-button", "", "color", "primary", "type", "button", 3, "click"], ["mat-raised-button", "", "color", "warn", "type", "button", 3, "click"]],
   template: function UserDetailComponent_Template(rf, ctx) {
     if (rf & 1) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p");
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "user-detail works!");
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "form", null, 0)(2, "mat-form-field", 1)(3, "mat-label", 2);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](4, "Name ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](5, "input", 3);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](6, "mat-form-field", 1)(7, "mat-label", 4);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](8, "email address ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](9, "input", 5);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](10, "p")(11, "mat-checkbox", 6);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](12, "developer");
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]()()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](13, "button", 7);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("click", function UserDetailComponent_Template_button_click_13_listener() {
+        return ctx.updateUser();
+      });
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](14, "Update");
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](15, "button", 8);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("click", function UserDetailComponent_Template_button_click_15_listener() {
+        return ctx.deleteUser();
+      });
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](16, "Delete");
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+    }
+    if (rf & 2) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](5);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("formControl", ctx.title);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](4);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("formControl", ctx.emailaddress);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](2);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("formControl", ctx.developer);
     }
   },
+  dependencies: [_angular_material_button__WEBPACK_IMPORTED_MODULE_5__.MatButton, _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_6__.MatCheckbox, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ɵNgNoValidate"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__.DefaultValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_2__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_2__.NgControlStatusGroup, _angular_forms__WEBPACK_IMPORTED_MODULE_2__.NgForm, _angular_forms__WEBPACK_IMPORTED_MODULE_2__.FormControlDirective, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_7__.MatFormField, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_7__.MatLabel, _angular_material_input__WEBPACK_IMPORTED_MODULE_8__.MatInput],
   styles: ["/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsInNvdXJjZVJvb3QiOiIifQ== */"]
 });
 
@@ -45,24 +202,83 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   UsersComponent: () => (/* binding */ UsersComponent)
 /* harmony export */ });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 1699);
+/* harmony import */ var C_Users_Ed_Documents_GitHub_backend_unlockd_webclient_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 1699);
+/* harmony import */ var _lightning_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../lightning.service */ 707);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ 6575);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ 7947);
 
-class UsersComponent {}
+
+
+
+
+function UsersComponent_tr_9_Template(rf, ctx) {
+  if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "tr")(1, "td")(2, "a", 1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()()();
+  }
+  if (rf & 2) {
+    const site_user_r1 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpropertyInterpolate1"]("routerLink", "/admin-user-detail/", site_user_r1["_id"], "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"](" ", site_user_r1["title"], " ");
+  }
+}
+class UsersComponent {
+  constructor(lightningService) {
+    var _this = this;
+    this.lightningService = lightningService;
+    this.user_list = [];
+    this.getUserData = /*#__PURE__*/(0,C_Users_Ed_Documents_GitHub_backend_unlockd_webclient_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const response = yield fetch(_this.lightningService.apiUrl + '/users/', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      const result = yield response.json();
+      console.log(result);
+      _this.user_list = result;
+    });
+  }
+  ngOnInit() {
+    console.log('admin users init');
+    //this.title.setValue(this.lightningService.user['title']);
+    this.getUserData();
+  }
+}
 UsersComponent.ɵfac = function UsersComponent_Factory(t) {
-  return new (t || UsersComponent)();
+  return new (t || UsersComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_lightning_service__WEBPACK_IMPORTED_MODULE_1__.LightningService));
 };
-UsersComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
+UsersComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({
   type: UsersComponent,
   selectors: [["app-users"]],
-  decls: 2,
-  vars: 0,
+  decls: 10,
+  vars: 1,
+  consts: [[4, "ngFor", "ngForOf"], [3, "routerLink"]],
   template: function UsersComponent_Template(rf, ctx) {
     if (rf & 1) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p");
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "users works!");
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "p");
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](1, "users works!");
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](2, "table")(3, "thead")(4, "th");
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](5, "Name");
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](6, "th");
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](7, "Index");
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](8, "tbody");
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](9, UsersComponent_tr_9_Template, 4, 2, "tr", 0);
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
+    }
+    if (rf & 2) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](9);
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngForOf", ctx.user_list);
     }
   },
+  dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_3__.NgForOf, _angular_router__WEBPACK_IMPORTED_MODULE_4__.RouterLink],
   styles: ["/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsInNvdXJjZVJvb3QiOiIifQ== */"]
 });
 

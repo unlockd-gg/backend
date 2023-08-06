@@ -22,6 +22,7 @@ export class AppComponent {
   public userTitle = "Lightning User";
   authchall: AuthChallenge | undefined;
   public user = this.lightningService.user;
+  public admin = false;
 
   constructor(public lightningService: LightningService, private dialog: MatDialog, private router: Router) { }
 
@@ -44,14 +45,21 @@ export class AppComponent {
       this.userTitle = localStorage.getItem("usertitle") || "";
     }
 
-    if (localStorage.getItem("role") === null) {
-      console.log('role not found in localstorage');
+    if (localStorage.getItem("admin") === null) {
+      console.log('admin not found in localstorage');
     }
     else 
     {
-      var role_str = localStorage.getItem("role") || "";
-      console.log('roleObject: ', JSON.parse(role_str));
-      //this.role = JSON.parse(role_str);
+      var admin_str = localStorage.getItem("admin") || "";
+      if (admin_str == 'true')
+      {
+        this.admin = true;
+      }
+      else
+      {
+        this.admin = false;
+      }
+      
     }
 
     // Subscribe to the login user in lightning service to know if we need to run auth again

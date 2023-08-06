@@ -279,6 +279,7 @@ class AppComponent {
     this.logoutButtonVisible = false;
     this.userTitle = "Lightning User";
     this.user = this.lightningService.user;
+    this.admin = false;
   }
   ngOnInit() {
     if (localStorage.getItem("token") === null) {
@@ -293,12 +294,15 @@ class AppComponent {
     } else {
       this.userTitle = localStorage.getItem("usertitle") || "";
     }
-    if (localStorage.getItem("role") === null) {
-      console.log('role not found in localstorage');
+    if (localStorage.getItem("admin") === null) {
+      console.log('admin not found in localstorage');
     } else {
-      var role_str = localStorage.getItem("role") || "";
-      console.log('roleObject: ', JSON.parse(role_str));
-      //this.role = JSON.parse(role_str);
+      var admin_str = localStorage.getItem("admin") || "";
+      if (admin_str == 'true') {
+        this.admin = true;
+      } else {
+        this.admin = false;
+      }
     }
     // Subscribe to the login user in lightning service to know if we need to run auth again
     this.lightningService.login_user.subscribe(value => {
@@ -849,7 +853,7 @@ class LightningService {
         if (result.user) {
           console.log('found user');
           _this.user = result.user;
-          _this.update_user(result.user['title'], result.user['address']);
+          _this.update_user(result.user['title'], result.user['address'], result.user['admin']);
         }
         _this.auth_token = result.auth_token;
         localStorage.setItem('token', result.auth_token);
@@ -1004,9 +1008,10 @@ class LightningService {
       }
     })();
   }
-  update_user(title, address) {
+  update_user(title, address, admin) {
     console.log('lightning service update user');
     this.user['title'] = title;
+    this.user['admin'] = admin;
     this.sub_user.next(true);
   }
   doLogout() {}

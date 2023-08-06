@@ -91,7 +91,7 @@ export class LightningService {
       if (result.user) {
         console.log('found user');
         this.user = result.user;
-        this.update_user(result.user['title'], result.user['address']);
+        this.update_user(result.user['title'], result.user['address'], result.user['admin']);
       }
       
       this.auth_token = result.auth_token;
@@ -205,10 +205,11 @@ export class LightningService {
     }
   }
 
-  update_user(title: string, address: string )
+  update_user(title: string, address: string, admin: boolean )
   {
     console.log('lightning service update user');
     this.user['title'] = title;
+    this.user['admin'] = admin;
     this.sub_user.next(true);
   }
 

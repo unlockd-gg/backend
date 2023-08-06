@@ -178,7 +178,7 @@ function AppComponent_span_48_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](10, "span");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](11, "Games");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](12, "button", 5)(13, "mat-icon");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](12, "button", 14)(13, "mat-icon");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](14, "group");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](15, "span");
@@ -200,7 +200,7 @@ function AppComponent_span_48_Template(rf, ctx) {
 function AppComponent_span_49_button_25_Template(rf, ctx) {
   if (rf & 1) {
     const _r10 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "button", 19);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "button", 20);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("click", function AppComponent_span_49_button_25_Template_button_click_0_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r10);
       const ctx_r9 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"](2);
@@ -219,30 +219,30 @@ function AppComponent_span_49_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "span")(1, "button", 12)(2, "mat-icon");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](3, "more_vert");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](4, "mat-menu", null, 14)(6, "button", 15)(7, "mat-icon");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](4, "mat-menu", null, 15)(6, "button", 16)(7, "mat-icon");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](8, "person");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](9, "span");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](10, "profile");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](11, "button", 16)(12, "mat-icon");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](11, "button", 17)(12, "mat-icon");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](13, "list");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](14, "span");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](15, "transactions");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](16, "button", 17)(17, "mat-icon");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](16, "button", 18)(17, "mat-icon");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](18, "checklist");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](19, "span");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](20, "badges");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](21, "button", 17);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](21, "button", 18);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](22, "mat-icon");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](23, "span");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](24, "redeem voucher");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](25, AppComponent_span_49_button_25_Template, 5, 0, "button", 18);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](25, AppComponent_span_49_button_25_Template, 5, 0, "button", 19);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
   }
   if (rf & 2) {
@@ -257,7 +257,7 @@ function AppComponent_span_49_Template(rf, ctx) {
 function AppComponent_button_50_Template(rf, ctx) {
   if (rf & 1) {
     const _r12 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "button", 20);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "button", 21);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("click", function AppComponent_button_50_Template_button_click_0_listener() {
       _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r12);
       const ctx_r11 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"]();
@@ -366,7 +366,7 @@ AppComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵ
   selectors: [["app-root"]],
   decls: 53,
   vars: 6,
-  consts: [["role", "banner", 1, "toolbar"], ["mat-button", "", "routerLink", "/"], ["mat-button", "", 3, "matMenuTriggerFor"], ["socialmenu", "matMenu"], ["mat-menu-item", "", "routerLink", "admin-courses"], ["mat-menu-item", "", "routerLink", "admin-users"], ["mat-menu-item", "", "routerLink", "admin-roles"], ["infomenu", "matMenu"], [1, "spacer"], [4, "ngIf"], ["mat-raised-button", "", 3, "click", 4, "ngIf"], ["role", "main", 1, "content"], ["mat-icon-button", "", "aria-label", "Example icon-button with a menu", 3, "matMenuTriggerFor"], ["adminmenu", "matMenu"], ["menu", "matMenu"], ["mat-menu-item", "", "routerLink", "profile"], ["mat-menu-item", "", "routerLink", "transactions"], ["mat-menu-item", "", "routerLink", "badges"], ["mat-menu-item", "", 3, "click", 4, "ngIf"], ["mat-menu-item", "", 3, "click"], ["mat-raised-button", "", 3, "click"]],
+  consts: [["role", "banner", 1, "toolbar"], ["mat-button", "", "routerLink", "/"], ["mat-button", "", 3, "matMenuTriggerFor"], ["socialmenu", "matMenu"], ["mat-menu-item", "", "routerLink", "admin-courses"], ["mat-menu-item", "", "routerLink", "admin-users"], ["mat-menu-item", "", "routerLink", "admin-roles"], ["infomenu", "matMenu"], [1, "spacer"], [4, "ngIf"], ["mat-raised-button", "", 3, "click", 4, "ngIf"], ["role", "main", 1, "content"], ["mat-icon-button", "", "aria-label", "Example icon-button with a menu", 3, "matMenuTriggerFor"], ["adminmenu", "matMenu"], ["mat-menu-item", "", "routerLink", "/admin/users"], ["menu", "matMenu"], ["mat-menu-item", "", "routerLink", "profile"], ["mat-menu-item", "", "routerLink", "transactions"], ["mat-menu-item", "", "routerLink", "badges"], ["mat-menu-item", "", 3, "click", 4, "ngIf"], ["mat-menu-item", "", 3, "click"], ["mat-raised-button", "", 3, "click"]],
   template: function AppComponent_Template(rf, ctx) {
     if (rf & 1) {
       _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "div", 0)(1, "button", 1);

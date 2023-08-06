@@ -25,6 +25,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { GenericResponseDialogComponent } from './generic-response-dialog/generic-response-dialog.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { UsersComponent } from './admin/users/users.component';
+import { UserDetailComponent } from './admin/user-detail/user-detail.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { TransactionsComponent } from './transactions/transactions.component';
     GenericResponseDialogComponent,
     HomepageComponent,
     TransactionsComponent,
+    UsersComponent,
+    UserDetailComponent,
     //LoginDialogComponent
   ],
   imports: [

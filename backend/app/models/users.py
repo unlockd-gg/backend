@@ -88,10 +88,16 @@ class Users(object):
         else:
             admin = False
 
+        if 'developer' in thisuser.keys():
+            developer = thisuser['developer']
+        else:
+            developer = False
+
         return_data = {
             "title": title,
             "emailaddress": emailaddress,
-            "admin": admin
+            "admin": admin,
+            "developer": developer
         }
         return return_data
     

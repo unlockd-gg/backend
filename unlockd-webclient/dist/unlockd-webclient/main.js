@@ -61,6 +61,7 @@ class UserDetailComponent {
           _this.developer.setValue(result.user['developer']);
           _this.user = result.user;
           _this.title.setValue(result.user['title']);
+          _this.emailaddress.setValue(result.user['emailaddress']);
         }
       }
     });

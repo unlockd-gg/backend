@@ -52,9 +52,11 @@ export class UserDetailComponent {
         console.log('found user');
         console.log(result.user['title']);
         console.log(result.user['description']);
+        
         this.developer.setValue(result.user['developer']);
         this.user = result.user;
         this.title.setValue(result.user['title']);
+        this.emailaddress.setValue(result.user['emailaddress']);
 
 
       }

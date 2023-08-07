@@ -558,64 +558,28 @@ def userEmailValidationCompleteNoLightning(incoming_email = None, incoming_valid
 
 
 
-@app.route("/setup_database")
-def setup_database():
+#@app.route("/setup_database")
+#def setup_database():
     ## TODO check for admin superuser
     
     # first drop any previous entries
     ## todo remove this for production 
-    ## This is not working in production - command dropDatabase requires authentication
-    ## instead we can clean up manually
-    #mongo_client = pymongo.MongoClient('mongodb://mongo:27017')
-    #mongo_client.drop_database('customersdb');
 
-    lightning_wallet_model = lightningwallets.LightningWallets()
-    wallets = lightning_wallet_model.find({})
-    for wallet in wallets:
-        print('found wallet')
-        #lightning_wallet_model.delete(wallet['_id'])
+    #lightning_wallet_model = lightningwallets.LightningWallets()
+    #wallets = lightning_wallet_model.find({})
+    #for wallet in wallets:
+    #    print('found wallet')
+    #    #lightning_wallet_model.delete(wallet['_id'])
 
 
-    user_model = users.Users()
-    site_users = user_model.find({})
-    for site_user in site_users:
-        print('found user')
-        #user_model.delete(site_user['_id'])
-        user_model.update(site_user['_id'], {'admin': True})
+    #user_model = users.Users()
+    #site_users = user_model.find({})
+    #for site_user in site_users:
+    #    print('found user')
+    #    #user_model.delete(site_user['_id'])
+    #    user_model.update(site_user['_id'], {'admin': True})
 
-    """
-
-    # setup model(s)
-    user_model = users.Users()
-
-    user_list = [
-    { "name": "Amy", "address": "Apple st 652"},
-    { "name": "Hannah", "address": "Mountain 21"},
-    { "name": "Michael", "address": "Valley 345"},
-    { "name": "Sandy", "address": "Ocean blvd 2"},
-    { "name": "Betty", "address": "Green Grass 1"},
-    { "name": "Richard", "address": "Sky st 331"},
-    { "name": "Susan", "address": "One way 98"},
-    { "name": "Vicky", "address": "Yellow Garden 2"},
-    { "name": "Ben", "address": "Park Lane 38"},
-    { "name": "William", "address": "Central st 954"},
-    { "name": "Chuck", "address": "Main Road 989"},
-    { "name": "Viola", "address": "Sideway 1633"}
-    ]
-    for user_data in user_list:
-        user_model.create(user_data)
-
-    lightning_challneges_model = lightningchallenges.LightningChallenges()
-    lightning_challneges_model.create({"k1": "1"})
-    lightning_challneges_model.create({"k1": "2"})
-    lightning_challneges_model.create({"k1": "3"})
-    lightning_challneges_model.create({"k1": "4"})
-
-    lightning_wallet_model = lightningwallets.LightningWallets()
-    lightning_wallet_model.create({"publickey": "1"})
-    """
-
-    return jsonify({'success' : True})
+    #return jsonify({'success' : True})
 
 
 ## Views for data validation and testing

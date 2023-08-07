@@ -92,7 +92,7 @@ def auth():
     #client = docker.DockerClient()
     #container = client.containers.get('fplb')
     #host_address = container.attrs['NetworkSettings']['IPAddress']
-    url = "https://"+host_address+"/signin?tag=login&k1="+k1
+    url = "https://"+host_address+"/api/signin?tag=login&k1="+k1
     print(url)
 
     #add k1 to challenges

@@ -402,6 +402,10 @@ def userEmailValidationStart(wallet, incoming_email = None):
     # TODO generate a verification code
     randomInt = str(random.randint(100000, 999999))
 
+    # Show the code for local debugging
+    # TODO - mute this
+    print(randomInt)
+
     lightning_wallet_model.update(wallet['_id'], {'emailaddress': incoming_email, 'emailverificationcode': randomInt})
 
     # send an email containing the verification code and link

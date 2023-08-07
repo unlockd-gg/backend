@@ -216,6 +216,7 @@ def signin():
 
 
     if error["status"] == True:
+        print(error['message'])
         return jsonify(
             status="ERROR",
             reason=error["message"]

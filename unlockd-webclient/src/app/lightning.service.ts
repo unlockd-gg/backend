@@ -16,7 +16,7 @@ import { AuthChallenge } from './authchallenge';
 export class LightningService {
 
   // TODO:  Fix this so it's not hardcoded to our local dev environment
-  public apiUrl = 'http://54.219.218.253//api';  // URL to web api - in quotes - no trailing slash:  'http://54.176.48.9'
+  public apiUrl = 'https://unlockd.gg/api';  // URL to web api - in quotes - no trailing slash:  'http://54.176.48.9'
   public authChallengeResponse = '';
   public weblnButtonUrl = '';
   public emailaddress = '';

@@ -88,11 +88,11 @@ def auth():
     #32 byte challenge k1
     k1 = secrets.token_hex(32)
     #host_address = socket.gethostbyname(socket.gethostname())
-    host_address = "54.219.218.253"
+    host_address = "unlockd.gg"
     #client = docker.DockerClient()
     #container = client.containers.get('fplb')
     #host_address = container.attrs['NetworkSettings']['IPAddress']
-    url = "http://"+host_address+"/signin?tag=login&k1="+k1
+    url = "https://"+host_address+"/signin?tag=login&k1="+k1
     print(url)
 
     #add k1 to challenges

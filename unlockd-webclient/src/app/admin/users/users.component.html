@@ -4,12 +4,11 @@
 <table>
     <thead>
         <th>Name</th>
-        <th>Index</th>
     </thead>
     <tbody>
         <tr *ngFor="let site_user of user_list">
 
-            <td><a routerLink="/admin-user-detail/{{ site_user['_id'] }}"> {{site_user['title']}} </a></td>
+            <td><a routerLink="/admin/users{{ site_user['_id'] }}"> {{site_user['title']}} </a></td>
         </tr>
     </tbody>
 </table>

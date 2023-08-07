@@ -48,17 +48,13 @@ formatter =  logging.Formatter('%(levelname)s : %(message)s')
 console.setFormatter(formatter)
 logger.addHandler(console)
 
-# https://trstringer.com/logging-flask-gunicorn-the-manageable-way/
-# does not work
-#if __name__ != '__main__':
 gunicorn_logger = logging.getLogger('gunicorn.debug')
 logger.handlers = gunicorn_logger.handlers
 logger.setLevel(gunicorn_logger.level)
 
-#onion_address = "yri5o7gtfa4yabmroogtiyqbulw4g4to3zukuwezpf3er6ifhy5bwcyd.onion"
+# Source for the ln-auth-python implementation
+# https://github.com/ko-redtruck/ln-auth-python
 
-## move this to mongo
-#challenges = []
 
 G = point(
     hex_to_int("79BE667E F9DCBBAC 55A06295 CE870B07 029BFCDB 2DCE28D9 59F2815B 16F81798"),

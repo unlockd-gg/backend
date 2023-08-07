@@ -41,7 +41,7 @@ export class LoginDialogComponent {
     
  }
   //qrcodesrc = this.lightningService.getLnUrl();
-  qrcodesrc = 'http://54.219.218.253/api/generate_qr/' + this.lightningService.getLnUrl();
+  qrcodesrc = 'https://unlockd.gg/api/generate_qr/' + this.lightningService.getLnUrl();
   weblnurl = 'lightning:' + this.lightningService.getLnUrl();
 
   // Multi-stage dialog

@@ -621,23 +621,23 @@ def setup_database():
 ## Views for data validation and testing
 ## Todo - after roles and permissions are in, these should be protected by them
 
-@app.route("/users/")
-def users_list():
-    # setup model(s)
-    user_model = users.Users()
-    return jsonify(user_model.find({})), 200
+#@app.route("/users/")
+#def users_list():
+#    # setup model(s)
+#    user_model = users.Users()
+#    return jsonify(user_model.find({})), 200
 
-@app.route("/lightning/challenges")
-def challenge_list():
-    # setup model(s)
-    lightning_challneges_model = lightningchallenges.LightningChallenges()
-    return jsonify(lightning_challneges_model.find({})), 200
+#@app.route("/lightning/challenges")
+#def challenge_list():
+#    # setup model(s)
+#    lightning_challneges_model = lightningchallenges.LightningChallenges()
+#    return jsonify(lightning_challneges_model.find({})), 200
 
-@app.route("/lightning/wallets")
-def wallet_list():
-    # setup model(s)
-    lightning_wallet_model = lightningwallets.LightningWallets()
-    return jsonify( json_util.dumps(lightning_wallet_model.find({}) )), 200
+#@app.route("/lightning/wallets")
+#def wallet_list():
+#    # setup model(s)
+#    lightning_wallet_model = lightningwallets.LightningWallets()
+#    return jsonify( json_util.dumps(lightning_wallet_model.find({}) )), 200
 
 @app.after_request
 def after_request(response):
@@ -648,6 +648,8 @@ def after_request(response):
 
 
 ## Actual API endpoints
+
+
 @app.route("/users/profile/update", methods = ['POST'])
 @token_required
 def user_profile_update(wallet):
@@ -746,6 +748,36 @@ def user_data(wallet):
 ###################################
 ## USERS
 ###################################
+
+@app.route("/users/")
+@token_required
+def users_list(wallet):
+    print('get users')
+    # setup model(s)
+    user_model = users.Users()
+
+    # check if the wallet is connected to a user
+    if wallet['userconnected']: 
+        print('user connected')
+
+        # get the user
+        user = user_model.find_by_id(ObjectId(wallet['userid']))
+        
+        if user == None:
+            print('did not find user')
+        else:
+            print('found user')
+
+            ## get the role for this user
+            if user['admin']:
+                print('user is admin')
+
+                return jsonify(user_model.find({})), 200
+            
+    return jsonify({'success' : False,
+                    'users': {}
+                    })
+
 
 @app.route("/admin/users/<userid>", methods = ['GET','POST'])
 @token_required

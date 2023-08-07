@@ -23,8 +23,8 @@
 </div>
 <div *ngIf="signinEmailValidationStart" mat-dialog-content>
     <p>You are logged in with lightning.  </p>
-    <h1 mat-dialog-title>Required: Validate email</h1>
-    <p>We require your email address so we can email you with updates.</p>
+    <h1 mat-dialog-title>Optional: Validate email</h1>
+    <p>Connect your lightning login with an email address for additional features.  Account recovery, gamer handle, group membership, developer tools, and more.</p>
     <p>We will never sell your email address, or give it away to anyone.</p>
     <p>
         Email address: <input type="email"  [(ngModel)]="emailaddress" email>
@@ -33,7 +33,7 @@
 </div>
 <div *ngIf="signinEmailValidationCodeStart" mat-dialog-content>
     <p>Please check your email for the 6 digit security code  </p>
-    <h1 mat-dialog-title>Required: Validate email</h1>
+    <h1 mat-dialog-title>Optional: Validate email</h1>
 
     <p>
     VerificationCode: <input type="text"  [(ngModel)]="emailaddressverificationcode" >

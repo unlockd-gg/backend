@@ -205,14 +205,14 @@ def signin():
         error["status"] = True
         error["message"] = "signature not encoded right"
 
-    try:
-        sig_status = ecdsa.raw_verify(public_key,k1,sig,secp256k1)
-        if sig_status == False:
-            error["status"] = True
-            error["message"] = "Signature is invalid"
-    except:
+    #try:
+    sig_status = ecdsa.raw_verify(public_key,k1,sig,secp256k1)
+    if sig_status == False:
         error["status"] = True
-        error["message"] = "Signature validation failed"
+        error["message"] = "Signature is invalid"
+    #except:
+    #    error["status"] = True
+    #    error["message"] = "Signature validation failed"
 
 
     if error["status"] == True:

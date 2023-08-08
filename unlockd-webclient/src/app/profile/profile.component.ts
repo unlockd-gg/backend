@@ -24,11 +24,13 @@ export class ProfileComponent {
     id: 0,
     title: 'Profile User',
     emailvalidated: false,
-    admin: false
+    admin: false,
+    developer: false
   };
 
 
   title = new FormControl('');
+  developer = new FormControl('');
 
   ngOnInit(): void {
     console.log('profile init');
@@ -61,6 +63,7 @@ export class ProfileComponent {
         console.log('found user');
         this.user = result.user;
         this.title.setValue(result.user['title']);
+        this.developer.setValue(result.user['developer']);
 
         //this.admin = result.user['admin'];
 
@@ -83,6 +86,7 @@ export class ProfileComponent {
             Authorization: `Bearer ${localStorage.getItem("token")}`
         },
         body: JSON.stringify({'title':this.title.value,
+                              'developer': this.developer.value
 
       })
     };

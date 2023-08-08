@@ -35,7 +35,8 @@ export class LightningService {
     id: 0,
     title: 'Service Test User',
     emailvalidated: false,
-    admin: false
+    admin: false,
+    developer: false
   };
 
 

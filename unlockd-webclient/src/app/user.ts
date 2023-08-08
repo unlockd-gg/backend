@@ -3,5 +3,6 @@ export interface User {
     title: string;
     emailvalidated: boolean;
     admin: boolean;
+    developer: boolean;
   }
   

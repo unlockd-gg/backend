@@ -42,7 +42,20 @@ class Users(object):
         self.update_required_fields = []
 
         # Fields optional for UPDATE
-        self.update_optional_fields = ["title", "admin", "emailaddress"]
+        self.update_optional_fields = ["title", 
+                                       "admin", 
+                                       "emailaddress", 
+                                       "developer", 
+                                       "defaultTeamTitle", 
+                                       "region",
+                                        "referral_processed",
+                                        "referred_by",
+                                        "twitch_streamer",
+                                        "twitch_channel_id",
+                                        "twitch_currently_streaming",
+                                        "twitch_stream_game",
+                                        "twitch_stream_viewers"
+                                       ]
 
     def create(self, user):
         # Validator will throw error if invalid

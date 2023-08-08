@@ -369,6 +369,28 @@
           </mat-menu>
         </span>
       </span>
+
+      <span *ngIf="lightningService.user.developer">
+        <span >
+          <button mat-icon-button [matMenuTriggerFor]="developermenu" aria-label="Example icon-button with a menu">
+            <mat-icon>developer_mode</mat-icon>
+          </button>
+          <mat-menu #developermenu="matMenu">
+            <button  mat-menu-item routerLink="admin-courses">
+              <mat-icon>gamepad</mat-icon>
+              <span>Games</span>
+            </button>
+            <button  mat-menu-item routerLink="admin/users">
+              <mat-icon>group</mat-icon>
+              <span>Users</span>
+            </button>
+            <button  mat-menu-item routerLink="admin-roles">
+              <mat-icon>event_list</mat-icon>
+              <span>Blog</span>
+            </button>
+          </mat-menu>
+        </span>
+      </span>
   
         
       <span *ngIf="logoutButtonVisible">

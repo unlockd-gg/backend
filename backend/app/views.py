@@ -650,6 +650,7 @@ def user_profile_update(wallet):
                 ##  update the database
                 user_model.update(user['_id'], 
                                   {'title': json.get('title'),
+                                   'developer': json.get('developer')
                                    
                                    
                                     })

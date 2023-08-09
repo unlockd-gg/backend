@@ -619,7 +619,6 @@ def after_request(response):
 @token_required
 def user_profile_update(wallet):
     print('user profile update')
-    lightning_wallet_model = lightningwallets.LightningWallets()
     user_model = users.Users()
 
     content_type = request.headers.get('Content-Type')
@@ -678,7 +677,6 @@ def user_profile_update(wallet):
 @token_required
 def user_data(wallet):
     print('user data')
-    lightning_wallet_model = lightningwallets.LightningWallets()
     user_model = users.Users()
 
     print(wallet)
@@ -749,11 +747,11 @@ def users_list(wallet):
 @token_required
 def user_get(wallet, userid = None):
     print('get user')
-    lightning_wallet_model = lightningwallets.LightningWallets()
+
     user_model = users.Users()
 
     #content_type = request.headers.get('Content-Type')
-   # if (content_type == 'application/json'):
+    #if (content_type == 'application/json'):
     #    json = request.json
 
     # get the wallet from the decorator
@@ -802,7 +800,7 @@ def user_get(wallet, userid = None):
 @token_required
 def user_update(wallet, userid=None):
     print('update user')
-    lightning_wallet_model = lightningwallets.LightningWallets()
+
     user_model = users.Users()
 
     content_type = request.headers.get('Content-Type')
@@ -864,7 +862,7 @@ def user_update(wallet, userid=None):
 @token_required
 def user_delete(wallet, userid=None):
     print('delete user')
-    lightning_wallet_model = lightningwallets.LightningWallets()
+
     user_model = users.Users()
 
     content_type = request.headers.get('Content-Type')
@@ -922,7 +920,7 @@ def user_delete(wallet, userid=None):
 @token_required
 def create_game(wallet):
     print('create game')
-    lightning_wallet_model = lightningwallets.LightningWallets()
+
     user_model = users.Users()
     game_model = games.Games()
 
@@ -968,7 +966,7 @@ def create_game(wallet):
 @token_required
 def developer_game_list(wallet):
     print('developer game list')
-    lightning_wallet_model = lightningwallets.LightningWallets()
+
     user_model = users.Users()
     game_model = games.Games()
 
@@ -993,8 +991,5 @@ def developer_game_list(wallet):
                 ## make sure they are a developer
                 if user['developer']:
                     print('found developer')
-
                     developer_games = game_model.find_by_developer_id(user['_id'])
-
-
-                    return jsonify( developer_games ), 200
+                    return jsonify(developer_games), 200

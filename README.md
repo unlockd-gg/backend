@@ -15,11 +15,9 @@ This branch is in active development.  We are working on rewriting the backend l
 
 This is pre-beta code, and comes with no support, or assurances.  See the license for details.
 
-## Live Version
+## Live Demo
 
-Previous version is running here:
-
-https://uetopia.com
+https://unlockd.gg
 
 ## Directory Layout
 
@@ -36,6 +34,8 @@ https://uetopia.com
 
 - install docker desktop
 - clone the repo
+- cp docker-compose-template.yml docker-compose.yml
+- vi docker-compose.yaml # Add env vars.
 - docker compose up
 - open a VSCode window to the frontend by itself
 - ng serve
@@ -54,6 +54,8 @@ https://uetopia.com
 - install docker (https://docs.docker.com/engine/install/ubuntu/) (remember the group/user step)
 - git clone https://github.com/unlockd-gg/backend.git 
 - cd backend
+- cp docker-compose-template.yml docker-compose.yml
+- vi docker-compose.yaml # Add env vars.
 - update ip address (or SSL domain): webclient/src/app/app.component.ts, login-dialog/login-dialog-component.ts, webclient/src/app/lightning.service.ts, backend/app/views.py (91)
 - docker compose up --build
 

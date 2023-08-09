@@ -12,6 +12,7 @@
         <img class="qr" id="qr_image" [src]=qrcodesrc >
       </a>
     </div> 
+    <!----
     <div *ngIf="loginmodeEmail">Login with an email address.
         <p> Enter your email address to recieve a temporary login code</p>. 
         <p> This login functionality is provided as a temporary convenience, and will no longer be available once lnurl-auth is working on iphone/safari.  Please use lightning.</p>
@@ -20,6 +21,7 @@
         <button mat-raised-button color="primary" (click)="submitEmailNoLightning()">Submit Email</button>
 
     </div> 
+    -->
 </div>
 <div *ngIf="signinEmailValidationStart" mat-dialog-content>
     <p>You are logged in with lightning.  </p>

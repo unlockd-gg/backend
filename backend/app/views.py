@@ -17,6 +17,7 @@ from . import app
 from app.models import users
 from app.models import lightningwallets
 from app.models import lightningchallenges
+from app.models import games
 
 #import docker
 import pyqrcode
@@ -911,3 +912,89 @@ def user_delete(wallet, userid=None):
     return jsonify({'success' : False,
                     'user': {}
                     })
+
+###################################
+## GAMES
+###################################
+
+
+@app.route("/developer/games/create", methods = ['POST'])
+@token_required
+def create_game(wallet):
+    print('create game')
+    lightning_wallet_model = lightningwallets.LightningWallets()
+    user_model = users.Users()
+    game_model = games.Games()
+
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json = request.json
+        # get the wallet from the decorator
+        print(wallet)
+
+        # check if the wallet is connected to a user
+        if wallet['userconnected']: 
+            print('user connected')
+
+            # get the user
+            user = user_model.find_by_id(ObjectId(wallet['userid']))
+            
+            if user == None:
+                print('did not find user')
+            else:
+                print('found user')
+
+                ## make sure they are a developer
+                if user['developer']:
+                    print('found developer')
+
+                    newgame = game_model.create({
+                                "title": json.get('title'),
+                                "description": json.get('description'),
+                                "apiKey": game_model.create_unique_api_key(),
+                                "api_secret": game_model.key_generator(),
+                                "party_size_max": 8,
+                                "invisible": True,
+                                "invisible_developer": True,
+                                "match_timeout_max_minutes": 60
+                            })
+
+                    result = jsonify({'success' : True,
+                        'game': newgame
+                        })
+                    print(result)
+
+@app.route("/developer/games/", methods = ['POST'])
+@token_required
+def developer_game_list(wallet):
+    print('developer game list')
+    lightning_wallet_model = lightningwallets.LightningWallets()
+    user_model = users.Users()
+    game_model = games.Games()
+
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json = request.json
+        # get the wallet from the decorator
+        print(wallet)
+
+        # check if the wallet is connected to a user
+        if wallet['userconnected']: 
+            print('user connected')
+
+            # get the user
+            user = user_model.find_by_id(ObjectId(wallet['userid']))
+            
+            if user == None:
+                print('did not find user')
+            else:
+                print('found user')
+
+                ## make sure they are a developer
+                if user['developer']:
+                    print('found developer')
+
+                    developer_games = game_model.find_by_developer_id(user['_id'])
+
+
+                    return jsonify( developer_games ), 200

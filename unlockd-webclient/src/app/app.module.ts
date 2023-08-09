@@ -27,6 +27,9 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { UsersComponent } from './admin/users/users.component';
 import { UserDetailComponent } from './admin/user-detail/user-detail.component';
+import { GamesComponent } from './developer/games/games.component';
+import { CostsComponent } from './costs/costs.component';
+import { FaqComponent } from './faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,9 @@ import { UserDetailComponent } from './admin/user-detail/user-detail.component';
     TransactionsComponent,
     UsersComponent,
     UserDetailComponent,
+    GamesComponent,
+    CostsComponent,
+    FaqComponent,
     //LoginDialogComponent
   ],
   imports: [

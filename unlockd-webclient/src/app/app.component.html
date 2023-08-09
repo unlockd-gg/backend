@@ -307,6 +307,8 @@
 
 
   <button mat-button routerLink="/">unlockd</button>
+
+  <!--
   <button mat-button [matMenuTriggerFor]="socialmenu" >SOCIAL</button>
   <mat-menu #socialmenu="matMenu">
     <button  mat-menu-item routerLink="admin-courses">
@@ -322,23 +324,19 @@
       <span>Search for a friend</span>
     </button>
   </mat-menu>
-
+-->
 
   <button mat-button [matMenuTriggerFor]="infomenu" >INFO</button>
   <mat-menu #infomenu="matMenu">
-    <button  mat-menu-item routerLink="admin-courses">
+    <button  mat-menu-item routerLink="costs">
       <mat-icon>group</mat-icon>
       <span>Service Costs</span>
     </button>
-    <button  mat-menu-item routerLink="admin-users">
+    <button  mat-menu-item routerLink="faq">
       <mat-icon>group</mat-icon>
       <span>Frequently Asked Questions</span>
     </button>
-    <button  mat-menu-item routerLink="admin-roles">
-      <mat-icon>event_list</mat-icon>
-      <span>Youtube Channel</span>
-    </button>
-    <button  mat-menu-item routerLink="admin-roles">
+    <button  mat-menu-item href="https://twitter.com/ed_unlockd">
       <mat-icon>event_list</mat-icon>
       <span>Twitter</span>
     </button>

@@ -603,7 +603,7 @@ class AppComponent {
     console.log('App Component Login pressed');
     this.lightningService.loginChallenge().subscribe(authchall => {
       this.authchall = authchall;
-      this.qrcodesrc = 'http://54.219.218.253/generate_qr/' + authchall.lnurl;
+      this.qrcodesrc = 'https://unlockd.gg/api/generate_qr/' + authchall.lnurl;
       // open the login dialog
       this.dialog.open(_app_login_dialog_login_dialog_component__WEBPACK_IMPORTED_MODULE_0__.LoginDialogComponent, {
         data: {
@@ -795,7 +795,7 @@ CostsComponent.ɵfac = function CostsComponent_Factory(t) {
 CostsComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
   type: CostsComponent,
   selectors: [["app-costs"]],
-  decls: 12,
+  decls: 14,
   vars: 0,
   template: function CostsComponent_Template(rf, ctx) {
     if (rf & 1) {
@@ -811,11 +811,14 @@ CostsComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "p");
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](7, "This website uses a 5% fee on game income to help cover our backend expenses. (if you don't agree with this, you can run your own)");
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "h1");
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](9, "You are a player");
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "p");
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](9, "You can configure your game to charge players for various things, and this is totally up to you. You pay 5% on any income through these sources.");
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "p");
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](11, "Deposits and withdrawals, (will be) done over lightning, and there are no additional fees associates with this. You can deposit via lightning, play a few matches, then withdraw. ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "h1");
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](11, "You are a player");
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "p");
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](13, "Deposits and withdrawals, (will be) done over lightning, and there are no additional fees associated with this. You can deposit via lightning, play a few matches, then withdraw. You pay 5% to unlockd for any game transactions. Buying a skin for example, 5% of that transaction is a fee, which is collected by unlockd, and the other 95% goes to the game. ");
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     }
   },

@@ -104,7 +104,7 @@ export class AppComponent {
     this.lightningService.loginChallenge()
     .subscribe(authchall => {
       this.authchall = authchall;
-      this.qrcodesrc = 'http://54.219.218.253/generate_qr/' + authchall.lnurl;
+      this.qrcodesrc = 'https://unlockd.gg/api/generate_qr/' + authchall.lnurl;
 
       // open the login dialog
       this.dialog.open(LoginDialogComponent, {

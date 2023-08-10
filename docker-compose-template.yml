@@ -22,8 +22,9 @@ services:
     environment:
     # Fill these out with your credentials
       - JWT_SECRET_KEY=x
-      - MAILJET_API_KEY="x
+      - MAILJET_API_KEY=x
       - MAILJET_SECRET_KEY=x
+      - MAILJET_SENDER=x
     # flask requires SIGINT to stop gracefully
     # (default stop signal from Compose is SIGTERM)
     stop_signal: SIGINT

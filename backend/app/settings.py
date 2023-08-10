@@ -5,3 +5,4 @@ import os
 JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', '') 
 MAILJET_API_KEY = os.getenv('MAILJET_API_KEY', '') 
 MAILJET_SECRET_KEY = os.getenv('MAILJET_SECRET_KEY', '') 
+MAILJET_SENDER = os.getenv('MAILJET_SENDER', '') 

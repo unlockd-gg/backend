@@ -13,6 +13,9 @@ import io
 import string
 import http.client
 
+# import the mailjet wrapper
+from mailjet_rest import Client
+
 from . import app
 from app.models import users
 from app.models import lightningwallets
@@ -406,6 +409,32 @@ def userEmailValidationStart(wallet, incoming_email = None):
     lightning_wallet_model.update(wallet['_id'], {'emailaddress': incoming_email, 'emailverificationcode': randomInt})
 
     # send an email containing the verification code and link
+    mailjet = Client(auth=(MAILJET_API_KEY, MAILJET_SECRET_KEY), version='v3.1')
+
+    message = "Thank you for registering your email on the unlockd.gg website.  Your verification code is: %s" %randomInt
+
+    data = {
+    'Messages': [
+        {
+        "From": {
+            "Email": MAILJET_SENDER,
+            "Name": "unlockd"
+        },
+        "To": [
+            {
+            "Email": incoming_email,
+            "Name": "You"
+            }
+        ],
+        "Subject": "unlockd.gg email verification",
+        "TextPart": message,
+        "HTMLPart": message
+        }
+    ]
+    }
+    result = mailjet.send.create(data=data)
+
+    print(result)
 
     return jsonify({'success' : True})
 

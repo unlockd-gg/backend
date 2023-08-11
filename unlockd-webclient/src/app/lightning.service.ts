@@ -249,6 +249,13 @@ export class LightningService {
 
   public requestLogin( ) {
     this.login_user.next(true);
+    this.user = {
+      id: 0,
+      title: 'Service Test User',
+      emailvalidated: false,
+      admin: false,
+      developer: false
+    };
   }
 
 

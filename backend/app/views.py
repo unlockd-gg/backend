@@ -201,6 +201,7 @@ def signin():
     try:
         sig = decode_signature(der_sig)
     except:
+        print('signature not encoded right')
         sig = None
         error["status"] = True
         error["message"] = "signature not encoded right"

@@ -125,7 +125,7 @@ def signin():
     #compressed public key needs to be encodeded
     public_key = ecdsa.compressed_to_point(request.args.get("key"),secp256k1)
     k1 = request.args.get("k1")
-    logger.debug("sig k1: "+k1)
+    print("sig k1: "+k1)
     if der_sig == None or public_key == None or k1 == None:
         error["status"] = True
         error["message"] = "P_K,Sig or k1 misssing"
@@ -209,6 +209,7 @@ def signin():
     #try:
     sig_status = ecdsa.raw_verify(public_key,k1,sig,secp256k1)
     if sig_status == False:
+        print('signature is invalid')
         error["status"] = True
         error["message"] = "Signature is invalid"
     #except:

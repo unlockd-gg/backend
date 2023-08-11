@@ -180,7 +180,7 @@ def signin():
             
             if existing_wallet['userconnected']:
                 print('user connected')
-                user = user_model.find_by_id(existing_wallet['userid'])
+                user = user_model.find_by_id(ObjectId(existing_wallet['userid']))
 
                 
                 if user:

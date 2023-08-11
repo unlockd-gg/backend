@@ -6,7 +6,6 @@ from flask import jsonify
 from flask_cors import CORS
 from datetime import datetime
 from base64 import encodebytes, b64encode
-from base64 import encodebytes
 from bson.objectid import ObjectId
 from bson import json_util
 import io

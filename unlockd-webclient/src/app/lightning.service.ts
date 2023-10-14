@@ -246,6 +246,8 @@ export class LightningService {
   }
 
   doLogout() {
+    this.user['admin'] = false;
+    this.user['developer'] = false;
   }
 
   public requestLogin( ) {

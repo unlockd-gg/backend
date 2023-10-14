@@ -83,6 +83,21 @@ function setupAuth(app) {
         // Question, does logic continue here if the challenge was not found?  Or, does this HttpError return us out of here?
         console.log('challenge found, continuing')
 
+        
+
+        // TODO: get rid of this session stuff.
+        session = map.session.get(req.query.k1);
+        assert.ok(
+          session,
+          new HttpError("Secret does not match any known session", 400)
+        );
+
+        const { k1, sig, key } = req.query;
+        assert.ok(
+          verifyAuthorizationSignature(sig, k1, key),
+          new HttpError("Invalid signature", 400)
+        );
+
         // Check to see if the public key is already registered.
         //   If so, get the user for this key
         //     If user exists, mark online
@@ -120,26 +135,11 @@ function setupAuth(app) {
 
         }
 
-        // TODO: get rid of this session stuff.
-        session = map.session.get(req.query.k1);
-        assert.ok(
-          session,
-          new HttpError("Secret does not match any known session", 400)
-        );
-
-        const { k1, sig, key } = req.query;
-        assert.ok(
-          verifyAuthorizationSignature(sig, k1, key),
-          new HttpError("Invalid signature", 400)
-        );
-
 
         session.lnurlAuth = session.lnurlAuth || {};
         session.lnurlAuth.linkingPublicKey = req.query.key;
 
-        // TODO: Upgrade the challenge to a wallet, and save to mongo
-        
-        await session.save();  
+        // await session.save();  
         return res.status(200).json({ status: "OK" });
     }
       

@@ -1387,7 +1387,10 @@ class LightningService {
     this.user['admin'] = admin;
     this.sub_user.next(true);
   }
-  doLogout() {}
+  doLogout() {
+    this.user['admin'] = false;
+    this.user['developer'] = false;
+  }
   requestLogin() {
     this.login_user.next(true);
     this.user = {

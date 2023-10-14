@@ -17,7 +17,7 @@ export class LightningService {
 
   // TODO:  Fix this so it's not hardcoded to our local dev environment
   public apiUrl = 'https://unlockd.gg/api';  // URL to web api - in quotes - no trailing slash:  'http://54.176.48.9'
-  public lappUrl = 'http://localhost/lapp';  // URL to lightning  api - in quotes - no trailing slash:  'http://54.176.48.9'
+  public lappUrl = 'https://unlockd.gg/lapp';  // URL to lightning  api - in quotes - no trailing slash:  'http://54.176.48.9'
   public authChallengeResponse = '';
   public weblnButtonUrl = '';
   public emailaddress = '';

@@ -1193,7 +1193,7 @@ class LightningService {
     this.http = http;
     // TODO:  Fix this so it's not hardcoded to our local dev environment
     this.apiUrl = 'https://unlockd.gg/api'; // URL to web api - in quotes - no trailing slash:  'http://54.176.48.9'
-    this.lappUrl = 'http://localhost/lapp'; // URL to lightning  api - in quotes - no trailing slash:  'http://54.176.48.9'
+    this.lappUrl = 'https://unlockd.gg/lapp'; // URL to lightning  api - in quotes - no trailing slash:  'http://54.176.48.9'
     this.authChallengeResponse = '';
     this.weblnButtonUrl = '';
     this.emailaddress = '';

@@ -17,6 +17,7 @@ export class LightningService {
 
   // TODO:  Fix this so it's not hardcoded to our local dev environment
   public apiUrl = 'https://unlockd.gg/api';  // URL to web api - in quotes - no trailing slash:  'http://54.176.48.9'
+  public lappUrl = 'http://localhost/lapp';  // URL to lightning  api - in quotes - no trailing slash:  'http://54.176.48.9'
   public authChallengeResponse = '';
   public weblnButtonUrl = '';
   public emailaddress = '';
@@ -52,7 +53,7 @@ export class LightningService {
   // this is just a lnurl string
   loginChallenge():  Observable<AuthChallenge> {
     console.log('Lightning Service Login Challenge');
-    const auth_url = `${this.apiUrl}/auth`;
+    const auth_url = `${this.lappUrl}/do-login`;
     return this.http.get<AuthChallenge>(auth_url)
     .pipe(
       tap( // Log the result or error

@@ -294,9 +294,6 @@ def me():
                 }
                 return make_response(jsonify(responseObject)), 200
         else:
-            ## does not work.  bson.errors.InvalidId: 'Inserted Id 6497c62cd0c61bafbd399a27' is not a valid ObjectId, it must be a 12-byte input or a 24-character hex string
-            #objInstance = ObjectId(this_wallet['userid'])
-
             user = user_model.find_by_id(ObjectId(this_wallet['userid']))  
             if user == None:
                 print('user not found')
@@ -327,8 +324,6 @@ def me():
                         'do_email_validation': False
                     }
                     return make_response(jsonify(responseObject)), 200
-        #except:
-        #    logger.debug('did not find userid in wallet.  Is login complete?')
             
     responseObject = {
         'status': 'fail',
@@ -623,11 +618,11 @@ def userEmailValidationCompleteNoLightning(incoming_email = None, incoming_valid
 #    user_model = users.Users()
 #    return jsonify(user_model.find({})), 200
 
-#@app.route("/lightning/challenges")
-#def challenge_list():
-#    # setup model(s)
-#    lightning_challneges_model = lightningchallenges.LightningChallenges()
-#    return jsonify(lightning_challneges_model.find({})), 200
+@app.route("/lightning/challenges")
+def challenge_list():
+    # setup model(s)
+    lightning_challneges_model = lightningchallenges.LightningChallenges()
+    return jsonify(lightning_challneges_model.find({})), 200
 
 #@app.route("/lightning/wallets")
 #def wallet_list():
@@ -641,6 +636,28 @@ def after_request(response):
   response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
   response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
   return response
+
+
+## Webhooks
+
+@app.route("/webhooks/getalby/<webhookid>", methods = ['POST'])
+def getalby_webhook(webhookid):
+    print('getalby webhook incoming')
+    ## make sure the id matches.
+    if webhookid != GETALBY_WEBHOOKID:
+        print('webhook id mismatch')
+        return 
+    
+    ## TODO verify
+
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json = request.json
+
+        print(json)
+
+        
+
 
 
 ## Actual API endpoints

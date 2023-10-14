@@ -1193,6 +1193,7 @@ class LightningService {
     this.http = http;
     // TODO:  Fix this so it's not hardcoded to our local dev environment
     this.apiUrl = 'https://unlockd.gg/api'; // URL to web api - in quotes - no trailing slash:  'http://54.176.48.9'
+    this.lappUrl = 'http://localhost/lapp'; // URL to lightning  api - in quotes - no trailing slash:  'http://54.176.48.9'
     this.authChallengeResponse = '';
     this.weblnButtonUrl = '';
     this.emailaddress = '';
@@ -1287,7 +1288,7 @@ class LightningService {
   // this is just a lnurl string
   loginChallenge() {
     console.log('Lightning Service Login Challenge');
-    const auth_url = `${this.apiUrl}/auth`;
+    const auth_url = `${this.lappUrl}/do-login`;
     return this.http.get(auth_url).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.tap)(
     // Log the result or error
     {

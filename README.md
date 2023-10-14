@@ -30,6 +30,14 @@ https://unlockd.gg
 - lightning login requires a network accessible ip address for some provicers (getalby), and an https accessbile domain name for others (WoS).  
 - If you don't have an SSL enabled domain name for development, just use the email login functionality.  You can get the auth code by visiting:  /api/lightning/wallets  (this email login AND THIS API ENDPOINT should not be used in production - for convenience only)
 
+## Lightning payment setup
+
+- Update dockercompose with a unique webhookid
+- Create an account on getalby.com
+- Create a webhook https://getalby.com/developer/webhook_endpoints
+- URL should be: https://yourdomain/api/webhooks/getalby/webhookid (replace domain and webhookid)
+- Save the webhook secret, and paste it into dockercompose
+
 ## Local/Dev Installation 
 
 - install docker desktop

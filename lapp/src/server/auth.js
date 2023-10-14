@@ -143,13 +143,15 @@ function setupAuth(app) {
         return res.status(200).json({ status: "OK" });
     }
       
-    req.session = req.session || {};
-    req.session.lnurlAuth = req.session.lnurlAuth || {};
-    let k1 = req.session.lnurlAuth.k1 || null;
-    if (!k1) {
-      k1 = req.session.lnurlAuth.k1 = generateSecret(32, "hex");
-      map.session.set(k1, req.session);
-    }
+    //req.session = req.session || {};
+    //req.session.lnurlAuth = req.session.lnurlAuth || {};
+    //let k1 = req.session.lnurlAuth.k1 || null;
+    //if (!k1) {
+      //k1 = req.session.lnurlAuth.k1 = generateSecret(32, "hex");
+      //map.session.set(k1, req.session);
+    //}
+
+    k1 = generateSecret(32, "hex");
 
     const params = new URLSearchParams({
       k1,
@@ -161,8 +163,6 @@ function setupAuth(app) {
     
     const encoded = lnurl.encode(callbackUrl).toUpperCase();
     const qrCode = await qrcode.toDataURL(encoded);
-
-    //  Store the k1 and bech_32_url in the lightning wallets model in mongo
 
     try {
       const newChallenge = new lightningChallenge({k1: k1, bech_32_url: encoded})

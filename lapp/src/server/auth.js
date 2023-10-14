@@ -143,15 +143,13 @@ function setupAuth(app) {
         return res.status(200).json({ status: "OK" });
     }
       
-    //req.session = req.session || {};
-    //req.session.lnurlAuth = req.session.lnurlAuth || {};
-    //let k1 = req.session.lnurlAuth.k1 || null;
-    //if (!k1) {
-      //k1 = req.session.lnurlAuth.k1 = generateSecret(32, "hex");
-      //map.session.set(k1, req.session);
-    //}
-
-    k1 = generateSecret(32, "hex");
+    req.session = req.session || {};
+    req.session.lnurlAuth = req.session.lnurlAuth || {};
+    let k1 = req.session.lnurlAuth.k1 || null;
+    if (!k1) {
+      k1 = req.session.lnurlAuth.k1 = generateSecret(32, "hex");
+      map.session.set(k1, req.session);
+    }
 
     const params = new URLSearchParams({
       k1,

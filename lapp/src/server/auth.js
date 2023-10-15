@@ -138,7 +138,7 @@ function setupAuth(app) {
 
         }
 
-
+        // TODO: replace this session stuff
         session.lnurlAuth = session.lnurlAuth || {};
         session.lnurlAuth.linkingPublicKey = req.query.key;
 
@@ -146,6 +146,8 @@ function setupAuth(app) {
         return res.status(200).json({ status: "OK" });
     }
       
+
+    // TODO: Replace this session stuff
     req.session = req.session || {};
     req.session.lnurlAuth = req.session.lnurlAuth || {};
     let k1 = req.session.lnurlAuth.k1 || null;

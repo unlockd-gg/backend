@@ -1041,3 +1041,37 @@ def developer_game_list(wallet):
                     print('found developer')
                     developer_games = game_model.find_by_developer_id(user['_id'])
                     return jsonify(developer_games), 200
+                
+
+###################################
+## CRON
+###################################
+
+## Public (no auth).  Should be setup as a task.
+@app.route("/cron/delete_fake_wallets", methods = ['GET'])
+def delete_fake_wallets():
+    print('delete_fake_wallets')
+    lightning_wallet_model = lightningwallets.LightningWallets()
+    lightning_challneges_model = lightningchallenges.LightningChallenges()
+
+    found_wallets = lightning_wallet_model.find_by_fake_expired()
+    print(len(found_wallets))
+
+    for found_wallet in found_wallets:
+        lightning_wallet_model.delete(found_wallet['_id'])
+
+
+
+    ## also delete the stale challenges
+    found_challenges = lightning_challneges_model.find_by_expired()
+    print(len(found_challenges))
+
+    for found_challenge in found_challenges:
+        lightning_challneges_model.delete(found_challenge['_id'])
+
+
+    
+
+
+    return jsonify({'success' : True
+                })

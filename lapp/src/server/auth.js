@@ -143,13 +143,16 @@ function setupAuth(app) {
     // TODO: Replace this session stuff
     // this code initializes and manages session data, including generating and assigning a secret (k1) 
     // to the session and storing it in a map or dictionary for future reference. It helps ensure that session data is properly managed and persists across requests.
-    req.session = req.session || {};
-    req.session.lnurlAuth = req.session.lnurlAuth || {};
-    let k1 = req.session.lnurlAuth.k1 || null;
-    if (!k1) {
-      k1 = req.session.lnurlAuth.k1 = generateSecret(32, "hex");
-      map.session.set(k1, req.session);
-    }
+
+    //req.session = req.session || {};
+    //req.session.lnurlAuth = req.session.lnurlAuth || {};
+    //let k1 = req.session.lnurlAuth.k1 || null;
+    //if (!k1) {
+    //  k1 = req.session.lnurlAuth.k1 = generateSecret(32, "hex");
+    //  map.session.set(k1, req.session);
+    //}
+
+    k1 = generateSecret(32, "hex");
 
     const params = new URLSearchParams({
       k1,

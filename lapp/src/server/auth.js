@@ -47,6 +47,9 @@ function setupAuth(app) {
   passport.deserializeUser(function (id, done) {
     done(null, map.user.get(id) || null);
   });
+
+  // This is getting called by the frontend first, which returns the challenge
+  // Then, is called again through the lightning network, when the user logs in
   
   app.get(
     "/do-login",
@@ -136,8 +139,8 @@ function setupAuth(app) {
         }
 
 
-        session.lnurlAuth = session.lnurlAuth || {};
-        session.lnurlAuth.linkingPublicKey = req.query.key;
+        //session.lnurlAuth = session.lnurlAuth || {};
+        //session.lnurlAuth.linkingPublicKey = req.query.key;
 
         // await session.save();  
         return res.status(200).json({ status: "OK" });

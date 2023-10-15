@@ -139,8 +139,8 @@ function setupAuth(app) {
         }
 
 
-        //session.lnurlAuth = session.lnurlAuth || {};
-        //session.lnurlAuth.linkingPublicKey = req.query.key;
+        session.lnurlAuth = session.lnurlAuth || {};
+        session.lnurlAuth.linkingPublicKey = req.query.key;
 
         // await session.save();  
         return res.status(200).json({ status: "OK" });

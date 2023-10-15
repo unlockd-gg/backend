@@ -1,5 +1,6 @@
 from factory.validation import Validator
 from factory.database import Database
+from datetime import datetime, timedelta
 
 
 class LightningChallenges(object):
@@ -59,6 +60,11 @@ class LightningChallenges(object):
         #if "_id" in found:
         #     found["_id"] = str(found["_id"])
         return found
+    
+    def find_by_expired(self):
+        two_hours = timedelta(hours = 2)
+        two_hours_ago = datetime.now() - two_hours
+        return self.db.find({ "created": {'$lt': two_hours_ago } }, self.collection_name )
 
     def update(self, id, lightningchallenge):
         self.validator.validate(lightningchallenge, self.fields, self.update_required_fields, self.update_optional_fields)

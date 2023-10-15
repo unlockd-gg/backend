@@ -1054,13 +1054,6 @@ def delete_fake_wallets():
     lightning_wallet_model = lightningwallets.LightningWallets()
     lightning_challneges_model = lightningchallenges.LightningChallenges()
 
-    found_wallets = lightning_wallet_model.find_by_fake_expired()
-    print(len(found_wallets))
-
-    for found_wallet in found_wallets:
-        lightning_wallet_model.delete(found_wallet['_id'])
-
-
 
     ## also delete the stale challenges
     found_challenges = lightning_challneges_model.find_by_expired()

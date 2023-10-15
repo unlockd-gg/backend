@@ -89,11 +89,11 @@ function setupAuth(app) {
         
 
         // TODO: get rid of this session stuff.
-        session = map.session.get(req.query.k1);
-        assert.ok(
-          session,
-          new HttpError("Secret does not match any known session", 400)
-        );
+        //session = map.session.get(req.query.k1);
+        //assert.ok(
+        //  session,
+        //  new HttpError("Secret does not match any known session", 400)
+        //);
 
         // destructure and assign the query vars
         const { k1, sig, key } = req.query;
@@ -141,7 +141,7 @@ function setupAuth(app) {
       
 
     // TODO: Replace this session stuff
-    // this code initializes and manages session data for a web application, including generating and assigning a secret (k1) 
+    // this code initializes and manages session data, including generating and assigning a secret (k1) 
     // to the session and storing it in a map or dictionary for future reference. It helps ensure that session data is properly managed and persists across requests.
     req.session = req.session || {};
     req.session.lnurlAuth = req.session.lnurlAuth || {};

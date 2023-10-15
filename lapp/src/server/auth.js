@@ -95,47 +95,40 @@ function setupAuth(app) {
           new HttpError("Secret does not match any known session", 400)
         );
 
+        // destructure and assign the query vars
         const { k1, sig, key } = req.query;
+        // verify signature
         assert.ok(
           verifyAuthorizationSignature(sig, k1, key),
           new HttpError("Invalid signature", 400)
         );
 
         // Check to see if the public key is already registered.
-        //   If so, get the user for this key
-        //     If user exists, mark online
-        //     If not, prompt the user to connect to an email address, and begin email verification 
-        //   If no public key is found, create one, and begin email verification
-
-        const existing_wallet = await lightningWallet.findOne({publickey: req.query.key});
+        const existing_wallet = await lightningWallet.findOne({publickey: key});
         console.log(existing_wallet);
 
         if (!existing_wallet) {
           console.log('existing wallet not found - creating');
 
           try {
-            const newWallet = new lightningWallet({publickey: req.query.key, 
+            const newWallet = new lightningWallet({publickey: key, 
                                                   userid: 0, 
                                                   userconnected: false, 
                                                   emailaddress: '', 
                                                   emailvalidated: false, 
-                                                  k1: req.query.k1, 
+                                                  k1: k1, 
                                                   bech_32_url: lightning_challenge.bech_32_url});
             await newWallet.save();
           } catch (error) {
             console.log('error creating wallet');
             //next(error);
           }
-
         }
         else {
           console.log('found existing wallet');
-
           // update with this challenge's bech_32_url
           existing_wallet.bech_32_url = lightning_challenge.bech_32_url;
           await existing_wallet.save();
-
-
         }
 
         // TODO: replace this session stuff
@@ -148,6 +141,8 @@ function setupAuth(app) {
       
 
     // TODO: Replace this session stuff
+    // this code initializes and manages session data for a web application, including generating and assigning a secret (k1) 
+    // to the session and storing it in a map or dictionary for future reference. It helps ensure that session data is properly managed and persists across requests.
     req.session = req.session || {};
     req.session.lnurlAuth = req.session.lnurlAuth || {};
     let k1 = req.session.lnurlAuth.k1 || null;

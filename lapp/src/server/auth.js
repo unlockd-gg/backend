@@ -18,36 +18,7 @@ const map = {
 };
 
 function setupAuth(app) {
-  app.use(
-    session({
-      secret: "12345",
-      resave: false,
-      saveUninitialized: true,
-    })
-  );
-
-  passport.use(
-    new lnurlAuth.Strategy(function (linkingPublicKey, done) {
-      let user = map.user.get(linkingPublicKey);
-      if (!user) {
-        user = { id: linkingPublicKey };
-        map.user.set(linkingPublicKey, user);
-      }
-      done(null, user);
-    })
-  );
-
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(passport.authenticate("lnurl-auth"));
-  passport.serializeUser(function (user, done) {
-    done(null, user.id);
-  });
-
-  passport.deserializeUser(function (id, done) {
-    done(null, map.user.get(id) || null);
-  });
-
+  
   // This is getting called by the frontend first, which returns the challenge
   // Then, is called again through the lightning network, when the user logs in
   

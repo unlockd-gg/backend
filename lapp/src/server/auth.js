@@ -83,7 +83,6 @@ function setupAuth(app) {
           new HttpError( 'lightning_challenge does not exist.', 400);
         }
 
-        // Question, does logic continue here if the challenge was not found?  Or, does this HttpError return us out of here?
         console.log('challenge found, continuing')
 
         
@@ -126,7 +125,7 @@ function setupAuth(app) {
         }
         else {
           console.log('found existing wallet');
-          // update with this challenge's bech_32_url
+          // update with this challenge's bech_32_url so that it can be found by the frontend
           existing_wallet.bech_32_url = lightning_challenge.bech_32_url;
           await existing_wallet.save();
         }
@@ -182,29 +181,7 @@ function setupAuth(app) {
   }
   );
 
-  app.get("/logout", function (req, res, next) {
-    if (req.user) {
-      req.session.destroy();
-      return res.redirect("/");
-    }
-    next();
-  });
 
-  app.get("/me", function (req, res, next) {
-    res.json({ user: req.user ? req.user : null });
-
-    next();
-  });
-
-  app.get("/profile", function (req, res, next) {
-    if (!req.user) {
-      return res.redirect("/login");
-    }
-
-    res.render("profile", { user: req.user });
-
-    next();
-  });
 }
 
 const generateSecret = function (numBytes, encoding) {

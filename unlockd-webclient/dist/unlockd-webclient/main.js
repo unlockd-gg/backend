@@ -1195,6 +1195,7 @@ class LightningService {
     this.apiUrl = 'https://unlockd.gg/api'; // URL to web api - in quotes - no trailing slash:  'http://54.176.48.9'
     this.lappUrl = 'https://unlockd.gg/lapp'; // URL to lightning  api - in quotes - no trailing slash:  'http://54.176.48.9'
     this.authChallengeResponse = '';
+    this.qrCode = '';
     this.weblnButtonUrl = '';
     this.emailaddress = '';
     this.auth_token = '';
@@ -1294,15 +1295,16 @@ class LightningService {
     {
       //next: (data) => this.log(data['lnurl']), // this works
       //next: (data) => this.authChallengeResponse = data['lnurl'], // this too
-      next: data => this.registerACR(data['lnurl']),
+      next: data => this.registerACR(data['lnurl'], data['qrCode']),
       error: error => this.log('error')
     }));
   }
-  registerACR(aCR) {
+  registerACR(aCR, qrCode) {
     console.log('register ACR');
     console.log(aCR);
     this.authChallengeResponse = aCR;
     this.signinActive = true;
+    this.qrCode = qrCode;
     this.startPolling();
   }
   getLnUrl() {
@@ -1491,7 +1493,7 @@ function LoginDialogComponent_div_2_div_2_Template(rf, ctx) {
   if (rf & 2) {
     const ctx_r7 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](9);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("src", ctx_r7.qrcodesrc, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsanitizeUrl"]);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("src", ctx_r7.qrCode, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsanitizeUrl"]);
   }
 }
 function LoginDialogComponent_div_2_Template(rf, ctx) {
@@ -1683,6 +1685,7 @@ class LoginDialogComponent {
     this.lightningService = lightningService;
     //qrcodesrc = this.lightningService.getLnUrl();
     this.qrcodesrc = 'https://unlockd.gg/api/generate_qr/' + this.lightningService.getLnUrl();
+    this.qrCode = this.lightningService.qrCode;
     this.weblnurl = 'lightning:' + this.lightningService.getLnUrl();
     // Multi-stage dialog
     // Stage1 = lightninglogin

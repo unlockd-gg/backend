@@ -19,6 +19,7 @@ export class LightningService {
   public apiUrl = 'https://unlockd.gg/api';  // URL to web api - in quotes - no trailing slash:  'http://54.176.48.9'
   public lappUrl = 'https://unlockd.gg/lapp';  // URL to lightning  api - in quotes - no trailing slash:  'http://54.176.48.9'
   public authChallengeResponse = '';
+  public qrCode = '';
   public weblnButtonUrl = '';
   public emailaddress = '';
   public auth_token = '';
@@ -60,18 +61,19 @@ export class LightningService {
       {
         //next: (data) => this.log(data['lnurl']), // this works
         //next: (data) => this.authChallengeResponse = data['lnurl'], // this too
-        next: (data) => this.registerACR( data['lnurl'] ),
+        next: (data) => this.registerACR( data['lnurl'], data['qrCode'] ),
         error: (error) => this.log('error')
       }
       )
     );
   }
 
-  registerACR(aCR: string) {
+  registerACR(aCR: string, qrCode: string) {
     console.log('register ACR');
     console.log(aCR);
     this.authChallengeResponse = aCR;
     this.signinActive = true;
+    this.qrCode = qrCode;
     this.startPolling();
   }
 

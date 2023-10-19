@@ -231,14 +231,14 @@ def signin():
             event = "LOGGEDIN"
         )
 
-@app.route("/generate_qr/<bech_32_url>")
-def generate_qr(bech_32_url = None):
+##@app.route("/generate_qr/<bech_32_url>")
+##def generate_qr(bech_32_url = None):
     #save as url code and send
 
     # https://github.com/chill117/passport-lnurl-auth
     # The URI schema prefix used before the encoded LNURL.
     # e.g. "lightning:" or "LIGHTNING:" or "" (empty-string)
-    uriSchemaPrefix = "LIGHTNING:"
+##    uriSchemaPrefix = "LIGHTNING:"
 
     # https://github.com/mnooner256/pyqrcode/issues/39#issuecomment-207621532
     # c = pyqrcode.create("hello")
@@ -247,14 +247,14 @@ def generate_qr(bech_32_url = None):
     # encoded = base64.b64encode(s.getvalue()).decode("ascii")
 
 
-    qr = pyqrcode.create(uriSchemaPrefix+bech_32_url.upper())
-    s = io.BytesIO()
-    qr.png(s, scale=6)
-    encoded = b64encode(s.getvalue()).decode("ascii")
+##    qr = pyqrcode.create(uriSchemaPrefix+bech_32_url.upper())
+##    s = io.BytesIO()
+##    qr.png(s, scale=6)
+##    encoded = b64encode(s.getvalue()).decode("ascii")
 
     #qr.svg("ln-auth-challenge.svg",scale=8)
     #return send_file("../ln-auth-challenge.svg",mimetype="image/svg+xml")
-    return s.getvalue()
+##    return s.getvalue()
 
 @app.route("/me")
 def me():
@@ -618,11 +618,11 @@ def userEmailValidationCompleteNoLightning(incoming_email = None, incoming_valid
 #    user_model = users.Users()
 #    return jsonify(user_model.find({})), 200
 
-@app.route("/lightning/challenges")
-def challenge_list():
+#@app.route("/lightning/challenges")
+#def challenge_list():
     # setup model(s)
-    lightning_challneges_model = lightningchallenges.LightningChallenges()
-    return jsonify(lightning_challneges_model.find({})), 200
+#    lightning_challneges_model = lightningchallenges.LightningChallenges()
+#    return jsonify(lightning_challneges_model.find({})), 200
 
 #@app.route("/lightning/wallets")
 #def wallet_list():

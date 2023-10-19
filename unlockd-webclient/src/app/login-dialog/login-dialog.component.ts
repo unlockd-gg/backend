@@ -41,7 +41,7 @@ export class LoginDialogComponent {
     
  }
   //qrcodesrc = this.lightningService.getLnUrl();
-  qrcodesrc = 'https://unlockd.gg/api/generate_qr/' + this.lightningService.getLnUrl();
+  //qrcodesrc = 'https://unlockd.gg/api/generate_qr/' + this.lightningService.getLnUrl();
   qrCode = this.lightningService.qrCode;
 
   weblnurl = 'lightning:' + this.lightningService.getLnUrl();
